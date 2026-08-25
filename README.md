@@ -10,7 +10,7 @@
 
 </div>
 
-> **Parceiro:** NOME_DO_PARCEIRO · **Curso:** Nº SEMESTRE ADS · **Período:** 2026-2
+> **Parceiro:** IPEM-SP · **Curso:** 3°ADS · **Período:** 2026-2
 >
 > **Status do Projeto:** Em desenvolvimento 🚧
 
