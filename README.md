@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Desafio](#-desafio) • [Solução](#-solução) • [Sprints](#-sprints) • [Equipe](#-equipe)
+[Desafio](#-desafio) • [Sprints](#-sprints) • [Equipe](#-equipe)
 
 </div>
 
