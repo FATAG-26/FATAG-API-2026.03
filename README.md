@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Desafio](#-desafio) • [Solução](#-solução) • [Backlog do Produto](#-backlog-do-produto) • [DoR](#-dor--definition-of-ready) • [DoD](#-dod--definition-of-done) • [Sprints](#-sprints) • [Tecnologias](#-tecnologias) • [Como Executar](#-como-executar) • [Equipe](#-equipe)
+[Desafio](#-desafio) • [Solução](#-solução) • [Sprints](#-sprints) • [Equipe](#-equipe)
 
 </div>
 
