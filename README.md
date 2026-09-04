@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Desafio](#-desafio) • [Sprints](#-sprints) • [Equipe](#-equipe)
+[Desafio](#-desafio) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [Equipe](#-equipe)
 
 </div>
 
