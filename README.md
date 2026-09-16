@@ -30,7 +30,7 @@ Nesse contexto, o desafio é transformar essa base dispersa em informação clar
 
 | Sprint | Período | Meta | Documentação | Vídeo |
 | :----- | :------ | :--- | :----------- | :---- |
-| 🏃 **Sprint 1** | 07/09 – 27/09 | Meta da sprint | [Docs](docs/sprints/sprint-1.md) | [Assistir](#) |
+| 🏃 **Sprint 1** | 07/09 – 27/09 | Consolidar os dados de fiscalização das bombas medidoras e disponibilizar os indicadores básicos de conformidade | [Docs](docs/sprints/sprint-1.md) | [Assistir](#) |
 | 🏃 **Sprint 2** | 05/10 – 02/10 | Meta da sprint | [Docs](docs/sprints/sprint-2/backlog.md) | [Assistir](#) |
 | 🏃 **Sprint 3** | 02/11 – 25/11 | Meta da sprint | [Docs](docs/sprints/sprint-3/backlog.md) | [Assistir](#) |
 
