@@ -1,0 +1,23 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      CSV_PATH: /data/verificacoes_bombas_2018.csv
+      FLASK_DEBUG: "1"
+    volumes:
+      - ./backend/app:/app/app
+      - ./data:/data:ro
+
+# descomentar quando for criado a estrutura do frontend, reutilizar a estrutura de pastas
+
+  # frontend:
+  #   build: ./frontend
+  #   ports:
+  #     - "5173:5173"
+  #   volumes:
+  #     - ./frontend:/app
+  #     - /app/node_modules
+  #   depends_on:
+  #     - backend
