@@ -5,6 +5,10 @@ from . import service
  
 app = Flask(__name__)
 df = service.carregar_dados()
+
+class FiltroInvalidoError(Exception):
+    """Levantada quando os parâmetros de filtro por data são inválidos
+    (ex.: modo ausente/errado, ou duas datas no modo singular)."""
  
 def _df_para_json(tabela: pd.DataFrame):
     """Converte um DataFrame em algo serializável em JSON, formatando a
@@ -42,16 +46,22 @@ def _aplicar_filtros_query(base: pd.DataFrame) -> pd.DataFrame:
  
     data_inicio = request.args.get("data_inicio")
     data_fim = request.args.get("data_fim")
-    if data_inicio and data_fim:
-        filtrado_por_data = service.filtrar_por_data(resultado, data_inicio, data_fim)
-        # filtrar_por_data pode devolver uma string quando não há resultado
-        resultado = (
-            filtrado_por_data
-            if isinstance(filtrado_por_data, pd.DataFrame)
-            else resultado.iloc[0:0]  # tabela vazia com as mesmas colunas
+    modo = request.args.get("modo")
+    if data_inicio or data_fim:
+        filtrado_por_data = service.filtrar_por_data(
+            resultado, data_inicio, data_fim, modo
         )
- 
+        if isinstance(filtrado_por_data, pd.DataFrame):
+            resultado = filtrado_por_data
+        elif filtrado_por_data == "Não há nenhum valor.":
+            resultado = resultado.iloc[0:0]  # tabela vazia com as mesmas colunas
+        else:
+            # qualquer outra string é mensagem de erro de parâmetros
+            # (ex.: modo ausente/inválido, duas datas no modo singular)
+            raise FiltroInvalidoError(filtrado_por_data)
+
     return resultado
+
  
 
 @app.get("/api/health")
@@ -62,16 +72,25 @@ def health():
 @app.get("/api/bombas")
 def listar_bombas():
     """Aceita ?municipio=, ?bairro=, ?proprietario=, ?resultado=,
-    ?data_inicio= e ?data_fim= (dd/mm/aaaa), todos opcionais e combináveis.
+    ?data_inicio=, ?data_fim= (dd/mm/aaaa) e ?modo= ('S' = data única,
+    'I' = intervalo), todos opcionais e combináveis.
+
+    ?modo= é obrigatório sempre que ?data_inicio= ou ?data_fim= for usado:
+    - modo=S + data_inicio: filtra por uma data exata.
+    - modo=I + data_inicio: datas a partir da inicial (inclusive).
+    - modo=I + data_fim: datas até a final (inclusive).
+    - modo=I + data_inicio + data_fim: intervalo entre as duas datas.
     """
-    tabela = _aplicar_filtros_query(df)
- 
+    try:
+        tabela = _aplicar_filtros_query(df)
+    except FiltroInvalidoError as erro:
+        return jsonify({"erro": str(erro)}), 400
+
     limit = int(request.args.get("limit", 100))
     offset = int(request.args.get("offset", 0))
     pagina = tabela.iloc[offset : offset + limit]
- 
+
     return jsonify({"total": len(tabela), "itens": _df_para_json(pagina)})
- 
  
 @app.get("/api/bombas/contagem")
 def contagem_bombas():

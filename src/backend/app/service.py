@@ -103,16 +103,56 @@ def filtrar_por_bairro(l: pd.DataFrame, bairro: str) -> pd.DataFrame:
     return nv
  
  
-def filtrar_por_data(l: pd.DataFrame, data_inicio: str, data_final: str):
-    """Retorna os dados entre `data_inicio` e `data_final` (dd/mm/aaaa)."""
-    data_inicio_dt = pd.to_datetime(data_inicio, dayfirst=True)
-    data_final_dt = pd.to_datetime(data_final, dayfirst=True)
- 
-    comparado = (l["DATA_VERIFICACAO"] >= data_inicio_dt) & (
-        l["DATA_VERIFICACAO"] <= data_final_dt
-    )
-    return l[comparado] if not l[comparado].empty else "Não há nenhum valor."
- 
+def filtrar_por_data(
+    l: pd.DataFrame,
+    data_inicio: str | None = None,
+    data_final: str | None = None,
+    modo: str | None = None,
+):
+    """Retorna os dados filtrados por data (dd/mm/aaaa).
+
+    - data_inicio, modo='S' --> somente uma data (igualdade exata)
+    - data_inicio, modo='I' --> datas maiores ou iguais à inicial
+    - data_final, modo='I'  --> datas menores ou iguais à final
+    - data_inicio, data_final, modo='I' --> intervalo entre as datas
+    - data_inicio, data_final, modo='S' --> inválido (modo singular aceita
+      apenas uma data)
+
+    Retorna um DataFrame filtrado, ou uma string com uma mensagem de erro/
+    aviso quando os parâmetros são inválidos ou não há resultados.
+    """
+    if not (data_inicio or data_final):
+        return "Insira pelo menos uma data."
+    if modo is None:
+        return "Coloque o modo ('S' = singular / 'I' = intervalo)"
+
+    modo = modo.upper()
+    inicio = pd.to_datetime(data_inicio, dayfirst=True) if data_inicio else None
+    final = pd.to_datetime(data_final, dayfirst=True) if data_final else None
+
+    # modo singular
+    if modo == "S":
+        if not inicio:
+            return "No modo singular, informe uma data."
+        if final:
+            return "No modo singular, informe apenas uma data."
+        comparado = l["DATA_VERIFICACAO"] == inicio
+
+    # modo intervalo
+    elif modo == "I":
+        comparado = (
+            (l["DATA_VERIFICACAO"] >= inicio)
+            if inicio
+            else (l["DATA_VERIFICACAO"] <= final)
+        )
+        if inicio and final:
+            comparado &= l["DATA_VERIFICACAO"] <= final
+
+    else:
+        return "Modo inválido. Use 'S' ou 'I'."
+
+    resultado = l[comparado]
+    return resultado if not resultado.empty else "Não há nenhum valor."
  
 def filtrar_por_proprietario(l: pd.DataFrame, fornecedor: str) -> pd.DataFrame:
     """Retorna os dados filtrados por proprietário/nome fantasia."""
