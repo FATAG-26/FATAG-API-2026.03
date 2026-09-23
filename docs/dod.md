@@ -11,3 +11,14 @@ Baseado no levantamento do estado real do repositório: hoje o time comita diret
 - [ ] O **Product Owner** validou e aceitou o resultado
 
 > Nenhuma tarefa deve ser marcada como concluída (checklist, Jira, etc.) sem passar por todos os itens acima — foi a ausência disso que deixou "total de autuações" marcado como pronto sem o endpoint existir.
+
+## Aplicação na Sprint 1
+
+| User Story | Implementado conforme critério | PR revisado | Mergeado no `main` | Testado (evidência) | Doc atualizada | PO validou | Done? |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Consultar os dados das bombas medidoras | ✅ `/api/bombas` | ❌ | ❌ (parado em `feat/docker`) | ❌ | ⚠️ Parcial | ❌ | ❌ Não |
+| Visualizar o total de bombas periciadas | ✅ `/api/bombas/contagem` | ❌ | ❌ | ❌ | ⚠️ Parcial | ❌ | ❌ Não |
+| Visualizar o percentual de bombas aprovadas | ✅ `/api/percentuais/aprovado-reprovado` | ❌ | ❌ | ❌ | ⚠️ Parcial | ❌ | ❌ Não |
+| Visualizar o total de autuações | ❌ Endpoint não existe | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ Não |
+
+> Nenhuma das 4 histórias da Sprint 1 está de fato Done pelo DoD formal — mesmo as 3 primeiras, que têm código funcional, ainda faltam revisão, merge no `main` e teste com evidência.

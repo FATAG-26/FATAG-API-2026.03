@@ -12,3 +12,14 @@ Baseado no levantamento do estado real da Sprint 1 (repositório `FATAG-API-2026
 - [ ] O tamanho da história é compatível com a duração da Sprint (cabe em uma Sprint — INVEST)
 
 > Sem critério de aceite escrito e validado, a história não entra na Sprint — volta para refinamento.
+
+## Aplicação na Sprint 1
+
+| User Story | Critério de aceite escrito | Estimada | Fonte de dado disponível | Sem impedimento | Pronta? |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Consultar os dados das bombas medidoras | ⚠️ Não formalizado no backlog | ✅ (20) | ✅ CSV IPEM-SP | ✅ | ⚠️ Com ressalva |
+| Visualizar o total de bombas periciadas | ⚠️ Não formalizado no backlog | ✅ (8) | ✅ | ✅ | ⚠️ Com ressalva |
+| Visualizar o percentual de bombas aprovadas | ⚠️ Não formalizado no backlog | ✅ (8) | ✅ | ✅ | ⚠️ Com ressalva |
+| Visualizar o total de autuações | ❌ Nunca escrito (regra "reprovado + interditado" só combinada verbalmente) | ✅ (8) | ✅ | ✅ | ❌ Não deveria ter entrado sem critério escrito |
+
+> A história "total de autuações" é o exemplo de por que o critério de aceite escrito é obrigatório a partir de agora: sem ele, ninguém percebeu a tempo que faltava um endpoint dedicado.
