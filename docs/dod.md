@@ -1,24 +1,29 @@
 # ✅ Definition of Done (DoD)
 
-Baseado no levantamento do estado real do repositório: hoje o time comita direto nas branches sem revisão, `feat/docker` acumulou trabalho (Dockerfile, endpoints) sem nunca virar Pull Request nem ser mergeada no `main`, não há testes automatizados, e o item "total de autuações" foi marcado como pronto sem que o endpoint correspondente existisse. Uma **User Story** só é considerada concluída quando atende a todos os itens abaixo.
+- [DoD da Sprint 1](#dod-da-sprint-1)
+- [DoD da Sprint 2](#dod-da-sprint-2)
+- [DoD da Sprint 3](#dod-da-sprint-3)
 
-- [ ] O código implementa **exatamente** o critério de aceite definido no DoR — conferido comparando a função/endpoint entregue com o que foi escrito, não com o que "parece" implementado
-- [ ] Passou por **Pull Request**, com revisão de pelo menos **1 outro membro do time** antes do merge
-- [ ] Foi **mergeado na branch principal** (`main`) — não fica parado em branch de feature
-- [ ] Foi **testado manualmente com evidência registrada** (ex: request de exemplo + resposta no PR) até que testes automatizados existam no projeto
-- [ ] A entrega foi conferida contra a **User Story correspondente** no `backlog.md`/`sprint-X.md` — não só contra a tarefa técnica isolada (ex: uma função pronta não significa a história pronta, se a história pede um endpoint que ainda não existe)
-- [ ] A documentação relevante (README, backlog, docs da Sprint) foi **atualizada** refletindo o que foi de fato entregue
-- [ ] O **Product Owner** validou e aceitou o resultado
+## DoD da Sprint 1
 
-> Nenhuma tarefa deve ser marcada como concluída (checklist, Jira, etc.) sem passar por todos os itens acima — foi a ausência disso que deixou "total de autuações" marcado como pronto sem o endpoint existir.
+| User Story | Concluída? |
+| :--- | :---: |
+| Como usuário, quero consultar os dados das bombas medidoras de combustível, para analisar e comparar os resultados das fiscalizações. | ❌ |
+| Como usuário, quero visualizar o total de bombas periciadas, para identificar a quantidade de equipamentos fiscalizados pelo IPEM-SP. | ❌ |
+| Como usuário, quero visualizar o percentual de bombas aprovadas, para avaliar o nível de conformidade das bombas de combustível fiscalizadas. | ❌ |
+| Como usuário, quero visualizar o total de autuações, para identificar a quantidade de ocorrências registradas nas fiscalizações. | ❌ |
 
-## Aplicação na Sprint 1
+## DoD da Sprint 2
 
-| User Story | Implementado conforme critério | PR revisado | Mergeado no `main` | Testado (evidência) | Doc atualizada | PO validou | Done? |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Consultar os dados das bombas medidoras | ✅ `/api/bombas` | ❌ | ❌ (parado em `feat/docker`) | ❌ | ⚠️ Parcial | ❌ | ❌ Não |
-| Visualizar o total de bombas periciadas | ✅ `/api/bombas/contagem` | ❌ | ❌ | ❌ | ⚠️ Parcial | ❌ | ❌ Não |
-| Visualizar o percentual de bombas aprovadas | ✅ `/api/percentuais/aprovado-reprovado` | ❌ | ❌ | ❌ | ⚠️ Parcial | ❌ | ❌ Não |
-| Visualizar o total de autuações | ❌ Endpoint não existe | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ Não |
+| User Story | Concluída? |
+| :--- | :---: |
+| Como usuário, quero consultar os dados das bombas por município e região, para avaliar o controle de qualidade dos combustíveis em minha região. | ❌ |
+| Como usuário, quero visualizar um ranking de municípios e regiões, para comparar rapidamente os resultados das fiscalizações. | ❌ |
 
-> Nenhuma das 4 histórias da Sprint 1 está de fato Done pelo DoD formal — mesmo as 3 primeiras, que têm código funcional, ainda faltam revisão, merge no `main` e teste com evidência.
+## DoD da Sprint 3
+
+| User Story | Concluída? |
+| :--- | :---: |
+| Como usuário, quero filtrar os dados por município, região e período, para realizar consultas específicas e facilitar a análise dos resultados. | ❌ |
+| Como usuário, quero visualizar gráficos interativos dos dados, para facilitar a análise dos resultados das fiscalizações. | ❌ |
+| Como usuário, quero utilizar uma dashboard interativa, para navegar e consultar as informações de forma simples e intuitiva. | ❌ |
