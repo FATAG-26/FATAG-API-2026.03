@@ -1,9 +1,9 @@
 :root {
-  --text: #6b6375;
+  --text: #1E1E1E;
   --text-h: #08060d;
-  --bg: #fff;
+  --bg: #ADB9CA;
   --border: #e5e4e7;
-  --code-bg: #f4f3ec;
+  --code-bg: #ADB9CA;
   --accent: #aa3bff;
   --accent-bg: rgba(170, 59, 255, 0.1);
   --accent-border: rgba(170, 59, 255, 0.5);
@@ -30,7 +30,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --text: #9ca3af;
     --text-h: #f3f4f6;
@@ -48,7 +48,7 @@
   #social .button-icon {
     filter: invert(1) brightness(2);
   }
-}
+} */
 
 #root {
   width: 1126px;
