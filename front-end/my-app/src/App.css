@@ -182,3 +182,5 @@
     border-right-color: var(--border);
   }
 }
+
+@import "tailwindcss";
