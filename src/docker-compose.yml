@@ -10,14 +10,13 @@ services:
       - ./backend/app:/app/app
       - ./data:/data:ro
 
-# descomentar quando for criado a estrutura do frontend, reutilizar a estrutura de pastas
 
-  # frontend:
-  #   build: ./frontend
-  #   ports:
-  #     - "5173:5173"
-  #   volumes:
-  #     - ./frontend:/app
-  #     - /app/node_modules
-  #   depends_on:
-  #     - backend
+  front-end:
+    build: ./front-end/my-app
+    ports:
+       - "5173:5173"
+    volumes:
+       - ./front-end/my-app:/my-app
+       - /my-app/node_modules
+    depends_on:
+       - backend

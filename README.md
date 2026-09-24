@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Desafio](#-desafio) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [Equipe](#-equipe)
+[Desafio](#-desafio) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [DoR/DoD](#-dor--dod) • [Equipe](#-equipe)
 
 </div>
 
@@ -26,6 +26,16 @@ Nesse contexto, o desafio é transformar essa base dispersa em informação clar
 
 ---
 
+## ⚙️ Desenvolvimento
+
+Todo o processo da Sprint 1 foi desenvolvido no Google Colab, permitindo uma análise mais prática e detalhada do tratamento dos dados.
+
+O notebook utilizado durante o desenvolvimento está disponível neste repositório em [notebook](notebook/testApi_py.ipynb).
+
+A documentação do notebook está disponível em [documentação](notebook/DOCUMENTACAO_testApi_py.md).
+
+---
+
 ## 📅 Sprints
 
 | Sprint | Período | Meta | Documentação | Vídeo |
@@ -33,6 +43,17 @@ Nesse contexto, o desafio é transformar essa base dispersa em informação clar
 | 🏃 **Sprint 1** | 07/09 – 27/09 | Consolidar os dados de fiscalização das bombas medidoras e disponibilizar os indicadores básicos de conformidade | [Docs](docs/sprints/sprint-1.md) | [Assistir](#) |
 | 🏃 **Sprint 2** | 05/10 – 02/10 | Meta da sprint | [Docs](docs/sprints/sprint-2/backlog.md) | [Assistir](#) |
 | 🏃 **Sprint 3** | 02/11 – 25/11 | Meta da sprint | [Docs](docs/sprints/sprint-3/backlog.md) | [Assistir](#) |
+
+---
+
+## 🚦 DoR & DoD
+
+Critérios que o time usa para decidir quando uma User Story pode entrar em uma Sprint e quando ela está de fato concluída.
+
+| Critério | Documentação |
+| :------- | :----------- |
+| 🚦 Definition of Ready | [Docs](docs/dor.md) |
+| ✅ Definition of Done | [Docs](docs/dod.md) |
 
 ---
 
