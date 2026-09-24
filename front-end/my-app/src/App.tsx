@@ -86,23 +86,23 @@ function App() {
             <tbody>
               {bombasFiltradas.map((bomba) => (
                 <tr key={bomba.inmetro}>
-                  <td className="border border-white px-4 py-2">
+                  <td className="border border-white bg-[#A0D1FF] px-4 py-2">
                     {bomba.municipio}
                   </td>
-                  <td className="border border-white px-4 py-2">
+                  <td className="border border-white bg-[#A0D1FF] px-4 py-2">
                     {bomba.bairro}
                   </td>
-                  <td className="border border-white px-4 py-2">
+                  <td className="border border-white bg-[#A0D1FF] px-4 py-2">
                     {bomba.proprietario}
                   </td>
-                  <td className="border border-white px-4 py-2">
+                  <td className="border border-white bg-[#A0D1FF] px-4 py-2">
                     {bomba.inmetro}
                   </td>
-                  <td className="border border-white px-4 py-2">
+                  <td className="border border-white bg-[#A0D1FF] px-4 py-2">
                     {bomba.verificado}
                   </td>
                   <td
-                    className={`border border-white px-4 py-2 ${bomba.resultado === 'APROVADO'
+                    className={`border border-white bg-[#A0D1FF] px-4 py-2 ${bomba.resultado === 'APROVADO'
                         ? 'text-[#008000]'
                         : bomba.resultado === 'NEGADO'
                           ? 'text-[#900603]'
