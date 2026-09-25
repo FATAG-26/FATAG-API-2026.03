@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Desafio](#-desafio) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [Equipe](#-equipe)
+[Desafio](#-desafio) • [Requisitos](docs/requisitos.md) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [DoR/DoD](#-dor--dod) • [Equipe](#-equipe)
 
 </div>
 
@@ -43,6 +43,29 @@ A documentação do notebook está disponível em [documentação](notebook/DOCU
 | 🏃 **Sprint 1** | 07/09 – 27/09 | Consolidar os dados de fiscalização das bombas medidoras e disponibilizar os indicadores básicos de conformidade | [Docs](docs/sprints/sprint-1.md) | [Assistir](#) |
 | 🏃 **Sprint 2** | 05/10 – 02/10 | Meta da sprint | [Docs](docs/sprints/sprint-2/backlog.md) | [Assistir](#) |
 | 🏃 **Sprint 3** | 02/11 – 25/11 | Meta da sprint | [Docs](docs/sprints/sprint-3/backlog.md) | [Assistir](#) |
+
+---
+
+## 🚦 DoR & DoD
+
+### 🏃‍ DoR - Definition of Ready
+
+* User Stories com **Critérios de Aceitação**
+* Subtarefas divididas **a partir das US**
+* Fontes de dados **identificadas** (Portal de Dados Abertos do IPEM-SP e PSIE do Inmetro)
+* Dicionário de dados com as **colunas relevantes** mapeadas
+* Protótipo das telas no **Figma**
+* User Stories **estimadas** e **priorizadas** no Backlog
+
+### 🏆 DoD - Definition of Done
+
+* Critérios de Aceitação **atendidos**
+* Pipeline de tratamento dos dados **completo** (limpeza e padronização)
+* Indicadores **validados** com a base de dados
+* Código completo e **versionado** no GitHub
+* Documentação do **Notebook** atualizada
+* Manual de Usuário
+* Vídeos de cada etapa de entrega
 
 ---
 
