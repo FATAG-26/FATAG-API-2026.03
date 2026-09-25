@@ -1,11 +1,11 @@
 # 📋 Backlog da Sprint 1
 
-| Rank | Prioridade | User Story | Estimativa |
-| :--- | :--------- | :--------- | :--------- |
-| 1 | Muito alta | Como usuário, quero consultar os dados das bombas medidoras de combustível, para analisar e comparar os resultados das fiscalizações. | 20 |
-| 2 | Médio | Como usuário, quero visualizar o total de bombas periciadas, para identificar a quantidade de equipamentos fiscalizados pelo IPEM-SP. | 8 |
-| 3 | Médio | Como usuário, quero visualizar o percentual de bombas aprovadas, para avaliar o nível de conformidade das bombas de combustível fiscalizadas. | 8 |
-| 4 | Médio | Como usuário, quero visualizar o total de autuações, para identificar a quantidade de ocorrências registradas nas fiscalizações. | 8 |
+| Rank | Prioridade | User Story | Story Points | Sprint | Requisito do Cliente | Status |
+| :--: | :--------: | ---------- | :----------: | :----: | :------------------: | :----: |
+| 1 | Muito alta | Como usuário, quero consultar os dados das bombas medidoras de combustível, para analisar e comparar os resultados das fiscalizações. | 20 | 1 | R01 | ❌ |
+| 2 | Médio | Como usuário, quero visualizar o total de bombas periciadas, para identificar a quantidade de equipamentos fiscalizados pelo IPEM-SP. | 8 | 1 | R06 | ❌ |
+| 3 | Médio | Como usuário, quero visualizar o percentual de bombas aprovadas, para avaliar o nível de conformidade das bombas de combustível fiscalizadas. | 8 | 1 | R06 | ❌ |
+| 4 | Médio | Como usuário, quero visualizar o total de autuações, para identificar a quantidade de ocorrências registradas nas fiscalizações. | 8 | 1 | R06 | ❌ |
 
 ## 🏅 DoR - Definition of Ready
 
