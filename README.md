@@ -48,12 +48,24 @@ A documentação do notebook está disponível em [documentação](notebook/DOCU
 
 ## 🚦 DoR & DoD
 
-Critérios que o time usa para decidir quando uma User Story pode entrar em uma Sprint e quando ela está de fato concluída.
+### 🏃‍ DoR - Definition of Ready
 
-| Critério | Documentação |
-| :------- | :----------- |
-| 🚦 Definition of Ready | [Docs](docs/dor.md) |
-| ✅ Definition of Done | [Docs](docs/dod.md) |
+* User Stories com **Critérios de Aceitação**
+* Subtarefas divididas **a partir das US**
+* Fontes de dados **identificadas** (Portal de Dados Abertos do IPEM-SP e PSIE do Inmetro)
+* Dicionário de dados com as **colunas relevantes** mapeadas
+* Protótipo das telas no **Figma**
+* User Stories **estimadas** e **priorizadas** no Backlog
+
+### 🏆 DoD - Definition of Done
+
+* Critérios de Aceitação **atendidos**
+* Pipeline de tratamento dos dados **completo** (limpeza e padronização)
+* Indicadores **validados** com a base de dados
+* Código completo e **versionado** no GitHub
+* Documentação do **Notebook** atualizada
+* Manual de Usuário
+* Vídeos de cada etapa de entrega
 
 ---
 
