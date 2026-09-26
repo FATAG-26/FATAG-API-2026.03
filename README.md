@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Desafio](#-desafio) • [Requisitos](docs/requisitos.md) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [DoR/DoD](#-dor--dod) • [Equipe](#-equipe)
+[Desafio](#-desafio) • [Requisitos](docs/requisitos.md) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [DoR/DoD](#-dor--dod) • [Equipe](#-equipe) • [Como_Instalar](docs/instalação.md)
 
 </div>
 
