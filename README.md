@@ -36,6 +36,17 @@ A documentação do notebook está disponível em [documentação](notebook/DOCU
 
 ---
 
+## 🌳Estratégia de Branches
+
+### Branch Principal:
+- `main`: Branch de produção com código estável e funcional;
+
+### Branch de Desenvolvimento:
+- `feat/docker`: Implementação do docker no projeto;
+- `front-end`: Desenvolvimento do visual do site.
+
+---
+
 ## 📅 Sprints
 
 | Sprint | Período | Meta | Documentação | Vídeo |
