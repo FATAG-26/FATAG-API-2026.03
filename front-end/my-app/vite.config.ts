@@ -8,13 +8,3 @@ export default defineConfig({
     tailwindcss(),
   ],
 })
-
-module.exports = {
-  theme: {
-    extend: {
-      colors: {
-        'azul-escuro': '#00275A',
-      },
-    },
-  },
-}
