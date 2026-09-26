@@ -4,7 +4,7 @@ import logo from '../assets/CDIPEM_logo.png';
 function Header() {
   return (
  <header className="bg-[#00275a] text-white px-6 flex items-center justify-between h-12">
-      <h1 className="font-mono text-lg font-bold">
+      <h1 className="text-lg font-bold">
         Consulta de bombas - Dashboard
       </h1>
 
