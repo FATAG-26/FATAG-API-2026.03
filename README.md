@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Desafio](#-desafio) • [Requisitos](docs/requisitos.md) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [DoR/DoD](#-dor--dod) • [Equipe](#-equipe) • [Como_Instalar](docs/instalação.md) • [Cronograma de Evolução](docs/cronograma.png)
+[Desafio](#-desafio) • [Requisitos](docs/requisitos.md) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [DoR/DoD](#-dor--dod) • [Equipe](#-equipe) • [Como_Instalar](docs/instalação.md) • [Cronograma de Evolução](docs/cronograma.png) • [Pastas_do_Projeto](docs/Pastas_do_projeto.png)
 
 </div>
 
