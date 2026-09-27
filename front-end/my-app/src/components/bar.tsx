@@ -1,4 +1,3 @@
-// bar.tsx
 type RankingItem = {
   municipio: string
   valor: number
@@ -13,8 +12,8 @@ function Bar({ dados }: BarProps) {
   const maior = Math.max(...dados.map((item) => item.valor), 1)
 
   return (
-    <div className="painel p-4">
-      <div className="border border-white painel-titulo bg-[#1E1E1E] text-white px-4 py-1 font-semibold">
+    <div className="painel pt-4 pb-4">
+      <div className="border-t border-b border-white rounded painel-titulo bg-[#1E1E1E] text-white px-4 py-1 font-semibold">
         Ranking por Município/Região
       </div>
 
