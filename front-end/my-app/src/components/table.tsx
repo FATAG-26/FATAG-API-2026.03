@@ -89,23 +89,23 @@ function Table() {
                         <tbody>
                             {bombasFiltradas.map((bomba) => (
                                 <tr key={bomba.inmetro}>
-                                    <td className="border border-white bg-[#A0D1FF] px-4 py-2">
+                                    <td className="border border-gray-300 bg-white px-4 py-2">
                                         {bomba.municipio}
                                     </td>
-                                    <td className="border border-white bg-[#A0D1FF] px-4 py-2">
+                                    <td className="border border-gray-300 bg-white px-4 py-2">
                                         {bomba.bairro}
                                     </td>
-                                    <td className="border border-white bg-[#A0D1FF] px-4 py-2">
+                                    <td className="border border-gray-300 bg-white px-4 py-2">
                                         {bomba.proprietario}
                                     </td>
-                                    <td className="border border-white bg-[#A0D1FF] px-4 py-2">
+                                    <td className="border border-gray-300 bg-white px-4 py-2">
                                         {bomba.inmetro}
                                     </td>
-                                    <td className="border border-white bg-[#A0D1FF] px-4 py-2">
+                                    <td className="border border-gray-300 bg-white px-4 py-2">
                                         {bomba.verificado}
                                     </td>
                                     <td
-                                        className={`border border-white bg-[#A0D1FF] px-4 py-2 ${bomba.resultado === 'APROVADO'
+                                        className={`border border-gray-300 bg-white px-4 py-2 ${bomba.resultado === 'APROVADO'
                                             ? 'text-[#008000]'
                                             : bomba.resultado === 'NEGADO'
                                                 ? 'text-[#900603]'
@@ -130,7 +130,7 @@ function Table() {
                         </tbody>
                     </table>
 
-                    <div className="flex flex-wrap gap-3 border border-t-0 border-white bg-[#1E1E1E] px-4 py-3">
+                    <div className="flex flex-wrap gap-3 border border-t-0 border-white bg-[#333333] px-4 py-3">
                         <input
                             type="text"
                             value={municipio}

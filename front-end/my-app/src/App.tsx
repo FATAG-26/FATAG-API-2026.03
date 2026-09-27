@@ -1,7 +1,7 @@
 import './App.css'
 import Header from './components/header'
 import Table from './components/table'
-
+import Stats from './components/stats'
 
 function App() {
 
@@ -10,6 +10,7 @@ function App() {
     <div className="min-h-screen bg-[#ADB9CA]">
       <Header />
       <Table />
+      <Stats/>
     </div>
   )
 }
