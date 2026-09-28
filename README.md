@@ -31,7 +31,7 @@ Nesse contexto, o desafio é transformar essa base dispersa em informação clar
 Todo o processo da Sprint 1 foi desenvolvido no Google Colab, permitindo uma análise mais prática e detalhada do tratamento dos dados.
 
 O notebook utilizado durante o desenvolvimento está disponível neste repositório em [notebook](notebook/testApi_py.ipynb).
-Acesso para versão web Google_Colab(https://colab.research.google.com/drive/1hZg6B7dlyYgenRo9yUHyZRV7iHlA0LvL?usp=sharing)
+Acesso para versão web [Google_Colab](https://colab.research.google.com/drive/1hZg6B7dlyYgenRo9yUHyZRV7iHlA0LvL?usp=sharing)
 
 A documentação do notebook está disponível em [documentação](notebook/DOCUMENTACAO_testApi_py.md).
 
