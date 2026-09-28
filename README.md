@@ -31,6 +31,7 @@ Nesse contexto, o desafio é transformar essa base dispersa em informação clar
 Todo o processo da Sprint 1 foi desenvolvido no Google Colab, permitindo uma análise mais prática e detalhada do tratamento dos dados.
 
 O notebook utilizado durante o desenvolvimento está disponível neste repositório em [notebook](notebook/testApi_py.ipynb).
+Acesso para versão web Google_Colab(https://colab.research.google.com/drive/1hZg6B7dlyYgenRo9yUHyZRV7iHlA0LvL?usp=sharing)
 
 A documentação do notebook está disponível em [documentação](notebook/DOCUMENTACAO_testApi_py.md).
 
@@ -51,7 +52,7 @@ A documentação do notebook está disponível em [documentação](notebook/DOCU
 
 | Sprint | Período | Meta | Documentação | Vídeo |
 | :----- | :------ | :--- | :----------- | :---- |
-| 🏃 **Sprint 1** | 07/09 – 27/09 | Consolidar os dados de fiscalização das bombas medidoras e disponibilizar os indicadores básicos de conformidade | [Docs](docs/sprints/sprint-1.md) | [Assistir](#) |
+| 🏃 **Sprint 1** | 07/09 – 27/09 | Consolidar os dados de fiscalização das bombas medidoras e disponibilizar os indicadores básicos de conformidade | [Docs](docs/sprints/sprint-1.md) | [Assistir](https://youtu.be/t0FCfCGjA-U) |
 | 🏃 **Sprint 2** | 05/10 – 05/25 | Meta da sprint | [Docs](docs/sprints/sprint-2/backlog.md) | [Assistir](#) |
 | 🏃 **Sprint 3** | 02/11 – 22/11 | Meta da sprint | [Docs](docs/sprints/sprint-3/backlog.md) | [Assistir](#) |
 
