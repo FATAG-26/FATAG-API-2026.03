@@ -1,7 +1,7 @@
 function Stats() {
     // Valores usados no gráfico de periciados
-    const aprovados = 70;
-    const reprovados = 18;
+    const aprovados = 60;
+    const reprovados = 28;
     const interditados = 12;
     const raio = 40;
     const circunferencia = 2 * Math.PI * raio;
