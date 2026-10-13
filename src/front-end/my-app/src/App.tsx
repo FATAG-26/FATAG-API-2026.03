@@ -5,6 +5,7 @@ import Bar from './components/bar'
 import Table from './components/table'
 import Stats from './components/stats'
 import { bombas } from './components/table'
+import MapaVale from './components/mapaVale'
 
 function App() {
 
@@ -28,6 +29,10 @@ function App() {
       <Table />
       <Stats />
       <Bar dados={ranking} />
+        <div style={{ minHeight: 500, padding: 20, background: "#fff" }}>
+          <h2>Mapa do Vale do Paraíba</h2>
+          <MapaVale />
+        </div>
     </div>
   )
 }
