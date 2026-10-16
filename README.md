@@ -53,7 +53,7 @@ A documentação do notebook está disponível em [documentação](notebook/DOCU
 | Sprint | Período | Meta | Documentação | Vídeo |
 | :----- | :------ | :--- | :----------- | :---- |
 | 🏃 **Sprint 1** | 07/09 – 27/09 | Consolidar os dados de fiscalização das bombas medidoras e disponibilizar os indicadores básicos de conformidade | [Docs](docs/sprints/sprint-1.md) | [Assistir](https://youtu.be/t0FCfCGjA-U) |
-| 🏃 **Sprint 2** | 05/10 – 05/25 | Meta da sprint | [Docs](docs/sprints/sprint-2/backlog.md) | [Assistir](#) |
+| 🏃 **Sprint 2** | 05/10 – 25/10 | Consultar os dados por município e região, gerar o ranking de municípios e regiões e comparar a evolução entre os anos | [Docs](docs/sprints/sprint-2/backlog.md) | [Assistir](#) |
 | 🏃 **Sprint 3** | 02/11 – 22/11 | Meta da sprint | [Docs](docs/sprints/sprint-3/backlog.md) | [Assistir](#) |
 
 ---
