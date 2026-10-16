@@ -56,13 +56,13 @@ function Table() {
 
 
         <div className="grid-cols-4">
-            <h2 className="!text-[#1E1E1E]">
+            <h2 className="mx-auto max-w-full px-3 text-center !text-[#1E1E1E] text-xl leading-tight sm:text-2xl">
                 Tabela de Bombas em SP (com as cidades do Rio)
             </h2>
 
-            <div className="flex justify-center">
-                <div className="w-[1100px]">
-                    <table className="w-full table-fixed border-collapse border border-white">
+            <div className="w-full min-w-0">
+                <div className="w-full overflow-x-auto">
+                    <table className="w-full min-w-[900px] table-fixed border-collapse border border-white">
                         <thead>
                             <tr>
                                 <th className="border border-white bg-[#1E1E1E] px-4 py-2 text-white">
@@ -129,7 +129,8 @@ function Table() {
                             )}
                         </tbody>
                     </table>
-
+                </div> 
+                
                     <div className="flex flex-wrap gap-3 border border-t-0 border-white bg-[#333333] px-4 py-3">
                         <input
                             type="text"
@@ -158,7 +159,6 @@ function Table() {
                     </div>
                 </div>
             </div>
-        </div>
     )
 }
 
