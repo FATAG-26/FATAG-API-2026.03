@@ -1,13 +1,13 @@
 services:
   backend:
-    build: ./backend
+    build: ./backend-node
+    command: ["node", "--watch", "src/server.js"]
     ports:
       - "8000:8000"
     environment:
       CSV_PATH: /data/verificacoes_bombas_2018.csv
-      FLASK_DEBUG: "1"
     volumes:
-      - ./backend/app:/app/app
+      - ./backend-node/src:/app/src
       - ./data:/data:ro
 
 
