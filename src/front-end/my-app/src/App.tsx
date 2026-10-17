@@ -3,6 +3,7 @@ import Header from './components/header'
 import Bar from './components/bar'
 import Table from './components/table'
 import Stats from './components/stats'
+import MapaVale from './components/mapaVale'
 import { buscarRanking } from './api'
 import { useDados, useFiltros } from './hooks'
 
@@ -22,6 +23,10 @@ function App() {
       <Table entrada={entrada} filtros={aplicados} alterar={alterar} limpar={limpar} />
       <Stats filtros={aplicados} />
       <Bar dados={ranking.dados?.itens ?? []} carregando={ranking.carregando} erro={ranking.erro} />
+      <div style={{ minHeight: 500, padding: 20, background: "#fff" }}>
+          <h2>Mapa do Vale do Paraíba</h2>
+          <MapaVale />
+        </div>
     </div>
   )
 }
