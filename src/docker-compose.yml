@@ -1,13 +1,16 @@
 
 services:
   backend:
-    build: ./backend
+    build: ./backend-node
+    command: ["node", "--watch", "src/server.js"]
     ports:
       - "8000:8000"
     environment:
+
       DATA_FILE: /data/verificacoes_bombas_tratado.json
+    
     volumes:
-      - ./backend/src:/app/src
+      - ./backend-node/src:/app/src
       - ./data:/data:ro
 
   front-end:

@@ -1,0 +1,19 @@
+{
+  "name": "fatag-backend",
+  "version": "1.0.0",
+  "description": "API de fiscalização de bombas de combustível (IPEM-SP) em Node.js",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "csv-parse": "^5.5.6",
+    "express": "^4.21.2"
+  }
+}
