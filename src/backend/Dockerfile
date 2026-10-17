@@ -1,7 +1,7 @@
-FROM python:3.12-slim
+FROM node:22-alpine
 WORKDIR /app
-ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-COPY app ./app
-CMD ["flask", "--app", "app.main", "run", "--host", "0.0.0.0", "--port", "8000", "--debug"]
+ENV NODE_ENV=production
+COPY package.json ./
+COPY src ./src
+EXPOSE 8000
+CMD ["node", "src/server.js"]

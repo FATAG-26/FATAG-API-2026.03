@@ -1,22 +1,21 @@
+
 services:
   backend:
     build: ./backend
     ports:
       - "8000:8000"
     environment:
-      CSV_PATH: /data/verificacoes_bombas_2018.csv
-      FLASK_DEBUG: "1"
+      DATA_FILE: /data/verificacoes_bombas_tratado.json
     volumes:
-      - ./backend/app:/app/app
+      - ./backend/src:/app/src
       - ./data:/data:ro
-
 
   front-end:
     build: ./front-end/my-app
     ports:
-       - "5173:5173"
+      - "5173:5173"
     volumes:
-       - ./front-end/my-app:/my-app
-       - /my-app/node_modules
+      - ./front-end/my-app:/my-app
+      - /my-app/node_modules
     depends_on:
-       - backend
+      - backend

@@ -1,55 +1,29 @@
-import { useMemo, useState } from 'react'
+export type Filtros = {
+  municipio: string
+  bairro: string
+  dataInicio: string 
+  dataFim: string
+}
 
-export const bombas = [
-  {
-    municipio: 'VOLTA REDONDA',
-    bairro: 'CONFORTO',
-    proprietario: 'POSTO CONFORMO DE V.R. LTDA',
-    inmetro: '40028922',
-    verificado: '06/07/25',
-    resultado: 'APROVADO',
-  },
-  {
-    municipio: 'BOM JESUS DO ITANHAEM',
-    bairro: 'CENTRO',
-    proprietario: 'POSTO CURSOS ONLINE LTDA',
-    inmetro: '1234512',
-    verificado: '06/07/25',
-    resultado: 'APROVADO',
-  },
-  {
-    municipio: 'PIRAÍ',
-    bairro: 'CASA AMARELA',
-    proprietario: 'POSTO COMBUSTIVEL PIRAÍ LTDA',
-    inmetro: '657849',
-    verificado: '06/07/25',
-    resultado: 'NEGADO',
-  },
-  {
-    municipio: 'SÃO GONÇALO',
-    bairro: 'NEVES',
-    proprietario: 'CARREFOUR COMERCIO E INDUSTRIA',
-    inmetro: '67686768',
-    verificado: '06/07/25',
-    resultado: 'INTERDITADO',
-  },
-]
+export type Bomba = {
+  MUNICIPIO: string
+  BAIRRO: string | null
+  PROPRIETARIO: string
+  NUMERO_INMETRO: string
+  DATA_VERIFICACAO: string
+  RESULTADO: string
+}
 
 
-function Table() {
-    const [municipio, setMunicipio] = useState('')
-    const [bairro, setBairro] = useState('')
-    const [data, setData] = useState('')
-
-    const bombasFiltradas = useMemo(() => {
-        return bombas.filter((bomba) => {
-            return (
-                bomba.municipio.toLowerCase().includes(municipio.toLowerCase()) &&
-                bomba.bairro.toLowerCase().includes(bairro.toLowerCase()) &&
-                bomba.verificado.includes(data)
-            )
-        })
-    }, [municipio, bairro, data])
+function Table({
+  dados,
+  filtros,
+  onFiltrosChange
+}: {
+  dados: Bomba[]
+  filtros: Filtros
+  onFiltrosChange: (parcial: Partial<Filtros>) => void
+}) {
 
     return (
 
@@ -57,7 +31,7 @@ function Table() {
 
         <div className="grid-cols-4">
             <h2 className="mx-auto max-w-full px-3 text-center !text-[#1E1E1E] text-xl leading-tight sm:text-2xl">
-                Tabela de Bombas em SP (com as cidades do Rio)
+                Tabela de Bombas em SP 
             </h2>
 
             <div className="w-full min-w-0">
@@ -87,37 +61,37 @@ function Table() {
                         </thead>
 
                         <tbody>
-                            {bombasFiltradas.map((bomba) => (
-                                <tr key={bomba.inmetro}>
+                            {dados.slice(0, 20).map((bomba, index) => (
+                                    <tr key={`${bomba.NUMERO_INMETRO}-${index}`}>
                                     <td className="border border-gray-300 bg-white px-4 py-2">
-                                        {bomba.municipio}
+                                        {bomba.MUNICIPIO}
                                     </td>
                                     <td className="border border-gray-300 bg-white px-4 py-2">
-                                        {bomba.bairro}
+                                        {bomba.BAIRRO}
                                     </td>
                                     <td className="border border-gray-300 bg-white px-4 py-2">
-                                        {bomba.proprietario}
+                                        {bomba.PROPRIETARIO}
                                     </td>
                                     <td className="border border-gray-300 bg-white px-4 py-2">
-                                        {bomba.inmetro}
+                                        {bomba.NUMERO_INMETRO}
                                     </td>
                                     <td className="border border-gray-300 bg-white px-4 py-2">
-                                        {bomba.verificado}
+                                        {bomba.DATA_VERIFICACAO?.slice(0, 10).split('-').reverse().join('/')}
                                     </td>
                                     <td
-                                        className={`border border-gray-300 bg-white px-4 py-2 ${bomba.resultado === 'APROVADO'
+                                        className={`border border-gray-300 bg-white px-4 py-2 ${bomba.RESULTADO === 'Aprovado'
                                             ? 'text-[#008000]'
-                                            : bomba.resultado === 'NEGADO'
+                                            : bomba.RESULTADO === 'Reprovado'
                                                 ? 'text-[#900603]'
                                                 : 'text-[#FDED00]'
                                             }`}
                                     >
-                                        {bomba.resultado}
+                                        {bomba.RESULTADO}
                                     </td>
                                 </tr>
                             ))}
 
-                            {bombasFiltradas.length === 0 && (
+                            {dados.length === 0 && (
                                 <tr>
                                     <td
                                         colSpan={6}
@@ -132,30 +106,41 @@ function Table() {
                 </div> 
                 
                     <div className="flex flex-wrap gap-3 border border-t-0 border-white bg-[#333333] px-4 py-3">
-                        <input
+                                                <input
                             type="text"
-                            value={municipio}
-                            onChange={(event) => setMunicipio(event.target.value)}
+                            value={filtros.municipio}
+                            onChange={(e) => onFiltrosChange({ municipio: e.target.value })}
                             placeholder="Buscar por município"
                             className="border border-white bg-transparent px-3 py-2 text-white/80 placeholder:text-white/60 focus:outline-none"
                         />
 
                         <input
                             type="text"
-                            value={bairro}
-                            onChange={(event) => setBairro(event.target.value)}
+                            value={filtros.bairro}
+                            onChange={(e) => onFiltrosChange({ bairro: e.target.value })}
                             placeholder="Buscar por bairro"
                             className="border border-white bg-transparent px-3 py-2 text-white/80 placeholder:text-white/60 focus:outline-none"
                         />
 
-                        <input
-                            type="text"
-                            value={data}
-                            onChange={(event) => setData(event.target.value)}
-                            placeholder="Buscar por data: 06/07/25"
-                            className="border border-white bg-transparent px-3 py-2 text-white/80 placeholder:text-white/60 focus:outline-none"
-                        />
+                        <label className="flex items-center gap-2 text-white/80">
+                            De
+                            <input
+                                type="date"
+                                value={filtros.dataInicio}
+                                onChange={(e) => onFiltrosChange({ dataInicio: e.target.value })}
+                                className="border border-white bg-transparent px-3 py-2 text-white/80 [color-scheme:dark] focus:outline-none"
+                            />
+                        </label>
 
+                        <label className="flex items-center gap-2 text-white/80">
+                            Até
+                            <input
+                                type="date"
+                                value={filtros.dataFim}
+                                onChange={(e) => onFiltrosChange({ dataFim: e.target.value })}
+                                className="border border-white bg-transparent px-3 py-2 text-white/80 [color-scheme:dark] focus:outline-none"
+                            />
+                        </label>
                     </div>
                 </div>
             </div>
