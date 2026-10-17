@@ -1,12 +1,11 @@
 // Conversão para JavaScript das funções de src/backend/app/service.py (Pandas).
 // O "DataFrame" aqui é um array de objetos, um por linha.
-import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { parse } from "csv-parse/sync";
+import fs from 'node:fs/promises';
 
-export const CSV_PATH =
-  process.env.CSV_PATH ??
-  fileURLToPath(new URL("../../data/verificacoes_bombas_2018.csv", import.meta.url));
+export const JSON_PATH =
+  process.env.JSON_PATH ??
+  fileURLToPath(new URL("../../data/verificacoes_bombas_tratado.json", import.meta.url));
 
 export class FiltroInvalidoError extends Error {
   constructor(mensagem) {
@@ -17,74 +16,10 @@ export class FiltroInvalidoError extends Error {
 
 const normalizar = (valor) => (valor ?? "").trim().toUpperCase();
 
-/**
- * Converte "dd/mm/aaaa", "dd/mm/aa" ou "aaaa-mm-dd" em Date (meia-noite UTC).
- * Equivalente a pd.to_datetime(valor, dayfirst=True). Retorna null se inválida.
- */
-export function parseData(valor) {
-  if (!valor) return null;
-  const texto = valor.trim().split(/[ T]/)[0];
-  let dia, mes, ano;
-
-  let m = texto.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4})$/);
-  if (m) {
-    [, dia, mes, ano] = m.map(Number);
-    if (m[3].length === 2) ano += 2000;
-  } else if ((m = texto.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/))) {
-    [, ano, mes, dia] = m.map(Number);
-  } else {
-    return null;
-  }
-
-  const data = new Date(Date.UTC(ano, mes - 1, dia));
-  // Rejeita datas que "transbordam", ex.: 31/02/2018
-  if (data.getUTCMonth() !== mes - 1 || data.getUTCDate() !== dia) return null;
-  return data;
-}
-
-/** Formata uma Date como "dd/mm/aaaa" (equivalente a .dt.strftime("%d/%m/%Y")). */
-export function formatarData(data) {
-  if (!data) return null;
-  const dd = String(data.getUTCDate()).padStart(2, "0");
-  const mm = String(data.getUTCMonth() + 1).padStart(2, "0");
-  return `${dd}/${mm}/${data.getUTCFullYear()}`;
-}
-
-/**
- * O endereço é quebrado a partir da direita, pois o nome da rua às vezes
- * contém " - " (ex: "CARAGUÁ - UBATUBA, 6225").
- */
-function extrairEndereco(endereco) {
-  const partes = (endereco ?? "").trim().split(" - ");
-  return {
-    MUNICIPIO: partes.length >= 2 ? partes.at(-2).trim() : null,
-    BAIRRO: partes.length >= 3 ? partes.at(-3).trim() : null,
-  };
-}
-
 /** Lê o CSV (latin1, separador ";") e devolve as linhas já tratadas. */
-export function carregarDados(caminho = CSV_PATH) {
-  const conteudo = readFileSync(caminho, "latin1");
-  const linhas = parse(conteudo, {
-    delimiter: ";",
-    columns: true,
-    skip_empty_lines: true,
-    relax_quotes: true,
-  });
-
-  return linhas.map((linha) => {
-    const { MUNICIPIO, BAIRRO } = extrairEndereco(linha.ENDERECO_COMPLETO);
-    return {
-      MUNICIPIO,
-      BAIRRO,
-      PROPRIETARIO: linha.NOMEFANTASIA ?? null,
-      DESCRICAO: linha.DESC_ITEM ?? null,
-      NUMERO_INMETRO: linha.NR_INMETRO ?? null,
-      NUMERO_SERIE: linha.NR_SERIE ?? null,
-      DATA_VERIFICACAO: parseData(linha.DATAVERIFICACAO),
-      RESULTADO: linha.RESULTADO ?? null,
-    };
-  });
+export async function carregarDados(caminho = JSON_PATH) {
+    const conteudo = await fs.readFile(caminho, 'utf-8');
+    return JSON.parse(conteudo);
 }
 
 /**
@@ -179,8 +114,8 @@ export function filtrarPorData(dados, dataInicio, dataFinal, modo) {
   if (!(dataInicio || dataFinal)) throw new FiltroInvalidoError("Insira pelo menos uma data.");
   if (!modo) throw new FiltroInvalidoError("Coloque o modo ('S' = singular / 'I' = intervalo)");
 
-  const inicio = dataInicio ? parseData(dataInicio) : null;
-  const final = dataFinal ? parseData(dataFinal) : null;
+  const inicio = dataInicio
+  const final = dataFinal
   if ((dataInicio && !inicio) || (dataFinal && !final)) {
     throw new FiltroInvalidoError("Data inválida. Use dd/mm/aaaa ou aaaa-mm-dd.");
   }

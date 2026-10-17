@@ -5,7 +5,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      CSV_PATH: /data/verificacoes_bombas_2018.csv
+      JSON_PATH: /data/verificacoes_bombas_tratado.json
     volumes:
       - ./backend-node/src:/app/src
       - ./data:/data:ro

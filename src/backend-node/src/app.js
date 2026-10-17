@@ -4,14 +4,6 @@ import * as service from "./service.js";
 
 const { FiltroInvalidoError } = service;
 
-/** Formata a data e troca undefined por null, como _df_para_json no Python. */
-function paraJson(linhas) {
-  return linhas.map((linha) => ({
-    ...linha,
-    DATA_VERIFICACAO: service.formatarData(linha.DATA_VERIFICACAO),
-  }));
-}
-
 /**
  * Aplica, em sequência, os filtros da query string (?municipio=, ?bairro=,
  * ?proprietario=, ?resultado=, ?data_inicio=, ?data_fim=, ?modo=).
@@ -54,16 +46,25 @@ function inteiro(valor, padrao, nome) {
 export function criarApp(df) {
   const app = express();
 
+  app.get("/api/get", (req, res) => {
+    res.json(df)
+  })
+
   app.get("/api/health", (req, res) => {
     res.json({ status: "ok", registros: df.length });
   });
 
   app.get("/api/bombas", (req, res) => {
+    console.log("Query recebida:", req.query);
+    console.log("Registros originais:", df.length);
     const tabela = aplicarFiltrosQuery(df, req.query);
+    console.log("Após filtros:", tabela.length);
     const limit = inteiro(req.query.limit, 100, "limit");
     const offset = inteiro(req.query.offset, 0, "offset");
+    console.log({ limit, offset });
     const pagina = tabela.slice(offset, offset + limit);
-    res.json({ total: tabela.length, itens: paraJson(pagina) });
+    const itens = pagina;
+    res.json({total: tabela.length,itens});
   });
 
   app.get("/api/bombas/contagem", (req, res) => {
