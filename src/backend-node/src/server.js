@@ -1,14 +1,11 @@
 import { criarApp } from "./app.js";
-import { carregarDados, JSON_PATH } from "./service.js";
+import { carregarDados, DATA_PATH } from "./service.js";
 
 const PORT = Number(process.env.PORT ?? 8000);
 
+const df = carregarDados();
+console.log(`${df.length} registros carregados de ${DATA_PATH}`);
 
-async function iniciar() {
-    const df = await carregarDados();
-    console.log(`${df.length} registros carregados de ${JSON_PATH}`);
-    criarApp(df).listen(PORT, "0.0.0.0", () => {
-      console.log(`API rodando em http://localhost:${PORT}`);
-    });
-}
-iniciar();
+criarApp(df).listen(PORT, "0.0.0.0", () => {
+  console.log(`API rodando em http://localhost:${PORT}`);
+});

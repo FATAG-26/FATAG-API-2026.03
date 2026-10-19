@@ -1,33 +1,32 @@
-import { useMemo } from 'react'
 import './App.css'
 import Header from './components/header'
 import Bar from './components/bar'
 import Table from './components/table'
 import Stats from './components/stats'
-import { bombas } from './components/table'
+import MapaVale from './components/mapaVale'
+import { buscarRanking } from './api'
+import { useDados, useFiltros } from './hooks'
 
 function App() {
+  // Um único conjunto de filtros alimenta a tabela, os gráficos e o ranking.
+  // Sem filtros preenchidos, todos mostram os dados gerais.
+  const { entrada, aplicados, alterar, limpar } = useFiltros()
 
-  const ranking = useMemo(() => {
-    const contagem: Record<string, number> = {}
-
-    bombas.forEach((bomba) => {
-      if (bomba.resultado === 'APROVADO') {
-        contagem[bomba.municipio] = (contagem[bomba.municipio] || 0) + 1
-      }
-    })
-
-    return Object.entries(contagem)
-      .map(([municipio, valor]) => ({ municipio, valor }))
-      .sort((a, b) => b.valor - a.valor)
-  }, [])
+  const ranking = useDados(
+    (signal) => buscarRanking(aplicados, signal),
+    `ranking:${JSON.stringify(aplicados)}`,
+  )
 
   return (
     <div className="min-h-screen bg-[#ADB9CA]">
       <Header />
-      <Table />
-      <Stats />
-      <Bar dados={ranking} />
+      <Table entrada={entrada} filtros={aplicados} alterar={alterar} limpar={limpar} />
+      <Stats filtros={aplicados} />
+      <Bar dados={ranking.dados?.itens ?? []} carregando={ranking.carregando} erro={ranking.erro} />
+      <div style={{ minHeight: 500, padding: 20, background: "#fff" }}>
+          <h2>Mapa do Vale do Paraíba</h2>
+          <MapaVale />
+        </div>
     </div>
   )
 }

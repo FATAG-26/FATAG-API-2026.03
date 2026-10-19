@@ -5,18 +5,17 @@ services:
     ports:
       - "8000:8000"
     environment:
-      JSON_PATH: /data/verificacoes_bombas_tratado.json
+      DATA_FILE: /data/verificacoes_bombas_tratado.json
     volumes:
       - ./backend-node/src:/app/src
       - ./data:/data:ro
 
-
   front-end:
     build: ./front-end/my-app
     ports:
-       - "5173:5173"
+      - "5173:5173"
     volumes:
-       - ./front-end/my-app:/my-app
-       - /my-app/node_modules
+      - ./front-end/my-app:/my-app
+      - /my-app/node_modules
     depends_on:
-       - backend
+      - backend
