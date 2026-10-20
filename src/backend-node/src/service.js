@@ -2,16 +2,10 @@
 // O "DataFrame" aqui é um array de objetos, um por linha.
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
-import { parse } from "csv-parse/sync";
 
 // DATA_FILE (usado no docker-compose) aponta para o JSON tratado gerado pelo notebook.
 // Também aceita os caminhos usados por configurações anteriores.
-export const DATA_PATH =
-  process.env.DATA_FILE ??
-  process.env.JSON_PATH ??
-  process.env.CSV_PATH ??
-  fileURLToPath(new URL("../../data/verificacoes_bombas_2018.csv", import.meta.url));
-export const CSV_PATH = DATA_PATH; // alias: mantém imports antigos funcionando
+export const DATA_PATH = fileURLToPath(new URL("../../data/verificacoes_bombas_tratado.json", import.meta.url));
 export const JSON_PATH = DATA_PATH;
 
 export class FiltroInvalidoError extends Error {
@@ -72,26 +66,6 @@ export function parseData(valor) {
   return data;
 }
 
-/** Formata uma Date como "dd/mm/aaaa" (equivalente a .dt.strftime("%d/%m/%Y")). */
-export function formatarData(data) {
-  if (!data) return null;
-  const dd = String(data.getUTCDate()).padStart(2, "0");
-  const mm = String(data.getUTCMonth() + 1).padStart(2, "0");
-  return `${dd}/${mm}/${data.getUTCFullYear()}`;
-}
-
-/**
- * O endereço é quebrado a partir da direita, pois o nome da rua às vezes
- * contém " - " (ex: "CARAGUÁ - UBATUBA, 6225").
- */
-function extrairEndereco(endereco) {
-  const partes = (endereco ?? "").trim().split(" - ");
-  return {
-    MUNICIPIO: partes.length >= 2 ? partes.at(-2).trim() : null,
-    BAIRRO: partes.length >= 3 ? partes.at(-3).trim() : null,
-  };
-}
-
 export const MAPA_DESCRICAO = {
   372: "Bomba medidora para combustíveis, vazão > 20 até 100 L/min.",
   373: "Bomba medidora para combustíveis, vazão > 100 até 500 L/min.",
@@ -101,7 +75,7 @@ export const MAPA_DESCRICAO = {
  * Porte de `carregar_tratado` + montagem do df da célula "ANÁLISE" do notebook:
  * lê o JSON tratado; DESCRICAO vem de CODITEM e DATA_VERIFICACAO é o dia de DT_HORA_VERIF.
  */
-function carregarJson(caminho) {
+export function carregarJson(caminho = DATA_PATH) {
   const registros = JSON.parse(readFileSync(caminho, "utf-8"));
   return registros.map((r) => ({
     MUNICIPIO: r.MUNICIPIO ?? r.CIDADE ?? null,
@@ -113,35 +87,6 @@ function carregarJson(caminho) {
     DATA_VERIFICACAO: parseData(r.DT_HORA_VERIF ?? r.DATA_VERIFICACAO),
     RESULTADO: r.RESULTADO ?? null,
   }));
-}
-
-/**
- * Carrega os dados: arquivo .json = JSON tratado (46 mil linhas, 2018-2026);
- * qualquer outro = CSV bruto (latin1, separador ";").
- */
-export function carregarDados(caminho = DATA_PATH) {
-  if (/\.json$/i.test(caminho)) return carregarJson(caminho);
-  const conteudo = readFileSync(caminho, "latin1");
-  const linhas = parse(conteudo, {
-    delimiter: ";",
-    columns: true,
-    skip_empty_lines: true,
-    relax_quotes: true,
-  });
-
-  return linhas.map((linha) => {
-    const { MUNICIPIO, BAIRRO } = extrairEndereco(linha.ENDERECO_COMPLETO);
-    return {
-      MUNICIPIO,
-      BAIRRO,
-      PROPRIETARIO: linha.NOMEFANTASIA ?? null,
-      DESCRICAO: linha.DESC_ITEM ?? null,
-      NUMERO_INMETRO: linha.NR_INMETRO ?? null,
-      NUMERO_SERIE: linha.NR_SERIE ?? null,
-      DATA_VERIFICACAO: parseData(linha.DATAVERIFICACAO),
-      RESULTADO: linha.RESULTADO ?? null,
-    };
-  });
 }
 
 /**
