@@ -17,13 +17,13 @@ function App() {
     `ranking:${JSON.stringify(aplicados)}`,
   )
 
+
   return (
     <div className="min-h-screen bg-[#ADB9CA]">
       <Header />
       <Table entrada={entrada} filtros={aplicados} alterar={alterar} limpar={limpar} />
       <Stats filtros={aplicados} />
-      <Bar dados={ranking.dados?.itens ?? []} carregando={ranking.carregando} erro={ranking.erro} />
-      <div style={{ minHeight: 500, padding: 20, background: "#fff" }}>
+      <Bar dados={ranking.dados?.itens ?? []} alvo={ranking.dados?.alvo} carregando={ranking.carregando} erro={ranking.erro} />      <div style={{ minHeight: 500, padding: 20, background: "#fff" }}>
           <h2>Mapa do Vale do Paraíba</h2>
           <MapaVale />
         </div>

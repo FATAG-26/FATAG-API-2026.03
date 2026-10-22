@@ -22,7 +22,13 @@ function Stats({ filtros }: StatsProps) {
         (signal) => buscarResumo(filtros, signal),
         `resumo:${JSON.stringify(filtros)}`,
     )
+    const filtrosGerais = { ...filtros, resultado: '' }
+    const { dados: geral, carregando: carregandoGeral } = useDados(
+        (signal) => buscarResumo(filtrosGerais, signal),
+        `resumo-geral:${JSON.stringify(filtrosGerais)}`,
+    )
 
+    const valorGeral = (chave: string) => (geral ? formatar(geral.porResultado[chave] ?? 0) : '…')
     const contagem = (chave: string) => resumo?.porResultado[chave] ?? 0
     const total = resumo?.total ?? 0
     const raio = 40
@@ -38,6 +44,7 @@ function Stats({ filtros }: StatsProps) {
 
     const valor = (n: number | undefined) => (resumo ? formatar(n ?? 0) : '…')
     const opaco = carregando && resumo ? 'opacity-50' : ''
+    
 
     return (
         <div className={`mt-4 mb-4 grid w-full min-w-0 grid-cols-1 gap-3 transition-opacity md:grid-cols-2 xl:grid-cols-3 ${opaco}`}>
@@ -100,7 +107,7 @@ function Stats({ filtros }: StatsProps) {
                 <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white">
                     <div className="bg-[#1E1E1E] p-2 text-center font-bold text-white">Total em Conformidade</div>
                     <div className="flex flex-1 items-center justify-center p-6">
-                        <p className="text-3xl font-bold sm:text-4xl">Nº: {valor(contagem('Aprovado'))}</p>
+                        <p className="text-3xl font-bold sm:text-4xl">Nº: {valorGeral('Aprovado')}</p>
                     </div>
                 </div>
 
@@ -108,8 +115,8 @@ function Stats({ filtros }: StatsProps) {
                 <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white">
                     <div className="bg-[#1E1E1E] p-2 text-center font-bold text-white">Total de Autuações</div>
                     <div className="flex flex-1 flex-col items-center justify-center p-6">
-                        <p className="text-3xl font-bold sm:text-4xl">Nº: {valor(contagem('Reprovado'))}</p>
-                        <p className="text-xs text-gray-500">bombas reprovadas</p>
+                       <p className="text-3xl font-bold sm:text-4xl">Nº: {valorGeral('Reprovado')}</p> 
+                       <p className="text-xs text-gray-500">bombas reprovadas</p>
                     </div>
                 </div>
             </div>
@@ -120,13 +127,13 @@ function Stats({ filtros }: StatsProps) {
 
                 <div className="flex flex-1 flex-col items-center justify-center gap-2 p-4">
                     <p className="text-lg font-bold text-[#00b040]">
-                        Aprovadas: {resumo ? formatarPct(resumo.percentuais.aprovado) : '…'}
+                        Aprovadas: {geral ? formatarPct(geral.percentuais.aprovado) : '…'}
                     </p>
                     <p className="text-lg font-bold text-[#b00000]">
-                        Reprovadas: {resumo ? formatarPct(resumo.percentuais.reprovado) : '…'}
+                        Reprovadas: {geral ? formatarPct(geral.percentuais.reprovado) : '…'}
                     </p>
                     <p className="text-lg font-bold text-[#dcab00]">
-                        Interditadas: {resumo ? formatarPct(resumo.percentuais.interditado) : '…'}
+                        Interditadas: {geral ? formatarPct(geral.percentuais.interditado) : '…'}
                     </p>
                     <p className="text-center text-xs text-gray-500">sobre o total periciado</p>
                 </div>

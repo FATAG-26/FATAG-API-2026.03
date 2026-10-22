@@ -2,11 +2,13 @@ import type { ItemRanking } from '../api'
 
 type BarProps = {
   dados: ItemRanking[] // valor = % de bombas aprovadas no município (0–100)
+  alvo?: string
   carregando?: boolean
   erro?: string
 }
 
-function Bar({ dados, carregando = false, erro }: BarProps) {
+function Bar({ dados, alvo = 'Aprovado', carregando = false, erro }: BarProps) {
+  const rotulo = alvo.toLowerCase()
   return (
     <div className="painel pt-4 pb-4">
       <div className="border-t border-b border-white rounded painel-titulo bg-[#1E1E1E] text-white px-4 py-1 font-semibold">
@@ -15,7 +17,7 @@ function Bar({ dados, carregando = false, erro }: BarProps) {
 
       <div className={`painel-conteudo bg-white p-4 transition-opacity ${carregando && dados.length > 0 ? 'opacity-50' : ''}`}>
         <p className="mb-3 text-left text-xs text-gray-500">
-          % de bombas aprovadas por município (mínimo de 20 bombas)
+          % de bombas com resultado "{rotulo}" por município (mínimo de 20 bombas)
         </p>
 
         {erro && <p className="mb-2 text-sm text-[#900603]">Não foi possível carregar o ranking: {erro}</p>}

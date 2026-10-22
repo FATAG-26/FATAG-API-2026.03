@@ -25,7 +25,7 @@ export function normalizarBusca(texto) {
   if (texto === null || texto === undefined) return "";
   return String(texto)
     .normalize("NFKD")
-    .replace(/[^\x00-\x7F]/g, "") // equivale a encode("ascii", "ignore")
+    .replace(/[^\x00-\x7F]/g, "") 
     .toUpperCase()
     .replace(/[^A-Z0-9 ]/g, " ")
     .replace(/\s+/g, " ")

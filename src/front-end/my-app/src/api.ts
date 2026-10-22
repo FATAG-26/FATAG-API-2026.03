@@ -77,9 +77,23 @@ export const buscarBombas = (f: Filtros, offset: number, signal?: AbortSignal) =
 export const buscarResumo = (f: Filtros, signal?: AbortSignal) =>
   pegar<Resumo>('resumo', montarQuery(f), signal)
 
-/** Ranking de % de aprovados por município (gerarGrafico(df, "Aprovado", "percentual")). */
+/** Ranking por município (gerarGrafico(df, resultado, "percentual")). */
 export const buscarRanking = (f: Filtros, signal?: AbortSignal) =>
-  pegar<Ranking>('ranking', montarQuery(f, { tipo: 'percentual', alvo: 'Aprovado', limite: 5 }), signal)
+  pegar<Ranking>(
+    'ranking',
+    montarQuery(f, { tipo: 'percentual', alvo: f.resultado.trim() || 'Aprovado', limite: 5 }),
+    signal,
+  )
+
+export type Percentuais = Resumo['percentuais']
+
+/** Percentuais gerais (aprovado/reprovado/interditado), ignorando o filtro de resultado, para não confundir */
+export const buscarPercentuais = (f: Filtros, signal?: AbortSignal) =>
+  pegar<Percentuais>(
+    'percentuais/aprovado-reprovado',
+    montarQuery({ ...f, resultado: '' }),
+    signal,
+  )
 
 export const listarMunicipios = (signal?: AbortSignal) => pegar<string[]>('municipios', '', signal)
 

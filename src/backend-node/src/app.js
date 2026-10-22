@@ -116,9 +116,10 @@ export function criarApp(df) {
     const base = aplicarFiltrosQuery(df, { ...req.query, resultado: undefined });
     const tipo = req.query.tipo ?? "percentual";
     if (tipo !== "percentual" && tipo !== "absoluto") {
-      throw new FiltroInvalidoError("Parâmetro 'tipo' deve ser 'percentual' ou 'absoluto'.");
+        throw new FiltroInvalidoError("Parâmetro 'tipo' deve ser 'percentual' ou 'absoluto'.");
     }
-    const alvo = typeof req.query.alvo === "string" && req.query.alvo ? req.query.alvo : "Aprovado";
+    const texto = (v) => (typeof v === "string" && v.trim() ? v.trim() : undefined);
+    const alvo = texto(req.query.alvo) ?? texto(req.query.resultado) ?? "Aprovado";
     const limite = inteiro(req.query.limite, 5, "limite");
     const itens =
       tipo === "percentual"
