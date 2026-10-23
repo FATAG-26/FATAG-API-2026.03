@@ -6,7 +6,9 @@ import Stats from './components/stats'
 import MapaVale from './components/mapaVale'
 import { buscarRanking } from './api'
 import { useDados, useFiltros } from './hooks'
+import { useRef } from 'react'
 import Comparison from './components/comparison'
+import PDFCreator from './components/pdfCreator'
 
 function App() {
   // Um único conjunto de filtros alimenta a tabela, os gráficos e o ranking.
@@ -18,8 +20,11 @@ function App() {
     `ranking:${JSON.stringify(aplicados)}`,
   )
 
+  const pdfRef = useRef<HTMLDivElement>(null)
+
   return (
-    <div className="min-h-screen bg-[#ADB9CA]">
+    <>
+    <div ref={pdfRef} className="min-h-screen bg-[#ADB9CA]">
       <Header />
       <Table entrada={entrada} filtros={aplicados} alterar={alterar} limpar={limpar} />
       <Stats filtros={aplicados} />
@@ -30,6 +35,8 @@ function App() {
         <MapaVale />
       </div>
     </div>
+    <PDFCreator pdfRef={pdfRef}/>
+    </>
   )
 }
 
