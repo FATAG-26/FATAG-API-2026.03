@@ -18,7 +18,6 @@ function App() {
     `ranking:${JSON.stringify(aplicados)}`,
   )
 
-
   return (
     <div className="min-h-screen bg-[#ADB9CA]">
       <Header />
