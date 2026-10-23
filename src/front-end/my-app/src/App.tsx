@@ -6,6 +6,7 @@ import Stats from './components/stats'
 import MapaVale from './components/mapaVale'
 import { buscarRanking } from './api'
 import { useDados, useFiltros } from './hooks'
+import Comparison from './components/comparison'
 
 function App() {
   // Um único conjunto de filtros alimenta a tabela, os gráficos e o ranking.
@@ -23,10 +24,12 @@ function App() {
       <Header />
       <Table entrada={entrada} filtros={aplicados} alterar={alterar} limpar={limpar} />
       <Stats filtros={aplicados} />
-      <Bar dados={ranking.dados?.itens ?? []} alvo={ranking.dados?.alvo} carregando={ranking.carregando} erro={ranking.erro} />      <div style={{ minHeight: 500, padding: 20, background: "#fff" }}>
-          <h2>Mapa do Vale do Paraíba</h2>
-          <MapaVale />
-        </div>
+      <Bar dados={ranking.dados?.itens ?? []} alvo={ranking.dados?.alvo} carregando={ranking.carregando} erro={ranking.erro} />
+      <Comparison />
+      <div style={{ minHeight: 500, padding: 10, margin: 18, background: "#fff" }}>
+        <h2>Mapa do Vale do Paraíba</h2>
+        <MapaVale />
+      </div>
     </div>
   )
 }
