@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Desafio](#-desafio) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [DoR/DoD](#-dor--dod) • [Equipe](#-equipe)
+[Desafio](#-desafio) • [Requisitos](docs/requisitos.md) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [DoR/DoD](#-dor--dod) • [Equipe](#-equipe) • [Como_Instalar](docs/instalação.md) • [Cronograma de Evolução](docs/cronograma.png) • [Pastas_do_Projeto](docs/Pastas_do_projeto.png)
 
 </div>
 
@@ -31,8 +31,20 @@ Nesse contexto, o desafio é transformar essa base dispersa em informação clar
 Todo o processo da Sprint 1 foi desenvolvido no Google Colab, permitindo uma análise mais prática e detalhada do tratamento dos dados.
 
 O notebook utilizado durante o desenvolvimento está disponível neste repositório em [notebook](notebook/testApi_py.ipynb).
+Acesso para versão web [Google_Colab](https://colab.research.google.com/drive/1hZg6B7dlyYgenRo9yUHyZRV7iHlA0LvL?usp=sharing)
 
 A documentação do notebook está disponível em [documentação](notebook/DOCUMENTACAO_testApi_py.md).
+
+---
+
+## 🌳Estratégia de Branches
+
+### Branch Principal:
+- `main`: Branch de produção com código estável e funcional;
+
+### Branch de Desenvolvimento:
+- `feat/docker`: Implementação do docker no projeto;
+- `front-end`: Desenvolvimento do visual do site.
 
 ---
 
@@ -40,20 +52,58 @@ A documentação do notebook está disponível em [documentação](notebook/DOCU
 
 | Sprint | Período | Meta | Documentação | Vídeo |
 | :----- | :------ | :--- | :----------- | :---- |
-| 🏃 **Sprint 1** | 07/09 – 27/09 | Consolidar os dados de fiscalização das bombas medidoras e disponibilizar os indicadores básicos de conformidade | [Docs](docs/sprints/sprint-1.md) | [Assistir](#) |
-| 🏃 **Sprint 2** | 05/10 – 02/10 | Meta da sprint | [Docs](docs/sprints/sprint-2/backlog.md) | [Assistir](#) |
-| 🏃 **Sprint 3** | 02/11 – 25/11 | Meta da sprint | [Docs](docs/sprints/sprint-3/backlog.md) | [Assistir](#) |
+| 🏃 **Sprint 1** | 07/09 – 27/09 | Consolidar os dados de fiscalização das bombas medidoras e disponibilizar os indicadores básicos de conformidade | [Docs](docs/sprints/sprint-1.md) | [Assistir](https://youtu.be/t0FCfCGjA-U) |
+| 🏃 **Sprint 2** | 05/10 – 05/25 | Meta da sprint | [Docs](docs/sprints/sprint-2/backlog.md) | [Assistir](#) |
+| 🏃 **Sprint 3** | 02/11 – 22/11 | Meta da sprint | [Docs](docs/sprints/sprint-3/backlog.md) | [Assistir](#) |
 
 ---
 
 ## 🚦 DoR & DoD
 
-Critérios que o time usa para decidir quando uma User Story pode entrar em uma Sprint e quando ela está de fato concluída.
+### 🏃‍ DoR - Definition of Ready
 
-| Critério | Documentação |
-| :------- | :----------- |
-| 🚦 Definition of Ready | [Docs](docs/dor.md) |
-| ✅ Definition of Done | [Docs](docs/dod.md) |
+* User Stories com **Critérios de Aceitação**
+* Subtarefas divididas **a partir das US**
+* Fontes de dados **identificadas** (Portal de Dados Abertos do IPEM-SP e PSIE do Inmetro)
+* Dicionário de dados com as **colunas relevantes** mapeadas
+* Protótipo das telas no **Figma**
+* User Stories **estimadas** e **priorizadas** no Backlog
+
+### 🏆 DoD - Definition of Done
+
+* Critérios de Aceitação **atendidos**
+* Pipeline de tratamento dos dados **completo** (limpeza e padronização)
+* Indicadores **validados** com a base de dados
+* Código completo e **versionado** no GitHub
+* Documentação do **Notebook** atualizada
+* Manual de Usuário
+* Vídeos de cada etapa de entrega
+
+---
+
+## 🧰 Tecnologias e ferramentas
+
+<div align="left">
+
+**Front-end**  
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Tailwind_CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+
+**Back-end e dados**  
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+
+**Infraestrutura e colaboração**  
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+![Jira](https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=jira&logoColor=white)
+
+</div>
 
 ---
 

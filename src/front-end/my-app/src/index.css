@@ -31,16 +31,19 @@
 }
 
 #root {
-  width: 1126px;
+  width: 100%;
   max-width: 100%;
-  margin: 0 auto;
+  margin: 0;
   text-align: center;
-  border-inline: 1px solid var(--border);
+  min-height: 100vh;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 }
+/* width 100% para ele usar o maximo de espaço que tiver disponível
+margin 0 para não ter margem e não tem mais border-inline para não
+ter aquela borda cinza nas telas maiores*/
 
 body {
   margin: 0;

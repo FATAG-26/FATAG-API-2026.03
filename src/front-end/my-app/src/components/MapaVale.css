@@ -1,0 +1,25 @@
+.mapa-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.municipio {
+  cursor: pointer;
+  transition: fill 150ms ease, stroke 150ms ease;
+}
+
+.municipio:hover {
+  fill: #60a5fa;
+}
+
+.municipio-selecionado {
+  fill: #2563eb;
+}
+
+.municipio-detalhes {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
