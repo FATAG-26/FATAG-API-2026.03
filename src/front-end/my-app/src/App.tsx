@@ -4,7 +4,7 @@ import Bar from './components/bar'
 import Table from './components/table'
 import Stats from './components/stats'
 import MapaVale from './components/mapaVale'
-import { buscarRanking } from './api'
+import { buscarRanking, puxarLineChart } from './api'
 import { useDados, useFiltros } from './hooks'
 import { useRef } from 'react'
 import Comparison from './components/comparison'
@@ -20,6 +20,10 @@ function App() {
     `ranking:${JSON.stringify(aplicados)}`,
   )
 
+  const compara = useDados(
+    (sinal) => puxarLineChart(aplicados,sinal),`bombas/por-ano:${JSON.stringify(aplicados)}`
+  )
+
   const pdfRef = useRef<HTMLDivElement>(null)
 
   return (
@@ -29,7 +33,7 @@ function App() {
       <Table entrada={entrada} filtros={aplicados} alterar={alterar} limpar={limpar} />
       <Stats filtros={aplicados} />
       <Bar dados={ranking.dados?.itens ?? []} alvo={ranking.dados?.alvo} carregando={ranking.carregando} erro={ranking.erro} />
-      <Comparison />
+      <Comparison dados={compara.dados} />
       <div style={{ minHeight: 500, padding: 10, margin: 18, background: "#fff" }}>
         <h2>Mapa do Vale do Paraíba</h2>
         <MapaVale />

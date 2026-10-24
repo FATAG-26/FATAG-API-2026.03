@@ -101,3 +101,7 @@ export const listarBairros = (municipio: string, signal?: AbortSignal) =>
   municipio.trim()
     ? pegar<string[]>('bairros', new URLSearchParams({ municipio }).toString(), signal)
     : Promise.resolve([] as string[])
+
+
+export type InfoLine = { ano: number; aprovados: number, reprovados: number, interditados: number}
+export const puxarLineChart = (f: Filtros, signal?: AbortSignal) => pegar<InfoLine[]>("bombas/por-ano","",signal)

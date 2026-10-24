@@ -1,25 +1,29 @@
-
 import { Chart } from "react-google-charts";
-function Comparison() {
-    const data = [
-        ["ano", "APROVADO", "REPROVADO"],
-        ["2018", 11, 123],
-        ["2019", 22, 121],
-        ["2020", 333, 625],
-        ["2021", 444, 51],
-        ["2022", 454, 43],
-        ["2023", 22, 62],
-        ["2024", 324, 131],
-        ["2025", 264, 44],
-        ["2026", 622, 134]
+import type { InfoLine } from "../api";
+
+type Props = {dados?: InfoLine[]}//aqui tá a extrutura de dados aceitas, só olhar o InfoLine em api.ts
+
+const cabecario = ["Ano", "Aprovados", "Reprovados", "Interditados"]
+
+/* configurações do google charts: aqui contem o titulo, se ele vai possuir alguma curva nas linhas ou não (se sim só colocar function no curveType)  */
+const options = {
+    title: "Comparação entre 2018 - 2026",
+    curveType: "none",
+    legend: "button",
+    hAxis: {
+        format: "####"//isso aqui tá formatando o ano no eixo x
+    },
+}
+
+function Comparison({dados = []}:Props) {
+    const data =[
+        cabecario,...dados.map((item) => [
+        item.ano,
+        item.aprovados,
+        item.reprovados,
+        item.interditados
+    ])
     ]
-
-    const options = {
-        title: "Comparação entre 2018 - 2026",
-        curveType: "function",
-        legend: "button"
-    }
-
 
     return (
         <>
