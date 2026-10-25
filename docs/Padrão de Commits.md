@@ -1,12 +1,12 @@
 Os commits do projeto seguiram a seguinte estrutura:
 ```
-<tipo>: <descrição>
+<tipo> <id Jira>: <descrição>
 ```
 #### Exemplo
 ```
-feat: adição do codigo base do projeto 
+feat SCRUM-01: adição do codigo base do projeto 
 ```
-Sendo usado no projeto mais especificamente: `feat`,  `fix`, `docs`, `test`, `build`, `perf`, `style`, `chore`, `raw`, `cleanup`, `remove`;
+Sendo usado no projeto mais especificamente: `feat`,  `fix`, `docs`, `test`, `build`, `perf`, `style`, `chore`, `raw`, `cleanup`, `remove`, `merge`;
 ### Explicando Cada Tipo
 - feat: Inclusão de novos recursos;
 - fix: Solução de problemas no códigos (envolvendo semântica);
@@ -18,4 +18,5 @@ Sendo usado no projeto mais especificamente: `feat`,  `fix`, `docs`, `test`, `bu
 - chore: Pequenas mudanças, não relacionadas ao código, como alterar o gitignore;
 - raw: Mudanças em arquivos de configuração, dados, features, parâmetros;
 - cleanup: Remoção de comentários para limpeza do código;
-- remove: Remoção de arquivos, funções entre outra coisas no projeto, afim de deixa-lo mais limpo, mantendo o essencial apenas.
+- remove: Remoção de arquivos, funções entre outra coisas no projeto, afim de deixa-lo mais limpo, mantendo o essencial apenas;
+- merge: Junção de duas branches  (exemplo: merge: main + docs).

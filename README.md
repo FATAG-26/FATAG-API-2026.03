@@ -44,7 +44,12 @@ A documentação do notebook está disponível em [documentação](notebook/DOCU
 
 ### Branch de Desenvolvimento:
 - `feat/docker`: Implementação do docker no projeto;
-- `front-end`: Desenvolvimento do visual do site.
+- `front-end`: Desenvolvimento do visual do site;
+- `feat/filtros`: Algumas funções relacionadas a filtros;
+- `develop`:  Desenvolvimento de uma API para puxar os dados;
+
+### Branch de Documentação:
+  - `document`: Atualização da documentação.
 
 ---
 
