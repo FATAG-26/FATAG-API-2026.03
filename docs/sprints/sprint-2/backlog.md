@@ -6,9 +6,9 @@
 
 | Rank | Prioridade | User Story | Story Points | Sprint | Requisito do Cliente | Status |
 | :--: | :--------: | ---------- | :----------: | :----: | :------------------: | :----: |
-| 5 | Alta | Como usuário, quero consultar os dados das bombas por município e região, para avaliar o controle de qualidade dos combustíveis em minha região. | 13 | 2 | R02 | 🚧 |
-| 6 | Médio | Como usuário, quero visualizar um ranking de municípios e regiões, para comparar rapidamente os resultados das fiscalizações. | 13 | 2 | R04 | 🚧 |
-| 7 | Médio | Como usuário, quero ter um comparativo de evolução entre os anos, para assim avaliar a evolução ou regressão no número de aprovados. | 13 | 2 | — | 🚧 |
+| 5 | Alta | Como usuário, quero consultar os dados das bombas por município e região, para avaliar o controle de qualidade dos combustíveis em minha região. | 13 | 2 | R02 | ✅ |
+| 6 | Médio | Como usuário, quero visualizar um ranking de municípios e regiões, para comparar rapidamente os resultados das fiscalizações. | 13 | 2 | R04 | ✅ |
+| 7 | Médio | Como usuário, quero ter um comparativo de evolução entre os anos, para assim avaliar a evolução ou regressão no número de aprovados. | 13 | 2 | — | ✅ |
 
 ## 🧩 Subtarefas
 
@@ -23,10 +23,10 @@
 | Aceitar datas nos formatos `dd/mm/aaaa` e `aaaa-mm-dd` no filtro por data | ✅ |
 | Testes automatizados das funções de filtro e dos indicadores | ✅ |
 | Atualizar o Docker Compose para usar o backend em Node | ✅ |
-| Carregar no backend a base tratada completa (2018–2025), em vez de apenas o CSV de 2018 | ❌ |
-| Incluir a regional (`REGIONAL`) nos dados e adicionar filtro por região | ❌ |
-| Rota com a taxa de conformidade por município e por região | ❌ |
-| Fazer a tabela do front-end consumir a API, em vez de dados fixos | ❌ |
+| Carregar no backend a base tratada completa (2018–2025), em vez de apenas o CSV de 2018 | ✅ |
+| Incluir a regional (`REGIONAL`) nos dados e adicionar filtro por região | ✅ |
+| Rota com a taxa de conformidade por município e por região | ✅ |
+| Fazer a tabela do front-end consumir a API, em vez de dados fixos | ✅ |
 
 ### US 6 – Ranking de municípios e regiões (R04)
 
@@ -35,9 +35,9 @@
 | Rota `/api/municipios/contagem` com a contagem de um resultado por município | ✅ |
 | Gráfico de barras com o ranking de municípios no front-end (ainda com dados fixos) | ✅ |
 | Layout responsivo das telas | ✅ |
-| Ranking ordenado (por quantidade e por taxa de aprovação) direto na API | ❌ |
-| Ranking por região | ❌ |
-| Fazer o gráfico de ranking consumir a API | ❌ |
+| Ranking ordenado (por quantidade e por taxa de aprovação) direto na API | ✅ |
+| Ranking por região | ✅ |
+| Fazer o gráfico de ranking consumir a API | ✅ |
 
 ### US 7 – Comparativo de evolução entre os anos
 
@@ -45,9 +45,9 @@
 | --------- | :----: |
 | Adicionar os dados de 2019 a 2025 à base do projeto | ✅ |
 | Tratar no notebook os dados de todos os anos, com a coluna `ANO` na base tratada | ✅ |
-| Rota com a quantidade e o percentual de aprovados, reprovados e interditados por ano | ❌ |
-| Gráfico de evolução ano a ano no front-end | ❌ |
-| Validar os totais por ano com a base de origem | ❌ |
+| Rota com a quantidade e o percentual de aprovados, reprovados e interditados por ano | ✅ |
+| Gráfico de evolução ano a ano no front-end | ✅ |
+| Validar os totais por ano com a base de origem | ✅ |
 
 ## 🏅 DoR - Definition of Ready
 
