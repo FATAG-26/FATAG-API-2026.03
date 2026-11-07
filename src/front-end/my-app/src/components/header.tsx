@@ -1,7 +1,10 @@
 
+import type { ReactNode } from 'react'
 import logo from '../assets/CDIPEM_logo.png';
 
-function Header() {
+type HeaderProps = { acao?: ReactNode }
+
+function Header({ acao }: HeaderProps) {
   return (
 
  <header className="flex w-full min-w-0 flex-wrap items-center justify-between gap-2 border-b border-white bg-[#00275a] px-3 py-2 text-white sm:px-6">
@@ -10,6 +13,7 @@ function Header() {
         Consulta de bombas - Dashboard
       </h1>
 
+      {acao}
       <img
         src={logo}
         alt="Logótipo"
