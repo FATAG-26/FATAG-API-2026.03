@@ -38,7 +38,7 @@ export function useDados<T>(carregar: (signal: AbortSignal) => Promise<T>, chave
   useEffect(() => {
     const controle = new AbortController()
     executar(controle.signal)
-      .then((dados) => setEstado({ chave, dados }))
+      .then((dados) => { if (!controle.signal.aborted) {setEstado({ chave, dados })}})
       .catch((e: unknown) => {
         if (controle.signal.aborted) return
         setEstado((anterior) => ({

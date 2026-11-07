@@ -23,7 +23,7 @@ function Stats({ filtros }: StatsProps) {
         `resumo:${JSON.stringify(filtros)}`,
     )
     const filtrosGerais = { ...filtros, resultado: '' }
-    const { dados: geral, carregando: carregandoGeral } = useDados(
+    const { dados: geral } = useDados(
         (signal) => buscarResumo(filtrosGerais, signal),
         `resumo-geral:${JSON.stringify(filtrosGerais)}`,
     )

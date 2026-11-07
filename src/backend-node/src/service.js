@@ -6,7 +6,7 @@ import { readFileSync } from "node:fs";
 // DATA_FILE (usado no docker-compose) aponta para o JSON tratado gerado pelo notebook.
 // Também aceita os caminhos usados por configurações anteriores.
 export const DATA_PATH = fileURLToPath(new URL("../../data/verificacoes_bombas_tratado.json", import.meta.url));
-export const JSON_PATH = DATA_PATH;
+
 
 export class FiltroInvalidoError extends Error {
   constructor(mensagem) {
@@ -104,7 +104,7 @@ export function aproRepr(dados, resultado) {
 }
 
 /** Contagem de um resultado específico agrupada por município (ordenada pelo nome). */
-export function contarAprRep(dados, resultado) {
+/** export function contarAprRep(dados, resultado) {
   const contagem = {};
   for (const linha of aproRepr(dados, resultado)) {
     if (linha.MUNICIPIO == null) continue; // groupby ignora NaN
@@ -113,7 +113,7 @@ export function contarAprRep(dados, resultado) {
   return Object.fromEntries(
     Object.entries(contagem).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)),
   );
-}
+} */
 
 /**
  * filtrarPorTexto do notebook: nome completo exato -> só ele;
@@ -151,7 +151,7 @@ export function percentualAprovadoReprovado(dados) {
  * "Sem Verif."), arredondado em 2 casas e ordenado do maior para o menor,
  * como o value_counts() do Pandas.
  */
-export function percentualPorResultado(dados) {
+/** export function percentualPorResultado(dados) {
   const total = dados.length;
   const contagem = {};
   for (const { RESULTADO } of dados) {
@@ -163,7 +163,7 @@ export function percentualPorResultado(dados) {
       .sort(([, a], [, b]) => b - a)
       .map(([chave, qtd]) => [chave, arredondar((qtd / total) * 100)]),
   );
-}
+} */
 
 export const arredondar = (valor, casas = 2) => {
   const fator = 10 ** casas;
@@ -186,8 +186,8 @@ export function filtrarPorData(dados, dataInicio, dataFinal, modo) {
   if (!(dataInicio || dataFinal)) throw new FiltroInvalidoError("Insira pelo menos uma data.");
   if (!modo) throw new FiltroInvalidoError("Coloque o modo ('S' = singular / 'I' = intervalo)");
 
-  const inicio = dataInicio
-  const final = dataFinal
+  const inicio = parseData(dataInicio);
+  const final = parseData(dataFinal);
   if ((dataInicio && !inicio) || (dataFinal && !final)) {
     throw new FiltroInvalidoError("Data inválida. Use dd/mm/aaaa ou aaaa-mm-dd.");
   }
@@ -228,11 +228,11 @@ const contarPorMunicipio = (dados) => {
  * contarAprRep do notebook: quantidade por município, do maior para o menor.
  * `resultado` vazio = todos os resultados. `limite` (0/undefined = todos) equivale ao .head().
  */
-export function rankingContagem(dados, resultado, limite) {
+ export function rankingContagem(dados, resultado, limite) {
   const base = resultado ? aproRepr(dados, resultado) : dados;
   const itens = ordenarRanking([...contarPorMunicipio(base)].map(([municipio, valor]) => ({ municipio, valor })));
   return limite ? itens.slice(0, limite) : itens;
-}
+} 
 
 /**
  * percentualAprRep do notebook: % de `resultado` por município, ignorando os que
