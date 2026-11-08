@@ -12,7 +12,7 @@ const options = {
     legend: "button",
     hAxis: {
         format: "####"//isso aqui tá formatando o ano no eixo x
-    },
+    }
 }
 
 function Comparison({dados = []}:Props) {
