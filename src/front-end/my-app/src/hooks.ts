@@ -1,5 +1,5 @@
 import { useEffect, useEffectEvent, useState } from 'react'
-import { FILTROS_VAZIOS, type Filtros } from './api'
+import { FILTROS_VAZIOS, type CampoFiltroTexto, type Filtros } from './api'
 
 /**
  * Estado único dos filtros, compartilhado por tabela, gráficos e ranking.
@@ -15,15 +15,20 @@ export function useFiltros(atrasoMs = 400) {
     return () => clearTimeout(t)
   }, [entrada, atrasoMs])
 
-  const alterar = (campo: keyof Filtros, valor: string) =>
-    setEntrada((atual) => ({ ...atual, [campo]: valor }))
+  const alterar = (campo: CampoFiltroTexto, valor: string) =>
+    setEntrada((atual) => campo === 'municipio'
+      ? { ...atual, municipio: valor, municipios: [] }
+      : { ...atual, [campo]: valor })
+
+  const alterarMunicipios = (municipios: string[]) =>
+    setEntrada((atual) => ({ ...atual, municipio: '', municipios }))
 
   const limpar = () => {
     setEntrada(FILTROS_VAZIOS)
     setAplicados(FILTROS_VAZIOS)
   }
 
-  return { entrada, aplicados, alterar, limpar }
+  return { entrada, aplicados, alterar, alterarMunicipios, limpar }
 }
 
 /**

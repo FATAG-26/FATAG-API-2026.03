@@ -3,6 +3,7 @@
 
 export type Filtros = {
   municipio: string
+  municipios: string[]
   bairro: string
   proprietario: string
   resultado: string
@@ -10,8 +11,11 @@ export type Filtros = {
   dataFim: string
 }
 
+export type CampoFiltroTexto = Exclude<keyof Filtros, 'municipios'>
+
 export const FILTROS_VAZIOS: Filtros = {
   municipio: '',
+  municipios: [],
   bairro: '',
   proprietario: '',
   resultado: '',
@@ -45,11 +49,12 @@ export type Ranking = { tipo: 'percentual' | 'absoluto'; alvo: string; itens: It
 function montarQuery(f: Filtros, extra: Record<string, string | number> = {}) {
   const p = new URLSearchParams()
   const texto: [string, string][] = [
-    ['municipio', f.municipio],
     ['bairro', f.bairro],
     ['proprietario', f.proprietario],
     ['resultado', f.resultado],
   ]
+  const municipios = f.municipios.length ? f.municipios : f.municipio.trim() ? [f.municipio.trim()] : []
+  for (const municipio of municipios) p.append('municipio', municipio)
   for (const [nome, valor] of texto) if (valor.trim()) p.set(nome, valor.trim())
   if (f.dataInicio || f.dataFim) {
     if (f.dataInicio) p.set('data_inicio', f.dataInicio)

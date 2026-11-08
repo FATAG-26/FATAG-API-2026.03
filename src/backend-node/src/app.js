@@ -13,8 +13,17 @@ function aplicarFiltrosQuery(base, query) {
   let resultado = base;
   const texto = (nome) => (typeof query[nome] === "string" ? query[nome].trim() || undefined : undefined);
 
-  const municipio = texto("municipio");
-  if (municipio) resultado = service.filtrarPorMunicipio(resultado, municipio);
+  const valoresMunicipio = Array.isArray(query.municipio) ? query.municipio : [query.municipio];
+  const municipios = valoresMunicipio
+    .filter((valor) => typeof valor === "string")
+    .map((valor) => valor.trim())
+    .filter(Boolean);
+  if (municipios.length) {
+    const correspondencias = new Set(
+      municipios.flatMap((municipio) => service.filtrarPorMunicipio(resultado, municipio)),
+    );
+    resultado = resultado.filter((linha) => correspondencias.has(linha));
+  }
 
   const bairro = texto("bairro");
   if (bairro) resultado = service.filtrarPorBairro(resultado, bairro);

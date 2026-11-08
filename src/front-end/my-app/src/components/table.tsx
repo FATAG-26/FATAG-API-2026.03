@@ -1,11 +1,11 @@
 import { useRef, useState, type UIEvent } from 'react'
-import { buscarBombas, listarBairros, listarMunicipios, type Bomba, type Filtros } from '../api'
+import { buscarBombas, listarBairros, listarMunicipios, type Bomba, type CampoFiltroTexto, type Filtros } from '../api'
 import { useDados } from '../hooks'
 
 type TableProps = {
     entrada: Filtros // o que está digitado agora
     filtros: Filtros // o que já foi aplicado (depois da pausa na digitação)
-    alterar: (campo: keyof Filtros, valor: string) => void
+    alterar: (campo: CampoFiltroTexto, valor: string) => void
     limpar: () => void
 }
 
