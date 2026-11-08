@@ -25,8 +25,8 @@ function aplicarFiltrosQuery(base, query) {
   const filtroResultado = texto("resultado");
   if (filtroResultado) resultado = service.aproRepr(resultado, filtroResultado);
 
-  const dataInicio = parseData("data_inicio");
-  const dataFim = parseData("data_fim");
+  const dataInicio = service.parseData(texto("data_inicio"));
+  const dataFim = service.parseData(texto("data_fim"));
   if (dataInicio || dataFim) {
     resultado = service.filtrarPorData(resultado, dataInicio, dataFim, texto("modo"));
   }
