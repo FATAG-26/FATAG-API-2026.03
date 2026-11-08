@@ -25,8 +25,8 @@ function aplicarFiltrosQuery(base, query) {
   const filtroResultado = texto("resultado");
   if (filtroResultado) resultado = service.aproRepr(resultado, filtroResultado);
 
-  const dataInicio = parseData("data_inicio");
-  const dataFim = parseData("data_fim");
+  const dataInicio = texto("data_inicio");
+  const dataFim = texto("data_fim");
   if (dataInicio || dataFim) {
     resultado = service.filtrarPorData(resultado, dataInicio, dataFim, texto("modo"));
   }
@@ -63,7 +63,11 @@ export function criarApp(df) {
     const offset = inteiro(req.query.offset, 0, "offset");
     console.log({ limit, offset });
     const pagina = tabela.slice(offset, offset + limit);
-    const itens = pagina;
+    const itens = pagina.map((l) => ({
+    ...l,
+    DATA_VERIFICACAO: service.formatarData(l.DATA_VERIFICACAO),
+}));
+res.json({ total: tabela.length, itens });
     res.json({total: tabela.length,itens});
   });
 

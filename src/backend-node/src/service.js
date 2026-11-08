@@ -182,12 +182,22 @@ export const arredondar = (valor, casas = 2) => {
  * Retorna as linhas filtradas (pode ser vazio). Lança FiltroInvalidoError
  * quando os parâmetros são inválidos.
  */
+
+/** Formata a data para o formato dd-mm-aaaa: */
+export function formatarData(data) {
+  if (!data) return null;
+  const dd = String(data.getUTCDate()).padStart(2, "0");
+  const mm = String(data.getUTCMonth() + 1).padStart(2, "0");
+  const aaaa = data.getUTCFullYear();
+  return `${dd}-${mm}-${aaaa}`;
+}
+
 export function filtrarPorData(dados, dataInicio, dataFinal, modo) {
   if (!(dataInicio || dataFinal)) throw new FiltroInvalidoError("Insira pelo menos uma data.");
   if (!modo) throw new FiltroInvalidoError("Coloque o modo ('S' = singular / 'I' = intervalo)");
 
-  const inicio = parseData(dataInicio);
-  const final = parseData(dataFinal);
+  const inicio = dataInicio ? new Date(`${dataInicio}T00:00:00`) : null;
+  const final = dataFinal ? new Date(`${dataFinal}T23:59:59.999`) : null;
   if ((dataInicio && !inicio) || (dataFinal && !final)) {
     throw new FiltroInvalidoError("Data inválida. Use dd/mm/aaaa ou aaaa-mm-dd.");
   }

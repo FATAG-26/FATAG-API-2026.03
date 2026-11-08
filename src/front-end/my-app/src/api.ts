@@ -6,7 +6,7 @@ export type Filtros = {
   bairro: string
   proprietario: string
   resultado: string
-  dataInicio: string // aaaa-mm-dd (vem do <input type="date">)
+  dataInicio: string // dd-mm-aaaa (formatado no backend)
   dataFim: string
 }
 
