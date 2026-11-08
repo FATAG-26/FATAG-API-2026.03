@@ -103,17 +103,6 @@ export function aproRepr(dados, resultado) {
   return dados.filter((l) => l.RESULTADO === resultado);
 }
 
-/** Contagem de um resultado específico agrupada por município (ordenada pelo nome). */
-/** export function contarAprRep(dados, resultado) {
-  const contagem = {};
-  for (const linha of aproRepr(dados, resultado)) {
-    if (linha.MUNICIPIO == null) continue; // groupby ignora NaN
-    contagem[linha.MUNICIPIO] = (contagem[linha.MUNICIPIO] ?? 0) + 1;
-  }
-  return Object.fromEntries(
-    Object.entries(contagem).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)),
-  );
-} */
 
 /**
  * filtrarPorTexto do notebook: nome completo exato -> só ele;
@@ -146,24 +135,6 @@ export function percentualAprovadoReprovado(dados) {
   };
 }
 
-/**
- * Percentual de TODAS as categorias de resultado (inclui "Excluído" e
- * "Sem Verif."), arredondado em 2 casas e ordenado do maior para o menor,
- * como o value_counts() do Pandas.
- */
-/** export function percentualPorResultado(dados) {
-  const total = dados.length;
-  const contagem = {};
-  for (const { RESULTADO } of dados) {
-    if (RESULTADO == null) continue; // value_counts ignora NaN
-    contagem[RESULTADO] = (contagem[RESULTADO] ?? 0) + 1;
-  }
-  return Object.fromEntries(
-    Object.entries(contagem)
-      .sort(([, a], [, b]) => b - a)
-      .map(([chave, qtd]) => [chave, arredondar((qtd / total) * 100)]),
-  );
-} */
 
 export const arredondar = (valor, casas = 2) => {
   const fator = 10 ** casas;
@@ -182,15 +153,22 @@ export const arredondar = (valor, casas = 2) => {
  * Retorna as linhas filtradas (pode ser vazio). Lança FiltroInvalidoError
  * quando os parâmetros são inválidos.
  */
-export function filtrarPorData(dados, dataInicio, dataFinal, modo) {
-  if (!(dataInicio || dataFinal)) throw new FiltroInvalidoError("Insira pelo menos uma data.");
+
+/** Date (UTC) -> "dd-mm-aaaa". Retorna null se não houver data. */
+export function formatarData(data) {
+  if (!data) return null;
+  const dd = String(data.getUTCDate()).padStart(2, "0");
+  const mm = String(data.getUTCMonth() + 1).padStart(2, "0");
+  const aaaa = data.getUTCFullYear();
+  return `${dd}-${mm}-${aaaa}`;
+}
+
+export function filtrarPorData(dados, inicio, finalDia, modo) {
+  if (!(inicio || finalDia)) throw new FiltroInvalidoError("Insira pelo menos uma data.");
   if (!modo) throw new FiltroInvalidoError("Coloque o modo ('S' = singular / 'I' = intervalo)");
 
-  const inicio = parseData(dataInicio);
-  const final = parseData(dataFinal);
-  if ((dataInicio && !inicio) || (dataFinal && !final)) {
-    throw new FiltroInvalidoError("Data inválida. Use dd/mm/aaaa ou aaaa-mm-dd.");
-  }
+  
+  const final = finalDia ? new Date(finalDia.getTime() + 24 * 60 * 60 * 1000 - 1) : null;
 
   let comparar;
   switch (modo.toUpperCase()) {
