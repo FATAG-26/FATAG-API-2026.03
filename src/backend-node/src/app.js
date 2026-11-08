@@ -25,8 +25,15 @@ function aplicarFiltrosQuery(base, query) {
   const filtroResultado = texto("resultado");
   if (filtroResultado) resultado = service.aproRepr(resultado, filtroResultado);
 
-  const dataInicio = service.parseData(texto("data_inicio"));
-  const dataFim = service.parseData(texto("data_fim"));
+  const brutoInicio = texto("data_inicio");
+  const brutoFim = texto("data_fim");
+  const dataInicio = brutoInicio ? service.parseData(brutoInicio) : null;
+  const dataFim = brutoFim ? service.parseData(brutoFim) : null;
+
+  // parseData devolve null para data inválida;
+  if ((brutoInicio && !dataInicio) || (brutoFim && !dataFim)) {
+    throw new FiltroInvalidoError("Data inválida. Use dd/mm/aaaa ou aaaa-mm-dd.");
+  }
   if (dataInicio || dataFim) {
     resultado = service.filtrarPorData(resultado, dataInicio, dataFim, texto("modo"));
   }
@@ -55,21 +62,17 @@ export function criarApp(df) {
   });
 
   app.get("/api/bombas", (req, res) => {
-    console.log("Query recebida:", req.query);
-    console.log("Registros originais:", df.length);
-    const tabela = aplicarFiltrosQuery(df, req.query);
-    console.log("Após filtros:", tabela.length);
-    const limit = inteiro(req.query.limit, 100, "limit");
-    const offset = inteiro(req.query.offset, 0, "offset");
-    console.log({ limit, offset });
-    const pagina = tabela.slice(offset, offset + limit);
-    const itens = pagina.map((l) => ({
+  const tabela = aplicarFiltrosQuery(df, req.query);
+  const limit = inteiro(req.query.limit, 100, "limit");
+  const offset = inteiro(req.query.offset, 0, "offset");
+
+  const pagina = tabela.slice(offset, offset + limit);
+  const itens = pagina.map((l) => ({
     ...l,
     DATA_VERIFICACAO: service.formatarData(l.DATA_VERIFICACAO),
-}));
-res.json({ total: tabela.length, itens });
-    res.json({total: tabela.length,itens});
-  });
+  }));
+  res.json({ total: tabela.length, itens });
+});
 
   // Tudo abaixo aceita os mesmos filtros de /api/bombas (município, bairro,
   // proprietário, resultado, data_inicio, data_fim, modo). Sem filtros = dados gerais.

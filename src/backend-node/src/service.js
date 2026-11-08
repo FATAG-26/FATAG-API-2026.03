@@ -154,7 +154,7 @@ export const arredondar = (valor, casas = 2) => {
  * quando os parâmetros são inválidos.
  */
 
-/** Formata a data para o formato dd-mm-aaaa: */
+/** Date (UTC) -> "dd-mm-aaaa". Retorna null se não houver data. */
 export function formatarData(data) {
   if (!data) return null;
   const dd = String(data.getUTCDate()).padStart(2, "0");
@@ -163,15 +163,12 @@ export function formatarData(data) {
   return `${dd}-${mm}-${aaaa}`;
 }
 
-export function filtrarPorData(dados, dataInicio, dataFinal, modo) {
-  if (!(dataInicio || dataFinal)) throw new FiltroInvalidoError("Insira pelo menos uma data.");
+export function filtrarPorData(dados, inicio, finalDia, modo) {
+  if (!(inicio || finalDia)) throw new FiltroInvalidoError("Insira pelo menos uma data.");
   if (!modo) throw new FiltroInvalidoError("Coloque o modo ('S' = singular / 'I' = intervalo)");
 
-  const inicio = dataInicio ? new Date(`${dataInicio}T00:00:00`) : null;
-  const final = dataFinal ? new Date(`${dataFinal}T23:59:59.999`) : null;
-  if ((dataInicio && !inicio) || (dataFinal && !final)) {
-    throw new FiltroInvalidoError("Data inválida. Use dd/mm/aaaa ou aaaa-mm-dd.");
-  }
+  
+  const final = finalDia ? new Date(finalDia.getTime() + 24 * 60 * 60 * 1000 - 1) : null;
 
   let comparar;
   switch (modo.toUpperCase()) {
