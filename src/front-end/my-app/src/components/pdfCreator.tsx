@@ -3,16 +3,18 @@ import { useReactToPrint } from 'react-to-print'
 
 type PDFCreatorProps = {
   pdfRef: RefObject<HTMLDivElement | null>
+  disabled?: boolean
 }
 
-function PDFCreator({ pdfRef }: PDFCreatorProps) {
+function PDFCreator({ pdfRef, disabled = false }: PDFCreatorProps) {
   const handlePrint = useReactToPrint({
     contentRef: pdfRef,
+    documentTitle: 'Relatorio-de-verificacoes-de-bombas',
   })
 
   return (
-    <button onClick={handlePrint} className="m-2 rounded-lg bg-gray-600 px-5 py-2 font-semibold text-white shadow hover:bg-gray-800">
-      Imprimir Informações
+    <button type="button" onClick={handlePrint} disabled={disabled} className="rounded-lg bg-white px-4 py-2 font-semibold text-[#00275a] shadow hover:bg-blue-50 disabled:cursor-wait disabled:opacity-60">
+      {disabled ? 'Preparando relatório…' : 'Gerar Relatório'}
     </button>
   )
 }

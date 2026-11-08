@@ -1,0 +1,28 @@
+.pdfOnly { display: none; }
+
+@page { size: A4 portrait; margin: 14mm 12mm; }
+
+@media print {
+  html, body { background: #fff !important; color: #172033 !important; font: 10pt/1.4 Arial, sans-serif !important; }
+  .pdfOnly { display: block !important; padding: 0 !important; color: #172033 !important; background: #fff !important; }
+  .report-document { width: 100%; color: #172033; text-align: left; }
+  .report-heading { padding: 0 0 12px; border-bottom: 3px solid #1e3a5f; margin-bottom: 16px; }
+  .report-heading .report-kicker { color: #1e3a5f; font-size: 9pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  .report-heading h1 { margin: 3px 0 5px; color: #172033; font-size: 23pt; letter-spacing: -.4px; }
+  .report-heading p:last-child { color: #5b6575; font-size: 9pt; }
+  .report-document h2 { margin: 0 0 8px; color: #1e3a5f; font-size: 14pt; font-weight: 700; }
+  .report-filters { margin: 0 0 18px; padding: 11px 13px; border: 1px solid #cbd5e1; border-left: 4px solid #1e3a5f; border-radius: 4px; background: #f5f8fc; }
+  .report-filters ul { display: flex; flex-wrap: wrap; gap: 5px 18px; margin: 0; padding-left: 17px; }
+  .report-section { margin: 0 0 18px; break-inside: avoid; }
+  .report-section > .report-note { margin: -3px 0 8px; color: #596579; font-size: 8.5pt; }
+  .report-document .grid { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; margin: 0 0 12px !important; }
+  .report-document .grid > * { break-inside: avoid; }
+  .report-document .bg-white { background: #fff !important; }
+  .report-document .text-white { color: #fff !important; }
+  .report-document .rounded { border-radius: 4px !important; }
+  .report-document .painel { padding: 0 !important; break-inside: avoid; }
+  .report-document .painel-titulo { border: 0 !important; border-radius: 4px 4px 0 0 !important; }
+  .report-document .painel-conteudo { border: 1px solid #d7dee8; }
+  .report-document svg { max-width: 100%; }
+  .report-document * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
