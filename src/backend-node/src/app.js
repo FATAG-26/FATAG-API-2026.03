@@ -74,29 +74,6 @@ res.json({ total: tabela.length, itens });
   // Tudo abaixo aceita os mesmos filtros de /api/bombas (município, bairro,
   // proprietário, resultado, data_inicio, data_fim, modo). Sem filtros = dados gerais.
 
-  // app.get("/api/bombas/contagem", (req, res) => {
-  // const base = aplicarFiltrosQuery(df, req.query);
-  //  res.json({ quantidade: service.nPericiadas(base, req.query.resultado) });
-  //}); 
-
-  //app.get("/api/municipios/contagem", (req, res) => {
-  //  const base = aplicarFiltrosQuery(df, req.query);
-  //  const resultado = req.query.resultado ?? "Aprovado";
-  //  res.json(service.contarAprRep(base, resultado));
-  //});
-
-  //app.get("/api/percentuais/aprovado-reprovado", (req, res) => {
-  //  const pct = service.percentualAprovadoReprovado(aplicarFiltrosQuery(df, req.query));
-  //  res.json({
-  //    aprovado: service.arredondar(pct.aprovado),
-  //    reprovado: service.arredondar(pct.reprovado),
-  //    interditado: service.arredondar(pct.interditado),
-  //  });
-  //});
-
-  //app.get("/api/percentuais/por-resultado", (req, res) => {
-  //  res.json(service.percentualPorResultado(aplicarFiltrosQuery(df, req.query)));
-  //});
 
   // Cards e gráfico de pizza numa chamada só: { total, porResultado, percentuais }.
   app.get("/api/resumo", (req, res) => {

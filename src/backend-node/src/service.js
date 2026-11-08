@@ -103,17 +103,6 @@ export function aproRepr(dados, resultado) {
   return dados.filter((l) => l.RESULTADO === resultado);
 }
 
-/** Contagem de um resultado específico agrupada por município (ordenada pelo nome). */
-/** export function contarAprRep(dados, resultado) {
-  const contagem = {};
-  for (const linha of aproRepr(dados, resultado)) {
-    if (linha.MUNICIPIO == null) continue; // groupby ignora NaN
-    contagem[linha.MUNICIPIO] = (contagem[linha.MUNICIPIO] ?? 0) + 1;
-  }
-  return Object.fromEntries(
-    Object.entries(contagem).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)),
-  );
-} */
 
 /**
  * filtrarPorTexto do notebook: nome completo exato -> só ele;
@@ -146,24 +135,6 @@ export function percentualAprovadoReprovado(dados) {
   };
 }
 
-/**
- * Percentual de TODAS as categorias de resultado (inclui "Excluído" e
- * "Sem Verif."), arredondado em 2 casas e ordenado do maior para o menor,
- * como o value_counts() do Pandas.
- */
-/** export function percentualPorResultado(dados) {
-  const total = dados.length;
-  const contagem = {};
-  for (const { RESULTADO } of dados) {
-    if (RESULTADO == null) continue; // value_counts ignora NaN
-    contagem[RESULTADO] = (contagem[RESULTADO] ?? 0) + 1;
-  }
-  return Object.fromEntries(
-    Object.entries(contagem)
-      .sort(([, a], [, b]) => b - a)
-      .map(([chave, qtd]) => [chave, arredondar((qtd / total) * 100)]),
-  );
-} */
 
 export const arredondar = (valor, casas = 2) => {
   const fator = 10 ** casas;
