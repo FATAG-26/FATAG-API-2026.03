@@ -8,6 +8,7 @@ import MapaVale from './components/mapaVale'
 import { buscarRanking, puxarLineChart } from './api'
 import { useDados, useFiltros } from './hooks'
 import Comparison from './components/comparison'
+import Filtro from './components/filtro'
 
 function App() {
   const { entrada, aplicados, alterar, alterarMunicipios, limpar } = useFiltros()
@@ -30,7 +31,7 @@ function App() {
         rankingErro={ranking.erro}
       />
       <div className="container mx-auto xl:px-30 md:w-full sm:w-full">
-        <Table entrada={entrada} filtros={aplicados} alterar={alterar} limpar={limpar} />
+        <Table filtros={aplicados} />
         <Stats filtros={aplicados} />
         <Bar dados={ranking.dados?.itens ?? []} alvo={ranking.dados?.alvo} carregando={ranking.carregando} erro={ranking.erro} />
         <Comparison dados={compara.dados} />
@@ -42,6 +43,7 @@ function App() {
         </section>
       </div>
     </div>
+    <Filtro entrada={entrada} alterar={alterar} limpar={limpar} />
   </>
 }
 
