@@ -1,7 +1,7 @@
 import { Chart } from "react-google-charts";
 import type { InfoLine } from "../api";
 
-type Props = {dados?: InfoLine[]}//aqui tá a extrutura de dados aceitas, só olhar o InfoLine em api.ts
+type Props = { dados?: InfoLine[] }//aqui tá a extrutura de dados aceitas, só olhar o InfoLine em api.ts
 
 const cabecario = ["Ano", "Aprovados", "Reprovados", "Interditados"]
 
@@ -15,26 +15,29 @@ const options = {
     }
 }
 
-function Comparison({dados = []}:Props) {
-    const data =[
-        cabecario,...dados.map((item) => [
-        item.ano,
-        item.aprovados,
-        item.reprovados,
-        item.interditados
-    ])
+function Comparison({ dados = [] }: Props) {
+    const data = [
+        cabecario, ...dados.map((item) => [
+            item.ano,
+            item.aprovados,
+            item.reprovados,
+            item.interditados
+        ])
     ]
 
     return (
         <>
-            <Chart
-                chartType="LineChart"
-                width="100%"
-                height="100%"
-                data={data}
-                options={options}
-                legendToggle
-            />
+            <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white mt-5">
+                <div className="bg-[#094780] p-2 text-center font-bold text-white">Periciados</div>
+                <Chart
+                    chartType="LineChart"
+                    width="100%"
+                    height="100%"
+                    data={data}
+                    options={options}
+                    legendToggle
+                />
+            </div>
         </>
     )
 }

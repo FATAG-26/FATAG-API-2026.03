@@ -83,8 +83,8 @@ export default function MapaVale({ municipios, aoAlterar }: MapaValeProps) {
         </ComposableMap>
       </div>
 
-      <aside className="flex min-h-64 min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white">
-        <div className="bg-[#1E1E1E] p-2 text-center font-bold text-white">Municípios selecionados</div>
+      <aside className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white">
+        <div className="bg-[#094780] p-2 text-center font-bold text-white">Municípios selecionados</div>
         <div className="flex flex-1 flex-col p-4">
           <div className="mb-4 flex items-center justify-between gap-3">
             <p className="text-sm text-gray-600">Selecione até {LIMITE_MUNICIPIOS} municípios no mapa.</p>

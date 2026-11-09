@@ -10,8 +10,8 @@ type BarProps = {
 function Bar({ dados, alvo = 'Aprovado', carregando = false, erro }: BarProps) {
   const rotulo = alvo.toLowerCase()
   return (
-    <div className="painel pt-4 pb-4">
-      <div className="border-t border-b border-white rounded painel-titulo bg-[#1E1E1E] text-white px-4 py-1 font-semibold">
+    <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white">
+      <div className="bg-[#094780] p-2 text-center font-bold text-white">
         Ranking por Município/Região
       </div>
 
