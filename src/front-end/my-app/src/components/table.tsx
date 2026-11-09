@@ -22,7 +22,7 @@ function corResultado(resultado: string | null) {
 const formatar = (n: number) => n.toLocaleString('pt-BR')
 
 const cabecalho = 'sticky top-0 z-10 bg-[#094780] px-4 py-2 text-white'
-const celula = 'border border-gray-300 bg-white px-4 py-2'
+const celula = 'border border-gray-300 bg-[#FBFBFB] px-4 py-2'
 function Table({ filtros }: TableProps) {
     const chave = JSON.stringify(filtros)
 

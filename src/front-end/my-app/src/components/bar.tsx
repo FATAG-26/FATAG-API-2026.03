@@ -10,12 +10,12 @@ type BarProps = {
 function Bar({ dados, alvo = 'Aprovado', carregando = false, erro }: BarProps) {
   const rotulo = alvo.toLowerCase()
   return (
-    <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white">
+    <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-[#FBFBFB]">
       <div className="bg-[#094780] p-2 text-center font-bold text-white">
         Ranking por Município/Região
       </div>
 
-      <div className={`painel-conteudo bg-white p-4 transition-opacity ${carregando && dados.length > 0 ? 'opacity-50' : ''}`}>
+      <div className={`painel-conteudo bg-[#FBFBFB] p-4 transition-opacity ${carregando && dados.length > 0 ? 'opacity-50' : ''}`}>
         <p className="mb-3 text-left text-xs text-gray-500">
           % de bombas com resultado "{rotulo}" por município (mínimo de 20 bombas)
         </p>

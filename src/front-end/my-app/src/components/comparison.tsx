@@ -27,7 +27,7 @@ function Comparison({ dados = [] }: Props) {
 
     return (
         <>
-            <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white mt-5">
+            <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-[#FBFBFB] mt-5">
                 <div className="bg-[#094780] p-2 text-center font-bold text-white">Periciados</div>
                 <Chart
                     chartType="LineChart"

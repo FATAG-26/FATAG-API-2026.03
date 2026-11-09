@@ -71,7 +71,7 @@ export default function MapaVale({ municipios, aoAlterar }: MapaValeProps) {
                     onMouseLeave={() => setHovered(null)}
                     onClick={() => alternarMunicipio(nome)}
                     style={{
-                      stroke: hovered?.nome === nome ? "#1d4ed8" : "#ffffff",
+                      stroke: hovered?.nome === nome ? "#1d4ed8" : "#FBFBFB",
                       strokeWidth: hovered?.nome === nome ? 1.2 : 0.7,
                       outline: "none",
                     }}
@@ -83,7 +83,7 @@ export default function MapaVale({ municipios, aoAlterar }: MapaValeProps) {
         </ComposableMap>
       </div>
 
-      <aside className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white">
+      <aside className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-[#FBFBFB]">
         <div className="bg-[#094780] p-2 text-center font-bold text-white">Municípios selecionados</div>
         <div className="flex flex-1 flex-col p-4">
           <div className="mb-4 flex items-center justify-between gap-3">

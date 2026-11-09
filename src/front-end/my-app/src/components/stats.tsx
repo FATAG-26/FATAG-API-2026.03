@@ -55,7 +55,7 @@ function Stats({ filtros }: StatsProps) {
             )}
 
             {/* Gráfico de periciados */}
-            <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white">
+            <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-[#FBFBFB]">
                 <div className="bg-[#094780] p-2 text-center font-bold text-white">Periciados</div>
 
                 <div className="flex flex-1 flex-col items-center justify-center p-3">
@@ -104,7 +104,7 @@ function Stats({ filtros }: StatsProps) {
             {/* Indicadores de conformidade e autuações */}
             <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-1">
                 {/* Total em conformidade = bombas aprovadas */}
-                <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white">
+                <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-[#FBFBFB]">
                     <div className="bg-[#094780] p-2 text-center font-bold text-white">Total em Conformidade</div>
                     <div className="flex flex-1 items-center justify-center p-6">
                         <p className="text-3xl font-bold sm:text-4xl">Nº: {valorGeral('Aprovado')}</p>
@@ -112,7 +112,7 @@ function Stats({ filtros }: StatsProps) {
                 </div>
 
                 {/* Total de autuações = bombas reprovadas (igual ao notebook) */}
-                <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white">
+                <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-[#FBFBFB]">
                     <div className="bg-[#094780] p-2 text-center font-bold text-white">Total de Autuações</div>
                     <div className="flex flex-1 flex-col items-center justify-center p-6">
                        <p className="text-3xl font-bold sm:text-4xl">Nº: {valorGeral('Reprovado')}</p> 
@@ -122,7 +122,7 @@ function Stats({ filtros }: StatsProps) {
             </div>
 
             {/* Percentual de bombas */}
-            <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white">
+            <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-[#FBFBFB]">
                 <div className="bg-[#094780] p-2 text-center font-bold text-white">% de Bombas</div>
 
                 <div className="flex flex-1 flex-col items-center justify-center gap-2 p-4">
