@@ -79,6 +79,25 @@ export const TAMANHO_PAGINA = 50
 export const buscarBombas = (f: Filtros, offset: number, signal?: AbortSignal) =>
   pegar<PaginaBombas>('bombas', montarQuery(f, { limit: TAMANHO_PAGINA, offset }), signal)
 
+
+export async function buscarTodasBombas(f: Filtros): Promise<Bomba[]> {
+    const primeiraPagina = await buscarBombas(f, 0)
+    const todas = [...primeiraPagina.itens]
+    const total = primeiraPagina.total
+    for (
+        let offset = todas.length;
+        offset < total;
+        offset += TAMANHO_PAGINA
+    ) {
+        const pagina = await buscarBombas(f, offset)
+
+        if (pagina.itens.length === 0) break
+        todas.push(...pagina.itens)
+    }
+    return todas
+}
+
+
 export const buscarResumo = (f: Filtros, signal?: AbortSignal) =>
   pegar<Resumo>('resumo', montarQuery(f), signal)
 

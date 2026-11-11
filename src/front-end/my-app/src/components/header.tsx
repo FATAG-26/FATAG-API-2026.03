@@ -1,3 +1,4 @@
+
 import { useRef } from 'react'
 import type { Filtros, ItemRanking } from '../api'
 import logo from '../assets/CDIPEM_logo.png'
@@ -23,7 +24,12 @@ function Header({ filtros, ranking, alvo, rankingCarregando, rankingErro }: Head
         alt="Logótipo"
         className="h-10 w-auto shrink-0 object-contain"
       />
-      <Dropdown acao={<PDFCreator pdfRef={pdfRef} disabled={rankingCarregando} />} />
+
+      <Dropdown
+        acao={<PDFCreator pdfRef={pdfRef} disabled={rankingCarregando} />}
+        filtros={filtros}
+      />
+
       <div ref={pdfRef} className="pdfOnly">
         <Report
           filtros={filtros}
