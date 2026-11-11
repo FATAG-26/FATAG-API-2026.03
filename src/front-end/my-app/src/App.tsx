@@ -32,7 +32,7 @@ function App() {
       />
       <div className="container mx-auto xl:px-30 md:w-full sm:w-full">
         <Table filtros={aplicados} />
-        <Stats filtros={aplicados} />
+        <Stats filtros={aplicados} alterar={alterar} />
         <Bar dados={ranking.dados?.itens ?? []} alvo={ranking.dados?.alvo} carregando={ranking.carregando} erro={ranking.erro} />
         <Comparison dados={compara.dados} />
         <section className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white mt-5 mb-2">

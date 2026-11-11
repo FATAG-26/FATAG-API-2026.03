@@ -1,8 +1,9 @@
-import { buscarResumo, type Filtros } from '../api'
+import { buscarResumo, type CampoFiltroTexto, type Filtros } from '../api'
 import { useDados } from '../hooks'
 
 type StatsProps = {
     filtros: Filtros // mesmos filtros da tabela; sem filtros = dados gerais
+    alterar: (campo: CampoFiltroTexto, valor:string) => void
 }
 
 // Categorias do gráfico (as mesmas do gráfico de pizza do notebook).
@@ -17,7 +18,7 @@ const CATEGORIAS = [
 const formatar = (n: number) => n.toLocaleString('pt-BR')
 const formatarPct = (n: number) => `${n.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%`
 
-function Stats({ filtros }: StatsProps) {
+function Stats({ filtros,alterar }: StatsProps) {
     const { dados: resumo, carregando, erro } = useDados(
         (signal) => buscarResumo(filtros, signal),
         `resumo:${JSON.stringify(filtros)}`,
@@ -81,6 +82,8 @@ function Stats({ filtros }: StatsProps) {
                                     strokeWidth="15"
                                     strokeDasharray={`${f.dash} ${circunferencia}`}
                                     strokeDashoffset={f.deslocamento}
+                                    style={{cursor:"pointer"}}
+                                    onClick={() => alterar("resultado",f.chave)}
                                 />
                             ))}
                         </svg>
@@ -88,7 +91,7 @@ function Stats({ filtros }: StatsProps) {
                         <div className="flex flex-col gap-2 text-left text-sm">
                             {CATEGORIAS.map((c) => (
                                 <div key={c.chave} className="flex items-center gap-2">
-                                    <span className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: c.cor }} />
+                                    <span className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: c.cor ,cursor:"pointer"}} onClick={()=>alterar("resultado",c.chave)} />
                                     <span>
                                         {c.rotulo}: {valor(contagem(c.chave))}
                                     </span>
