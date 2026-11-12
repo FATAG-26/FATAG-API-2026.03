@@ -1,7 +1,6 @@
-import type { Filtros, ItemRanking } from '../api'
+import type { CampoFiltroTexto, Filtros, ItemRanking } from '../api'
 import Stats from './stats'
 import Bar from './bar'
-import MapaVale from './mapaVale'
 
 type ReportProps = {
   filtros: Filtros
@@ -11,13 +10,14 @@ type ReportProps = {
   rankingErro?: string
 }
 
-const nomes: [keyof Filtros, string][] = [
+const nomes: [CampoFiltroTexto, string][] = [
   ['municipio', 'Município'], ['bairro', 'Bairro'], ['proprietario', 'Proprietário'], ['resultado', 'Resultado'],
 ]
 const dataBR = (data: string) => data ? data.split('-').reverse().join('/') : ''
 
 function Report({ filtros, ranking, alvo, rankingCarregando, rankingErro }: ReportProps) {
   const ativos = nomes.filter(([campo]) => filtros[campo].trim()).map(([campo, rotulo]) => `${rotulo}: ${filtros[campo].trim()}`)
+  if (filtros.municipios.length) ativos.unshift(`Municípios: ${filtros.municipios.join(', ')}`)
   if (filtros.dataInicio || filtros.dataFim) ativos.push(`Período: ${filtros.dataInicio ? dataBR(filtros.dataInicio) : 'início'} a ${filtros.dataFim ? dataBR(filtros.dataFim) : 'hoje'}`)
 
   return (
