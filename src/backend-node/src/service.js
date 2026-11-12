@@ -1,4 +1,4 @@
-// Conversão para JavaScript das funções de src/backend/app/service.py (Pandas).
+// Conversão para JavaScript das funções do notebook (notebook/testApi_py.ipynb, em Pandas).
 // O "DataFrame" aqui é um array de objetos, um por linha.
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
@@ -141,19 +141,6 @@ export const arredondar = (valor, casas = 2) => {
   return Math.round((valor + Number.EPSILON) * fator) / fator;
 };
 
-/**
- * Filtra por data (dd/mm/aaaa ou aaaa-mm-dd).
- *
- * - dataInicio, modo 'S'            --> somente uma data (igualdade exata)
- * - dataInicio, modo 'I'            --> datas >= inicial
- * - dataFinal,  modo 'I'            --> datas <= final
- * - dataInicio + dataFinal, modo 'I' --> intervalo entre as datas
- * - dataInicio + dataFinal, modo 'S' --> inválido
- *
- * Retorna as linhas filtradas (pode ser vazio). Lança FiltroInvalidoError
- * quando os parâmetros são inválidos.
- */
-
 /** Date (UTC) -> "dd-mm-aaaa". Retorna null se não houver data. */
 export function formatarData(data) {
   if (!data) return null;
@@ -163,6 +150,18 @@ export function formatarData(data) {
   return `${dd}-${mm}-${aaaa}`;
 }
 
+/**
+ * Filtra por data. `inicio` e `finalDia` são Date (a rota converte o texto com parseData).
+ *
+ * - inicio, modo 'S'           --> somente uma data (igualdade exata)
+ * - inicio, modo 'I'           --> datas >= inicial
+ * - finalDia, modo 'I'         --> datas <= final (o dia final inteiro)
+ * - inicio + finalDia, modo 'I' --> intervalo entre as datas
+ * - inicio + finalDia, modo 'S' --> inválido
+ *
+ * Retorna as linhas filtradas (pode ser vazio). Lança FiltroInvalidoError
+ * quando os parâmetros são inválidos.
+ */
 export function filtrarPorData(dados, inicio, finalDia, modo) {
   if (!(inicio || finalDia)) throw new FiltroInvalidoError("Insira pelo menos uma data.");
   if (!modo) throw new FiltroInvalidoError("Coloque o modo ('S' = singular / 'I' = intervalo)");
