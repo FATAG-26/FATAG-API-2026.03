@@ -184,11 +184,14 @@ Lista os bairros de um município. Sem `municipio`, devolve uma lista vazia.
 
 ## Testes
 
-Os testes automatizados ficam em `src/backend-node/test/service.test.js` e rodam com:
+Os testes automatizados ficam em `src/backend-node/test/` e rodam com:
 
 ```bash
 cd src/backend-node
 npm test
 ```
 
-> ⚠️ Desde a limpeza do SCRUM-43, 5 dos 7 testes falham, porque usam funções que foram removidas do `service.js` (`contarAprRep`, `carregarDados`, `percentualPorResultado`) ou chamam `filtrarPorData` com texto em vez de `Date`. Os testes precisam ser atualizados.
+| Arquivo | O que testa |
+| ------- | ----------- |
+| `service.test.js` | Funções de tratamento, filtros, resumo, ranking, evolução por ano, sugestões e a leitura da base tratada. |
+| `app.test.js` | Rotas da API com uma base pequena em memória: respostas, filtros combinados, paginação e erros 400. |

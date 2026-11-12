@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Desafio](#-desafio) • [Requisitos](docs/requisitos.md) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [DoR/DoD](#-dor--dod) • [Equipe](#-equipe) • [Como_Instalar](docs/instalação.md) • [API](docs/api.md) • [Cronograma de Evolução](docs/cronograma.png) • [Pastas_do_Projeto](docs/Pastas_do_projeto.png) • [Padrão_de_Commit_do_Projeto](docs/Padrão%20de%20Commits.md)
+[Desafio](#-desafio) • [Requisitos](docs/requisitos.md) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [DoR/DoD](#-dor--dod) • [Equipe](#-equipe) • [Como_Instalar](docs/instalação.md) • [API](docs/api.md) • [Manual_do_Usuário](docs/manual-do-usuario.md) • [Cronograma de Evolução](docs/cronograma.png) • [Pastas_do_Projeto](docs/Pastas_do_projeto.png) • [Padrão_de_Commit_do_Projeto](docs/Padrão%20de%20Commits.md)
 
 </div>
 
@@ -89,7 +89,7 @@ Para rodar o projeto, veja o guia de [instalação](docs/instalação.md).
 * Indicadores **validados** com a base de dados
 * Código completo e **versionado** no GitHub
 * Documentação do **Notebook** atualizada
-* Manual de Usuário
+* [Manual de Usuário](docs/manual-do-usuario.md)
 * Vídeos de cada etapa de entrega
 
 ---
