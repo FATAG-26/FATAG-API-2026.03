@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Desafio](#-desafio) • [Requisitos](docs/requisitos.md) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [DoR/DoD](#-dor--dod) • [Equipe](#-equipe) • [Como_Instalar](docs/instalação.md) • [Cronograma de Evolução](docs/cronograma.png) • [Pastas_do_Projeto](docs/Pastas_do_projeto.png) • [Padrão_de_Commit_do_Projeto](docs/Padrão%20de%20Commits.md)
+[Desafio](#-desafio) • [Requisitos](docs/requisitos.md) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [DoR/DoD](#-dor--dod) • [Equipe](#-equipe) • [Como_Instalar](docs/instalação.md) • [API](docs/api.md) • [Cronograma de Evolução](docs/cronograma.png) • [Pastas_do_Projeto](docs/Pastas_do_projeto.png) • [Padrão_de_Commit_do_Projeto](docs/Padrão%20de%20Commits.md)
 
 </div>
 
@@ -28,12 +28,15 @@ Nesse contexto, o desafio é transformar essa base dispersa em informação clar
 
 ## ⚙️ Desenvolvimento
 
-Todo o processo da Sprint 1 foi desenvolvido no Google Colab, permitindo uma análise mais prática e detalhada do tratamento dos dados.
+O projeto é dividido em três partes:
 
-O notebook utilizado durante o desenvolvimento está disponível neste repositório em [notebook](notebook/testApi_py.ipynb).
-Acesso para versão web [Google_Colab](https://colab.research.google.com/drive/1hZg6B7dlyYgenRo9yUHyZRV7iHlA0LvL?usp=sharing)
+| Parte | Pasta | O que faz |
+| :---- | :---- | :-------- |
+| 📓 **Notebook** (Python + Pandas) | [`notebook/`](notebook/testApi_py.ipynb) | Lê os CSVs do IPEM-SP (2018 a 2026), trata e padroniza os dados e exporta a base tratada em JSON. Também tem as análises que deram origem às funções da API. [Documentação](notebook/DOCUMENTACAO_testApi_py.md) · [Google Colab](https://colab.research.google.com/drive/1hZg6B7dlyYgenRo9yUHyZRV7iHlA0LvL?usp=sharing) |
+| 🔌 **API** (Node.js + Express) | [`src/backend-node/`](src/backend-node) | Carrega a base tratada (`src/data/verificacoes_bombas_tratado.json`) e oferece as rotas de consulta, filtros, resumo, ranking e evolução por ano. [Documentação da API](docs/api.md) |
+| 🖥️ **Dashboard** (React + TypeScript) | [`src/front-end/my-app/`](src/front-end/my-app) | Painel web com tabela, cards de KPI, gráficos interativos, ranking, mapa do Vale do Paraíba, filtros e relatórios em PDF, CSV e JSON. |
 
-A documentação do notebook está disponível em [documentação](notebook/DOCUMENTACAO_testApi_py.md).
+Para rodar o projeto, veja o guia de [instalação](docs/instalação.md).
 
 ---
 
@@ -43,10 +46,15 @@ A documentação do notebook está disponível em [documentação](notebook/DOCU
 - `main`: Branch de produção com código estável e funcional;
 
 ### Branch de Desenvolvimento:
-- `feat/docker`: Implementação do docker no projeto;
+- `develop`: Desenvolvimento da API que fornece os dados;
 - `front-end`: Desenvolvimento do visual do site;
-- `feat/filtros`: Algumas funções relacionadas a filtros;
-- `develop`:  Desenvolvimento de uma API para puxar os dados;
+- `feat/docker`: Implementação do Docker no projeto;
+- `feat/filtros`: Funções relacionadas aos filtros;
+- `feat/interatividade`: Interatividade dos gráficos e do painel;
+- `feat/relatorios`: Geração de relatórios (PDF, CSV e JSON);
+
+### Branch de Correções:
+- `fix/correcoes`: Correções e limpeza do código;
 
 ### Branch de Documentação:
   - `document`: Atualização da documentação.
@@ -59,7 +67,7 @@ A documentação do notebook está disponível em [documentação](notebook/DOCU
 | :----- | :------ | :--- | :----------- | :---- |
 | 🏃 **Sprint 1** | 07/09 – 27/09 | Consolidar os dados de fiscalização das bombas medidoras e disponibilizar os indicadores básicos de conformidade | [Docs](docs/sprints/sprint-1.md) | [Assistir](https://youtu.be/t0FCfCGjA-U) |
 | 🏃 **Sprint 2** | 05/10 – 25/10 | Consultar os dados por município e região, gerar o ranking de municípios e regiões e comparar a evolução entre os anos | [Docs](docs/sprints/sprint-2/backlog.md) | [Assistir](https://youtu.be/fC_1P6IB1w8) |
-| 🏃 **Sprint 3** | 02/11 – 22/11 | Meta da sprint | [Docs](docs/sprints/sprint-3/backlog.md) | [Assistir](#) |
+| 🏃 **Sprint 3** | 02/11 – 22/11 | Entregar a dashboard interativa, com filtros por município, região e período, gráficos interativos e exportação dos registros tratados em CSV | [Docs](docs/sprints/sprint-3/backlog.md) | [Assistir](#) |
 
 ---
 
@@ -96,10 +104,14 @@ A documentação do notebook está disponível em [documentação](notebook/DOCU
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Tailwind_CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 
-**Back-end e dados**  
+**Back-end**  
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+
+**Tratamento e análise dos dados**  
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![Google_Colab](https://img.shields.io/badge/Google_Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white)
 
 **Infraestrutura e colaboração**  
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)

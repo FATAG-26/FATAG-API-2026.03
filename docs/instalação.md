@@ -73,8 +73,38 @@ Substitua `/caminho/para/` pelo local onde o projeto foi salvo. Mantenha o termi
 Quando os serviços terminarem de iniciar, abra no navegador:
 
 - **Aplicação web:** [http://localhost:5173/](http://localhost:5173/)
-- **API:** [http://localhost:8000/](http://localhost:8000/)
+- **API:** [http://localhost:8000/api/health](http://localhost:8000/api/health) (deve responder `{"status":"ok", ...}`). As rotas estão na [documentação da API](api.md).
 
 Na primeira execução, a criação das imagens pode levar alguns minutos. Se a porta 5173 ou 8000 já estiver em uso, encerre o programa que a utiliza e execute novamente.
 
 Para parar os serviços, pressione `Ctrl` + `C` no terminal. Para removê-los, execute `docker compose down` dentro da pasta `src`.
+
+## Executar sem Docker (desenvolvimento)
+
+Também é possível rodar o projeto direto na máquina, o que é útil durante o desenvolvimento. É preciso ter o [Node.js](https://nodejs.org/) 20 ou mais recente.
+
+Abra dois terminais na pasta `src` do projeto.
+
+**Terminal 1: API**
+
+```bash
+cd backend-node
+npm install
+npm run dev
+```
+
+A API sobe em [http://localhost:8000](http://localhost:8000/api/health) e lê a base `src/data/verificacoes_bombas_tratado.json`.
+
+**Terminal 2: front-end**
+
+```bash
+cd front-end/my-app
+npm install
+npm run dev
+```
+
+Abra o endereço mostrado no terminal (normalmente [http://localhost:5173](http://localhost:5173/)). O Vite encaminha as chamadas de `/api` para a API na porta 8000.
+
+## Atualizar a base de dados
+
+A aplicação usa o arquivo `src/data/verificacoes_bombas_tratado.json`, gerado pelo notebook. Para atualizar os dados, execute as células de carga e de tratamento do [notebook](../notebook/DOCUMENTACAO_testApi_py.md) e copie o JSON gerado para `src/data/`. Depois reinicie a API.

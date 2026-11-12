@@ -2,91 +2,177 @@
 
 ## Objetivo
 
-O notebook carrega e organiza registros de verificações de bombas de combustível do IPEM-SP, da regional de São José dos Campos, referentes ao período de março a outubro de 2018. Em seguida, permite consultar e resumir os registros por resultado, município, bairro, data e proprietário, além de exibir um gráfico de distribuição dos resultados.
+O notebook carrega, trata e analisa os registros de verificações de bombas de combustível do IPEM-SP, da regional de São José dos Campos, de **janeiro de 2018 a setembro de 2026**. Ele tem três partes:
 
-## Arquivo de entrada e preparação
+1. **Carga:** lê os dois CSVs de origem e junta tudo em um único `df`.
+2. **Tratamento:** limpa e padroniza os dados e exporta a base tratada em `verificacoes_bombas_tratado.json`. **É esse arquivo que o backend em Node.js usa** (em `src/data/`).
+3. **Análise:** carrega o JSON tratado e oferece funções de consulta, filtros, indicadores e gráficos. Essas funções foram portadas para JavaScript em `src/backend-node/src/service.js`.
 
-O notebook espera encontrar `verificacoes_bombas_2018-2.csv` no diretório de trabalho, usando o caminho relativo `./verificacoes_bombas_2018-2.csv`. O CSV deve usar `;` como separador e codificação Latin-1. Todas as colunas são inicialmente lidas como texto, preservando identificadores e valores com zeros à esquerda.
+## 1. Carga dos dados de origem
 
-O processamento:
+Os arquivos são lidos direto do repositório no GitHub, então não é preciso baixá-los antes:
 
-1. Lê o CSV com pandas.
-2. Extrai `BAIRRO` e `MUNICIPIO` de `ENDERECO_COMPLETO`, separando o endereço pelo delimitador ` - ` e pegando os componentes a partir do final. Isso evita quebrar incorretamente nomes de ruas que também contenham esse delimitador.
-3. Converte `DATAVERIFICACAO` para data, considerando o dia antes do mês.
-4. Renomeia campos para nomes mais legíveis e seleciona as oito colunas de análise.
+| Arquivo | Período | Separador | Formato da data |
+|---|---|:---:|:---:|
+| `src/data/verificacoes_bombas_2018.csv` | jan/2018 – nov/2018 | `;` | `dd/mm/aaaa` |
+| `src/data/verificacoes_bombas_2019-2025.csv` | jan/2019 – set/2026 | `,` | `dd/mm/aa` |
 
-O resultado preparado fica na variável `df`.
+Os dois arquivos têm as mesmas colunas e codificação Latin-1. Todas as colunas são lidas como texto, para preservar identificadores com zeros à esquerda.
 
-### Colunas de `df`
+A função `carregarArquivo(arquivo, sep, formato)` lê um CSV e converte `DATAVERIFICACAO` para data. `extrairEndereco(endereco)` separa `MUNICIPIO` e `BAIRRO` de `ENDERECO_COMPLETO`. O endereço é quebrado a partir da direita, porque o nome da rua às vezes contém ` - ` (ex.: `CARAGUÁ - UBATUBA, 6225`).
+
+Depois disso as colunas são renomeadas para nomes mais legíveis (`NOMEFANTASIA` → `PROPRIETARIO`, `DESC_ITEM` → `DESCRICAO`, `NR_INMETRO` → `NUMERO_INMETRO`, `NR_SERIE` → `NUMERO_SERIE`, `DATAVERIFICACAO` → `DATA_VERIFICACAO`).
+
+## 2. Tratamento e exportação
+
+A célula de tratamento executa, em ordem:
+
+```python
+df_tratado = sinalizar_repetidos(tratar(df))
+validar(df_tratado)
+exportar_json(df_tratado)
+```
+
+### `tratar(df)`
+
+| Etapa | O que faz |
+|---|---|
+| `verificar_entrada` | Confere se as colunas necessárias existem. |
+| `vazios_para_nan` | Troca textos vazios ou só com espaços por nulos. |
+| `padronizar_datas` | Mantém `DATA_VERIFICACAO` e converte `DT_HORA_VERIF`, quando existir. |
+| Limpeza de texto | Remove espaços extras e coloca `PROPRIETARIO`, `BAIRRO` e `MUNICIPIO` em maiúsculas. |
+| Correções de nomes | Unifica nomes de postos (`MAPA_NOMES`) e troca `Sem Verif.` por `Sem Verificação`. |
+| Número de série e CNPJ | Padroniza o número de série (sem espaços e pontuação) e completa `NR_CGC_INDICE` com zeros até 8 dígitos. |
+| `separar_endereco` | Separa `RUA_NUM` e `CEP` do endereço. |
+| `converter_ids` | Converte os IDs (`RLD_ID`, `IDFISCAL`, `IDMOTORISTA`, `COD_PROPR`, `CODITEM`) para inteiros. |
+| `padronizar_textos` | Expande abreviações (ex.: `AV.` → `AVENIDA`), corrige erros de digitação e unifica palavras que diferem só por acento. |
+| Remoção de colunas | Remove colunas redundantes (`INDICEDOC`, `ESPECIE`, `REGIONAL`) e auxiliares. |
+
+> A coluna `REGIONAL` é removida porque todos os registros são da mesma regional (São José dos Campos). Por isso a aplicação ainda não tem filtro por região.
+
+### `sinalizar_repetidos(df)`
+
+Marca na coluna `REPETIDO` os registros com o mesmo `RLD_ID` + `NUMERO_INMETRO`. Nenhum registro é excluído.
+
+### `validar(df)`
+
+Mostra indicadores de qualidade (datas inválidas, municípios e bairros nulos, CEP, CNPJ e números de série fora do formato, grafias diferentes para o mesmo nome) e a distribuição dos registros por ano.
+
+### `exportar_json(df, caminho="verificacoes_bombas_tratado.json")`
+
+Exporta a base tratada em JSON UTF-8, com datas no formato ISO e campos vazios como `null`. Para atualizar a base usada pela aplicação, copie o arquivo gerado para `src/data/`.
+
+## 3. Análise
+
+A célula **ANÁLISE** pode ser executada sozinha (depois da célula de imports). Ela lê o JSON tratado com `carregar_tratado(origem)`, que aceita um caminho local ou uma URL, e monta o `df` usado no resto do notebook:
 
 | Coluna | Conteúdo |
 |---|---|
-| `MUNICIPIO` | Município extraído do endereço |
-| `BAIRRO` | Bairro extraído do endereço |
-| `PROPRIETARIO` | Nome fantasia (`NOMEFANTASIA` no CSV) |
-| `DESCRICAO` | Descrição do item (`DESC_ITEM`) |
-| `NUMERO_INMETRO` | Número do instrumento no INMETRO (`NR_INMETRO`) |
-| `NUMERO_SERIE` | Número de série (`NR_SERIE`) |
-| `DATA_VERIFICACAO` | Data da verificação, convertida para data |
-| `RESULTADO` | Resultado da verificação |
+| `MUNICIPIO` | Município |
+| `BAIRRO` | Bairro |
+| `PROPRIETARIO` | Nome fantasia do posto |
+| `DESCRICAO` | Descrição do item, a partir de `CODITEM` (372 = vazão de 20 a 100 L/min; 373 = vazão de 100 a 500 L/min) |
+| `NUMERO_INMETRO` | Número do instrumento no Inmetro |
+| `NUMERO_SERIE` | Número de série |
+| `DATA_VERIFICACAO` | Dia da verificação (de `DT_HORA_VERIF`) |
+| `RESULTADO` | `Aprovado`, `Reprovado`, `Interditado`, `Excluído` ou `Sem Verificação` |
+| `ANO` | Ano da verificação |
+| `COD_PROPR` | Código do proprietário |
 
-A célula seguinte exibe `df` para inspeção visual dos registros carregados.
+A variável `df_view` mostra a mesma tabela com as datas em `dd/mm/aaaa`.
 
 ## Consultas e funções
 
 ### Contagem de registros: `nPericiadas(l, resultado=None)`
 
-Retorna o número de linhas em `l`. Se `resultado` for informado, conta somente as linhas cujo campo `RESULTADO` corresponde exatamente ao valor fornecido, como `"Aprovado"` ou `"Reprovado"`.
+Retorna o número de linhas em `l`. Se `resultado` for informado, conta só as linhas com aquele `RESULTADO`.
 
 Exemplo: `nPericiadas(df, "Aprovado")`.
 
 ### Seleção por resultado: `aproRepr(l, a)`
 
-Retorna um DataFrame contendo somente as linhas em que `RESULTADO` é igual a `a`. Embora o nome sugira aprovação/reprovação, pode ser usado com qualquer categoria presente nos dados, como `"Interditado"`.
+Retorna só as linhas em que `RESULTADO` é igual a `a`. Funciona com qualquer resultado, não só aprovado e reprovado.
 
-Exemplo: `aproRepr(df, "Aprovado")`.
+Exemplo: `aproRepr(df, "Interditado")`.
 
-### Contagem por município: `contarAprRep(l, ar)`
+### Contagem por município: `contarAprRep(l, ar=None)`
 
-Filtra o DataFrame pelo resultado informado e conta quantos registros desse resultado há em cada município. A função também aceita categorias além de aprovados e reprovados.
+Conta os registros por município, do maior para o menor, e devolve os 5 primeiros. Com `ar`, conta só aquele resultado; sem `ar`, conta todos.
 
-Exemplo: `contarAprRep(df, "Interditado")`.
+Exemplo: `contarAprRep(df, "Reprovado")`.
 
-### Filtro por município: `filtrarPorMunicipio(l, municipio)`
+### Ranking percentual: `percentualAprRep(l, ar, min_bombas=20)`
 
-Retorna os registros de um município. A comparação ignora espaços nas extremidades e diferenças entre maiúsculas e minúsculas. A célula de exemplo solicita o município com `input()`.
+Calcula o percentual do resultado `ar` em cada município e devolve os 5 maiores. Municípios com menos de `min_bombas` bombas ficam de fora, para cidades muito pequenas não distorcerem o ranking. É a base do gráfico de ranking da aplicação.
 
-### Percentuais de resultados
+Exemplo: `percentualAprRep(df, "Aprovado")`.
 
-- `percentualAprovadoReprovado(l)` calcula a porcentagem de registros `Aprovado`, `Reprovado` e `Interditado` em relação ao total de linhas.
-- `percentualPorResultado(l)` calcula a porcentagem de todas as categorias encontradas na coluna `RESULTADO`, incluindo categorias como `Excluído` e `Sem Verif.`. Os valores são arredondados para duas casas decimais.
+### Sugestões de busca: `listarMunicipios(l, texto="", limite=None)` e `listarBairros(l, municipio, texto="", limite=None)`
 
-### Filtro por bairro: `filtrarPorBairro(l, bairro)`
+Devolvem os municípios (ou os bairros de um município) que contêm o texto, ignorando acentos e pontuação. Quem começa com o texto vem primeiro. Texto vazio devolve todos. São usadas nas listas de sugestão dos campos de busca da aplicação.
 
-Retorna os registros de um bairro, ignorando diferenças entre maiúsculas e minúsculas e espaços nas extremidades. A célula de exemplo solicita o bairro com `input()`.
+Exemplo: `listarMunicipios(df, "jose", limite=5)`.
 
-### Filtro por data: `filtrarPorData(l, data_inicio=None, data_final=None, modo=None)`
+### Filtros de texto: `filtrarPorMunicipio(l, municipio)` e `filtrarPorBairro(l, bairro)`
 
-Filtra os registros pela coluna `DATA_VERIFICACAO`. As datas de texto são interpretadas com dia antes do mês.
+Usam `filtrarPorTexto`, que compara os textos sem acento, pontuação ou diferença entre maiúsculas e minúsculas:
 
-| Modo | Comportamento |
-|---|---|
-| `"S"` | Busca uma data exata; informe `data_inicio` e deixe `data_final` vazio. |
-| `"I"` | Busca um intervalo inclusivo. Com início e fim, inclui as duas extremidades; apenas início significa daquela data em diante; apenas fim significa até aquela data. |
+- se o texto for igual a um nome completo, devolve só esse nome;
+- senão, devolve tudo que contém o texto;
+- busca vazia devolve uma tabela vazia.
 
-A função devolve uma mensagem quando faltam parâmetros ou quando não há registros. Para um intervalo, informe a data inicial antes da final. Exemplo: `filtrarPorData(df, "2018-04-05", "2018-04-27", modo="I")`.
+As células de exemplo pedem o valor com `input()`.
 
 ### Filtro por proprietário: `filtrarPorProprietario(l, fornecedor)`
 
-Retorna os registros do nome fantasia informado, ignorando diferenças entre maiúsculas e minúsculas e espaços nas extremidades. Apesar do parâmetro se chamar `fornecedor`, ele é comparado com a coluna `PROPRIETARIO`.
+Retorna os registros do nome fantasia informado, ignorando maiúsculas/minúsculas e espaços nas pontas. Apesar do nome do parâmetro, a comparação é com a coluna `PROPRIETARIO`.
 
-## Gráfico
+### Filtro por data: `filtrarPorData(l, data_inicio=None, data_final=None, modo=None)`
 
-A última seção cria um gráfico de pizza com a quantidade relativa de cada categoria de resultado: `Aprovado`, `Reprovado`, `Interditado`, `Excluído` e `Sem Verif.`. Os rótulos exibem percentuais e uma legenda de texto abaixo informa o total de perícias.
+Filtra pela coluna `DATA_VERIFICACAO`. Aceita datas em `dd/mm/aaaa` e `aaaa-mm-dd`.
+
+| Modo | Comportamento |
+|---|---|
+| `"S"` | Busca uma data exata; informe só `data_inicio`. |
+| `"I"` | Busca um intervalo inclusivo. Só início = daquela data em diante; só fim = até aquela data. |
+
+A função devolve uma mensagem quando faltam parâmetros ou quando não há registros.
+
+Exemplo: `filtrarPorData(df, "2018-08-30", modo="S")`.
+
+### Percentuais de resultados
+
+- `percentualAprovadoReprovado(l)` calcula o percentual de `Aprovado`, `Reprovado` e `Interditado` sobre o total de linhas.
+- `percentualPorResultado(l)` calcula o percentual de todas as categorias, incluindo `Excluído` e `Sem Verificação`, com duas casas decimais.
+
+### Exportar consulta em JSON: `gerarJson(l, arquivo="dados_filtrados.json")`
+
+Salva em JSON o resultado de qualquer filtro, com datas em `AAAA-MM-DD` e campos vazios como `null`. Se não houver dados, devolve uma mensagem em vez de criar o arquivo.
+
+Exemplo: `gerarJson(filtrarPorMunicipio(df, "GUARATINGUETÁ"), "guaratingueta.json")`.
+
+### Comparação entre anos: `gropoData(l, ano)` e `contDataRes(l, audi, apro, repro, inter, ano)`
+
+`gropoData` devolve só os registros do ano informado. `contDataRes` devolve, para esse ano, a tupla `(periciadas, aprovadas, reprovadas, interditadas)`; cada contagem só é calculada se o parâmetro correspondente for `True` (as outras ficam 0). É a base do gráfico de evolução por ano da aplicação.
+
+Exemplo: `contDataRes(df, True, True, True, True, 2020)`.
+
+## Gráficos e cards
+
+| Célula / função | O que mostra |
+|---|---|
+| Gráfico de pizza | Distribuição de todos os resultados, com percentuais e o total de perícias. |
+| `gerarGrafico(l, r=None, modo="absoluto")` | Ranking de municípios em barras horizontais. `modo="percentual"` usa `percentualAprRep`; o modo absoluto usa `contarAprRep`. Sem `r`, conta todas as perícias. |
+| `exibirCard(t, f)` | Card com um número (total de perícias, de aprovados e de autuações). |
+| `exibirCardPorCem(t)` | Card com o percentual de aprovados, reprovados ou interditados. |
+
+> As funções de gráfico usam o `df` global da célula de análise, não o parâmetro `l`.
 
 ## Como executar
 
-1. Instale Python e as bibliotecas `pandas` e `matplotlib`.
-2. Coloque o notebook e o arquivo CSV no local esperado, ou ajuste a variável `arquivo` para apontar para o CSV.
-3. Abra o notebook em Jupyter ou Google Colab e execute as células em ordem, começando pela leitura e preparação dos dados.
-4. Nas células de filtro interativo, informe os valores solicitados quando aparecer o campo de entrada.
+1. Abra o notebook no [Google Colab](https://colab.research.google.com/drive/1hZg6B7dlyYgenRo9yUHyZRV7iHlA0LvL?usp=sharing) ou no Jupyter, com Python, `pandas` e `matplotlib` instalados.
+2. Execute a célula de carga: os CSVs são baixados direto do GitHub.
+3. Execute a célula de tratamento para gerar `verificacoes_bombas_tratado.json`.
+4. Execute a célula **ANÁLISE** e depois as demais, na ordem. Nas células com `input()`, digite o valor pedido.
+
+Para só analisar, sem tratar de novo, coloque `verificacoes_bombas_tratado.json` (de `src/data/`) na pasta do notebook e comece pela célula **ANÁLISE**.

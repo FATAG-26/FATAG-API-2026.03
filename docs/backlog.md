@@ -9,7 +9,7 @@
 | 5 | Alta | Como usuário, quero consultar os dados das bombas por município e região, para avaliar o controle de qualidade dos combustíveis em minha região. | 13 | 2 | R02 | ✅ |
 | 6 | Médio | Como usuário, quero visualizar um ranking de municípios e regiões, para comparar rapidamente os resultados das fiscalizações. | 13 | 2 | R04 | ✅ |
 | 7 | Médio | Como usuário, quero ter um comparativo de evolução entre os anos, para assim avaliar a evolução ou regressão no número de aprovados. | 13 | 2 | — | ✅ |
-| 8 | Médio | Como usuário, quero filtrar os dados por município, região e período, para realizar consultas específicas e facilitar a análise dos resultados. | 20 | 3 | R05 | ❌ |
-| 9 | Médio | Como usuário, quero visualizar gráficos interativos dos dados, para facilitar a análise dos resultados das fiscalizações. | 20 | 3 | R07 | ❌ |
-| 10 | Médio | Como usuário, quero utilizar uma dashboard interativa, para navegar e consultar as informações de forma simples e intuitiva. | 20 | 3 | R05 | ❌ |
-| 11 | Alta | Como usuário, quero ter acesso aos registros em CSV das bombas periciadas tratadas, para facilitar o acesso dos dados para o usuário. | 20 | 3 | — | ❌ |
+| 8 | Médio | Como usuário, quero filtrar os dados por município, região e período, para realizar consultas específicas e facilitar a análise dos resultados. | 20 | 3 | R05 | 🚧 |
+| 9 | Médio | Como usuário, quero visualizar gráficos interativos dos dados, para facilitar a análise dos resultados das fiscalizações. | 20 | 3 | R07 | 🚧 |
+| 10 | Médio | Como usuário, quero utilizar uma dashboard interativa, para navegar e consultar as informações de forma simples e intuitiva. | 20 | 3 | R05 | 🚧 |
+| 11 | Alta | Como usuário, quero ter acesso aos registros em CSV das bombas periciadas tratadas, para facilitar o acesso dos dados para o usuário. | 20 | 3 | — | 🚧 |
