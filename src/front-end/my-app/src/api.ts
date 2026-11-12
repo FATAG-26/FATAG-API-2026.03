@@ -7,9 +7,13 @@ export type Filtros = {
   bairro: string
   proprietario: string
   resultado: string
-  dataInicio: string // dd-mm-aaaa (formatado no backend)
+  dataInicio: string // aaaa-mm-dd (valor do <input type="date">)
   dataFim: string
 }
+
+/** Compara nomes sem diferenciar maiúsculas e acentos ("São José" = "SAO JOSE"). */
+export const normalizarNome = (valor: string) =>
+  valor.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLocaleUpperCase('pt-BR')
 
 export type CampoFiltroTexto = Exclude<keyof Filtros, 'municipios'>
 
@@ -30,7 +34,7 @@ export type Bomba = {
   DESCRICAO: string | null
   NUMERO_INMETRO: string | null
   NUMERO_SERIE: string | null
-  DATA_VERIFICACAO: string | null // dd/mm/aaaa
+  DATA_VERIFICACAO: string | null // dd-mm-aaaa (formatado no backend)
   RESULTADO: string | null
 }
 
@@ -109,16 +113,6 @@ export const buscarRanking = (f: Filtros, signal?: AbortSignal) =>
     signal,
   )
 
-export type Percentuais = Resumo['percentuais']
-
-/** Percentuais gerais (aprovado/reprovado/interditado), ignorando o filtro de resultado, para não confundir */
-export const buscarPercentuais = (f: Filtros, signal?: AbortSignal) =>
-  pegar<Percentuais>(
-    'percentuais/aprovado-reprovado',
-    montarQuery({ ...f, resultado: '' }),
-    signal,
-  )
-
 export const listarMunicipios = (signal?: AbortSignal) => pegar<string[]>('municipios', '', signal)
 
 export const listarBairros = (municipio: string, signal?: AbortSignal) =>
@@ -127,5 +121,26 @@ export const listarBairros = (municipio: string, signal?: AbortSignal) =>
     : Promise.resolve([] as string[])
 
 
-export type InfoLine = { ano: number; aprovados: number, reprovados: number, interditados: number}
-export const puxarLineChart = (f: Filtros, signal?: AbortSignal) => pegar<InfoLine[]>("bombas/por-ano","",signal)
+export type InfoLine = { ano: number; total: number; aprovados: number; reprovados: number; interditados: number }
+
+/**
+ * Contagem por ano com os mesmos filtros da tela. O filtro de resultado é ignorado,
+ * porque o gráfico já mostra aprovados, reprovados e interditados lado a lado.
+ * Quando o período é um ano escolhido no próprio gráfico, ele também é ignorado,
+ * para o gráfico continuar mostrando todos os anos (senão sobraria um ponto só).
+ */
+export const puxarLineChart = (f: Filtros, signal?: AbortSignal) => {
+  const semAno = anoSelecionado(f) != null ? { dataInicio: '', dataFim: '' } : {}
+  return pegar<InfoLine[]>('bombas/por-ano', montarQuery({ ...f, resultado: '', ...semAno }), signal)
+}
+
+/** Período que cobre o ano inteiro, no formato dos campos de data (aaaa-mm-dd). */
+export const periodoDoAno = (ano: number) => ({ inicio: `${ano}-01-01`, fim: `${ano}-12-31` })
+
+/** Ano selecionado quando o período dos filtros é exatamente um ano inteiro. */
+export function anoSelecionado(f: Filtros): number | null {
+  const ano = Number(f.dataInicio.slice(0, 4))
+  if (!ano) return null
+  const { inicio, fim } = periodoDoAno(ano)
+  return f.dataInicio === inicio && f.dataFim === fim ? ano : null
+}

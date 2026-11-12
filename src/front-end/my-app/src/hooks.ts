@@ -1,5 +1,5 @@
 import { useEffect, useEffectEvent, useState } from 'react'
-import { FILTROS_VAZIOS, type CampoFiltroTexto, type Filtros } from './api'
+import { FILTROS_VAZIOS, normalizarNome, type CampoFiltroTexto, type Filtros } from './api'
 
 /**
  * Estado único dos filtros, compartilhado por tabela, gráficos e ranking.
@@ -23,12 +23,28 @@ export function useFiltros(atrasoMs = 400) {
   const alterarMunicipios = (municipios: string[]) =>
     setEntrada((atual) => ({ ...atual, municipio: '', municipios }))
 
+  /** Liga ou desliga um município (ranking e mapa usam o mesmo estado). */
+  const alternarMunicipio = (nome: string) =>
+    setEntrada((atual) => {
+      const lista = atual.municipios.length ? atual.municipios : atual.municipio.trim() ? [atual.municipio.trim()] : []
+      const chave = normalizarNome(nome)
+      const existe = lista.some((m) => normalizarNome(m) === chave)
+      return {
+        ...atual,
+        municipio: '',
+        municipios: existe ? lista.filter((m) => normalizarNome(m) !== chave) : [...lista, nome],
+      }
+    })
+
+  const definirPeriodo = (dataInicio: string, dataFim: string) =>
+    setEntrada((atual) => ({ ...atual, dataInicio, dataFim }))
+
   const limpar = () => {
     setEntrada(FILTROS_VAZIOS)
     setAplicados(FILTROS_VAZIOS)
   }
 
-  return { entrada, aplicados, alterar, alterarMunicipios, limpar }
+  return { entrada, aplicados, alterar, alterarMunicipios, alternarMunicipio, definirPeriodo, limpar }
 }
 
 /**
