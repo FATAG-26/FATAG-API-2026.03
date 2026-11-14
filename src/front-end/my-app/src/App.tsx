@@ -10,6 +10,7 @@ import { useDados, useFiltros } from './hooks'
 import Comparison from './components/comparison'
 import Filtro from './components/filtro'
 import FiltrosAtivos from './components/filtrosAtivos'
+import ComparacaoCidades from './components/comparacaoCidades'
 
 function App() {
   const { entrada, aplicados, alterar, alterarMunicipios, alternarMunicipio, definirPeriodo, limpar } = useFiltros()
@@ -52,14 +53,17 @@ function App() {
         />
         <Table filtros={aplicados} />
         <Stats filtros={aplicados} alterar={alterar} selecionado={entrada.resultado} />
-        <Bar
-          dados={ranking.dados?.itens ?? []}
-          alvo={ranking.dados?.alvo}
-          carregando={ranking.carregando}
-          erro={ranking.erro}
-          selecionados={municipiosSelecionados}
-          aoClicar={alternarMunicipio}
-        />
+        <div className="grid min-w-0 grid-cols-1 gap-3 lg:grid-cols-2">
+          <Bar
+            dados={ranking.dados?.itens ?? []}
+            alvo={ranking.dados?.alvo}
+            carregando={ranking.carregando}
+            erro={ranking.erro}
+            selecionados={municipiosSelecionados}
+            aoClicar={alternarMunicipio}
+          />
+          <ComparacaoCidades filtros={aplicados} />
+        </div>
         <Comparison
           dados={compara.dados}
           carregando={compara.carregando}

@@ -25,7 +25,7 @@ function Bar({ dados, alvo = 'Aprovado', carregando = false, erro, selecionados 
         Ranking por Município
       </div>
 
-      <div className={`painel-conteudo bg-[#FBFBFB] p-4 transition-opacity ${carregando && dados.length > 0 ? 'opacity-50' : ''}`}>
+      <div className={`painel-conteudo flex flex-1 flex-col bg-[#FBFBFB] p-4 transition-opacity ${carregando && dados.length > 0 ? 'opacity-50' : ''}`}>
         <p className="mb-3 text-left text-xs text-gray-500">
           % de bombas com resultado "{rotulo}" por município (mínimo de 20 bombas)
           {aoClicar && ' · clique numa barra para filtrar pelo município'}
@@ -39,6 +39,7 @@ function Bar({ dados, alvo = 'Aprovado', carregando = false, erro, selecionados 
           </p>
         )}
 
+        <div className="flex flex-1 flex-col justify-center">
         {dados.map((item, posicao) => {
           // A escala vai de 0% a 100%, então a largura é o próprio percentual.
           const largura = Math.min(Math.max(item.valor, 0), 100)
@@ -50,7 +51,7 @@ function Bar({ dados, alvo = 'Aprovado', carregando = false, erro, selecionados 
               <div className="w-40 truncate pr-2 text-xs" title={item.municipio}>
                 {posicao + 1}º {item.municipio}
               </div>
-              <div className="relative h-5 flex-1 bg-gray-100">
+              <div className="relative h-5 flex-1 bg-gray-300">
                 <div
                   className={`h-5 transition-[width,background-color] duration-300 ${marcado ? 'bg-[#FFC61A]' : 'bg-[#1E3A5F] group-hover:bg-[#2f5a8f]'}`}
                   style={{ width: `${largura}%` }}
@@ -85,6 +86,7 @@ function Bar({ dados, alvo = 'Aprovado', carregando = false, erro, selecionados 
           <span>50%</span>
           <span>75%</span>
           <span>100%</span>
+        </div>
         </div>
       </div>
     </div>
