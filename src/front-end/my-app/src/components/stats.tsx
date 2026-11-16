@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { buscarResumo, type CampoFiltroTexto, type Filtros } from '../api'
 import { useDados } from '../hooks'
+import Skeleton from './skeleton'
 
 type StatsProps = {
     filtros: Filtros // mesmos filtros da tabela; sem filtros = dados gerais
@@ -57,6 +58,38 @@ function Stats({ filtros, alterar, selecionado: selecionadoAgora }: StatsProps) 
 
     const valor = (n: number | undefined) => (geral ? formatar(n ?? 0) : '…')
     const opaco = carregando && geral ? 'opacity-50' : ''
+
+    if (carregando && !geral) {
+        return (
+            <div role="status" aria-live="polite" aria-label="Carregando indicadores" className="mt-4 mb-4 grid w-full min-w-0 grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+                <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-[#FBFBFB]">
+                    <div className="bg-[#094780] p-2 text-center font-bold text-white">Periciados</div>
+                    <div className="flex flex-1 flex-col items-center justify-center gap-4 p-4 sm:flex-row">
+                        <Skeleton className="h-[140px] w-[140px] shrink-0 rounded-full" />
+                        <div className="w-full max-w-48 space-y-3">
+                            {CATEGORIAS.map((categoria) => <Skeleton key={categoria.chave} className="h-4 w-full" />)}
+                        </div>
+                    </div>
+                </div>
+                <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-1">
+                    {['Total em Conformidade', 'Total de Autuações'].map((titulo) => (
+                        <div key={titulo} className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-[#FBFBFB]">
+                            <div className="bg-[#094780] p-2 text-center font-bold text-white">{titulo}</div>
+                            <div className="flex flex-1 items-center justify-center p-6"><Skeleton className="h-10 w-3/4" /></div>
+                        </div>
+                    ))}
+                </div>
+                <div className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-[#FBFBFB]">
+                    <div className="bg-[#094780] p-2 text-center font-bold text-white">% de Bombas</div>
+                    <div className="flex flex-1 flex-col items-center justify-center gap-4 p-6">
+                        <Skeleton className="h-5 w-4/5" />
+                        <Skeleton className="h-5 w-3/4" />
+                        <Skeleton className="h-5 w-2/3" />
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className={`mt-4 mb-4 grid w-full min-w-0 grid-cols-1 gap-3 transition-opacity md:grid-cols-2 xl:grid-cols-3 ${opaco}`}>
