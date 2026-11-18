@@ -1,5 +1,6 @@
 import { Chart, type ReactGoogleChartEvent } from "react-google-charts";
 import type { InfoLine } from "../api";
+import Skeleton from "./skeleton";
 
 type Props = {
     dados?: InfoLine[] // estrutura em InfoLine (api.ts)
@@ -98,7 +99,14 @@ function Comparison({ dados = [], carregando = false, erro, anoAtivo = null, aoS
 
             {erro && <p className="px-4 pt-2 text-sm text-[#900603]">Não foi possível carregar a evolução por ano: {erro}</p>}
 
-            {!erro && !carregando && dados.length === 0 ? (
+            {carregando && dados.length === 0 && !erro ? (
+                <div role="status" aria-live="polite" aria-label="Carregando gráfico de evolução" className="space-y-4 p-6">
+                    <Skeleton className="h-[280px] w-full" />
+                    <div className="flex justify-center gap-5">
+                        {SERIES.map((serie) => <Skeleton key={serie.campo} className="h-4 w-24" />)}
+                    </div>
+                </div>
+            ) : !erro && !carregando && dados.length === 0 ? (
                 <p className="p-6 text-center text-sm text-gray-500">Sem verificações para os filtros atuais.</p>
             ) : (
                 <div className={`transition-opacity ${carregando && dados.length ? "opacity-50" : ""}`}>
@@ -111,7 +119,7 @@ function Comparison({ dados = [], carregando = false, erro, anoAtivo = null, aoS
                         chartEvents={eventos}
                         legendToggle
                         chartLanguage="pt-BR"
-                        loader={<p className="p-6 text-center text-sm text-gray-500">Carregando gráfico…</p>}
+                        loader={<Skeleton className="mx-4 my-6 h-[320px]" />}
                     />
                 </div>
             )}

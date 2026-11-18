@@ -1,4 +1,5 @@
 import { normalizarNome, type ItemRanking } from '../api'
+import Skeleton from './skeleton'
 
 type BarProps = {
   dados: ItemRanking[] // valor = % de bombas com o resultado `alvo` no município (0–100)
@@ -32,6 +33,18 @@ function Bar({ dados, alvo = 'Aprovado', carregando = false, erro, selecionados 
         </p>
 
         {erro && <p className="mb-2 text-sm text-[#900603]">Não foi possível carregar o ranking: {erro}</p>}
+
+        {carregando && dados.length === 0 && !erro && (
+          <div role="status" aria-live="polite" aria-label="Carregando ranking" className="space-y-3 py-2">
+            {Array.from({ length: 7 }, (_, i) => (
+              <div key={i} className="flex items-center gap-2" aria-hidden="true">
+                <Skeleton className="h-4 w-40 max-w-[35%]" />
+                <Skeleton className="h-5 flex-1" />
+                <Skeleton className="h-4 w-14" />
+              </div>
+            ))}
+          </div>
+        )}
 
         {!erro && !carregando && dados.length === 0 && (
           <p className="mb-2 text-sm text-gray-500">

@@ -1,6 +1,7 @@
 import { useRef, useState, type UIEvent } from 'react'
 import { buscarBombas, type Bomba, type Filtros } from '../api'
 import { useDados } from '../hooks'
+import Skeleton from './skeleton'
 
 type TableProps = {
     filtros: Filtros // o que já foi aplicado (depois da pausa na digitação)
@@ -107,14 +108,25 @@ function Table({ filtros }: TableProps) {
                                     </tr>
                                 ))}
 
-                                {(semDadosAinda || primeira.erro || (!primeira.carregando && itens.length === 0)) && (
+                                {semDadosAinda && primeira.carregando && <tr>
+                                    <td colSpan={6} className="sr-only" role="status">Carregando dados da tabela.</td>
+                                </tr>}
+                                {semDadosAinda && primeira.carregando && Array.from({ length: 6 }, (_, i) => (
+                                    <tr key={`skeleton-${i}`} aria-hidden="true">
+                                        {Array.from({ length: 6 }, (_, j) => (
+                                            <td key={j} className={celula}>
+                                                <Skeleton className={`h-4 ${j === 2 ? 'w-4/5' : j === 3 ? 'w-3/5' : 'w-2/3'}`} />
+                                            </td>
+                                        ))}
+                                    </tr>
+                                ))}
+
+                                {(semDadosAinda && !primeira.carregando || primeira.erro || (!primeira.carregando && itens.length === 0)) && (
                                     <tr>
                                         <td colSpan={6} className="border border-white px-4 py-2 text-center">
                                             {primeira.erro
                                                 ? `Não foi possível carregar os dados: ${primeira.erro}`
-                                                : semDadosAinda
-                                                    ? 'Carregando…'
-                                                    : 'Nenhum resultado encontrado.'}
+                                                : 'Nenhum resultado encontrado.'}
                                         </td>
                                     </tr>
                                 )}
@@ -122,7 +134,12 @@ function Table({ filtros }: TableProps) {
                                 {(carregandoMais || erroMais) && (
                                     <tr>
                                         <td colSpan={6} className="border border-white px-4 py-2 text-center">
-                                            {erroMais ? `Erro ao carregar mais: ${erroMais}` : 'Carregando mais…'}
+                                            {erroMais ? `Erro ao carregar mais: ${erroMais}` : (
+                                                <div role="status" aria-live="polite" aria-label="Carregando mais registros" className="flex flex-col gap-2 py-1">
+                                                    <Skeleton className="h-4 w-full" />
+                                                    <Skeleton className="h-4 w-11/12" />
+                                                </div>
+                                            )}
                                         </td>
                                     </tr>
                                 )}
