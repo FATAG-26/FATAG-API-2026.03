@@ -38,7 +38,7 @@ function Filtro({ entrada, alterar, limpar }: FiltroProps) {
                 aria-expanded={aberto}
                 aria-controls="painel-filtros"
                 onClick={() => setAberto(true)}
-                className="fixed bottom-1/2 left-0 rounded-r-lg bg-[#FFC61A] p-2 shadow-md"
+                className="fixed bottom-1/2 left-0 z-[1000] rounded-r-lg bg-[#FFC61A] p-2 shadow-md"
             >
                 <span className="block">F</span><span className="block">I</span><span className="block">L</span>
                 <span className="block">T</span><span className="block">R</span><span className="block">O</span><span className="block">S</span>

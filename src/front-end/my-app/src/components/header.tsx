@@ -18,7 +18,7 @@ function Header({ filtros, ranking, alvo, rankingCarregando, rankingErro }: Head
   const pdfRef = useRef<HTMLDivElement>(null)
 
   return (
-    <header className="flex w-full min-w-0 flex-wrap items-center justify-between gap-2 bg-[#ADB9CA] px-3 py-2 text-white sm:px-6">
+    <header className="flex w-full min-w-0 flex-wrap items-center justify-between gap-2 bg-[#ADB9CA] px-3 py-2 text-white sm:px-6 sticky top-0 z-[1000]">
       <img
         src={logo}
         alt="Logótipo"
