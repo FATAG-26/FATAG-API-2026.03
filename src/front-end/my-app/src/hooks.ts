@@ -23,7 +23,7 @@ export function useFiltros(atrasoMs = 400) {
   const alterarMunicipios = (municipios: string[]) =>
     setEntrada((atual) => ({ ...atual, municipio: '', municipios }))
 
-  /** Liga ou desliga um município (ranking e mapa usam o mesmo estado). */
+  /** Seleciona ou limpa um único município (ranking e mapa compartilham o estado). */
   const alternarMunicipio = (nome: string) =>
     setEntrada((atual) => {
       const lista = atual.municipios.length ? atual.municipios : atual.municipio.trim() ? [atual.municipio.trim()] : []
@@ -32,7 +32,7 @@ export function useFiltros(atrasoMs = 400) {
       return {
         ...atual,
         municipio: '',
-        municipios: existe ? lista.filter((m) => normalizarNome(m) !== chave) : [...lista, nome],
+        municipios: existe ? [] : [nome],
       }
     })
 

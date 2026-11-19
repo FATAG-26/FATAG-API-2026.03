@@ -5,7 +5,7 @@ import Bar from './components/bar'
 import Table from './components/table'
 import Stats from './components/stats'
 import MapaVale from './components/mapaVale'
-import { anoSelecionado, buscarRanking, periodoDoAno, puxarLineChart } from './api'
+import { anoSelecionado, buscarPericiacoesPorMunicipio, buscarRanking, periodoDoAno, puxarLineChart } from './api'
 import { useDados, useFiltros } from './hooks'
 import Comparison from './components/comparison'
 import Filtro from './components/filtro'
@@ -21,6 +21,14 @@ function App() {
 
   const compara = useDados(
     (sinal) => puxarLineChart(aplicados, sinal), `bombas/por-ano:${JSON.stringify(aplicados)}`
+  )
+
+  // O filtro do município selecionado não deve esconder as contagens dos demais
+  // municípios; datas, resultado e outros filtros continuam valendo no mapa.
+  const filtrosMapa = { ...aplicados, municipio: '', municipios: [] }
+  const mapa = useDados(
+    (signal) => buscarPericiacoesPorMunicipio(filtrosMapa, signal),
+    `periciacoes/por-municipio:${JSON.stringify(filtrosMapa)}`,
   )
 
   // Clicar num ano do gráfico de linhas filtra o painel por aquele ano inteiro.
@@ -75,7 +83,13 @@ function App() {
           <div className="bg-[#094780] p-2 text-center font-bold text-white">
             Mapa do Vale do Paraíba
           </div>
-          <MapaVale municipios={entrada.municipios} aoAlterar={alterarMunicipios} />
+          <MapaVale
+            municipios={municipiosSelecionados}
+            dados={mapa.dados ?? []}
+            carregando={mapa.carregando}
+            erro={mapa.erro}
+            aoAlterar={alterarMunicipios}
+          />
         </section>
       </div>
     </div>

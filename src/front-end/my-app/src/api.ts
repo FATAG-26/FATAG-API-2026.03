@@ -113,6 +113,10 @@ export const buscarRanking = (f: Filtros, signal?: AbortSignal) =>
     signal,
   )
 
+/** Total de perícias por município para as faixas de cor do mapa. */
+export const buscarPericiacoesPorMunicipio = (f: Filtros, signal?: AbortSignal) =>
+  pegar<ItemRanking[]>('periciacoes/por-municipio', montarQuery(f), signal)
+
 export const listarMunicipios = (signal?: AbortSignal) => pegar<string[]>('municipios', '', signal)
 
 export const listarBairros = (municipio: string, signal?: AbortSignal) =>
