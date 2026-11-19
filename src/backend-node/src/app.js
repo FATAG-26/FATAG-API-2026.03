@@ -97,6 +97,11 @@ export function criarApp(df) {
     res.json(service.contagemPorAno(aplicarFiltrosQuery(df, req.query)));
   });
 
+  // Total de perícias por município, respeitando os filtros enviados pelo mapa.
+  app.get("/api/periciacoes/por-municipio", (req, res) => {
+    res.json(service.periciacoesPorMunicipio(aplicarFiltrosQuery(df, req.query)));
+  });
+
   /**
    * Ranking por município (gerarGrafico do notebook).
    *   ?tipo=percentual|absoluto  (padrão: percentual)

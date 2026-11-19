@@ -242,6 +242,13 @@ export function contagemPorAno(dados) {
   return [...porAno.values()].sort((a, b) => a.ano - b.ano);
 }
 
+/** Total de perícias (registros) por município, para pintar o mapa temático. */
+export function periciacoesPorMunicipio(dados) {
+  return ordenarRanking(
+    [...contarPorMunicipio(dados)].map(([municipio, valor]) => ({ municipio, valor })),
+  );
+}
+
 /** Dados dos cards e do gráfico de pizza: contagem de cada resultado + percentuais. */
 export function resumo(dados) {
   const porResultado = {};
