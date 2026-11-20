@@ -22,10 +22,10 @@ type MapaValeProps = {
 
 const geoUrl = "/maps/Vale_Do_Paraiba.geojson";
 const FAIXAS = [
-  { rotulo: "31 ou mais", cor: "#15803d", min: 31 },
-  { rotulo: "21–30", cor: "#22c55e", min: 21 },
-  { rotulo: "11–20", cor: "#86efac", min: 11 },
-  { rotulo: "0–10", cor: "#dcfce7", min: 0 },
+  { rotulo: "5.001 ou mais", cor: "#07c064", min: 5001 },
+  { rotulo: "1.001–5.000", cor: "#86efac", min: 1001 },
+  { rotulo: "201–1.000", cor: "#fde68a", min: 201 },
+  { rotulo: "0–200", cor: "#facc15", min: 0 },
 ];
 
 function corDaFaixa(valor: number) {
@@ -42,8 +42,8 @@ export default function MapaVale({ municipios, dados, carregando, erro, aoAltera
   };
 
   return (
-    <section className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-4 md:grid-cols-2 md:gap-6">
-      <div className="w-full min-w-0 rounded-md p-2 sm:p-3">
+    <div className="grid w-full grid-cols-1 items-stretch md:grid-cols-2">
+      <div className="flex min-h-[300px] w-full min-w-0 items-center justify-center p-3 sm:p-5">
         <ComposableMap
           projection="geoMercator"
           projectionConfig={{ center: [-45.5, -22.8], scale: 10000 }}
@@ -86,10 +86,8 @@ export default function MapaVale({ municipios, dados, carregando, erro, aoAltera
         </ComposableMap>
       </div>
 
-      <aside className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-[#FBFBFB]">
-        <div className="bg-[#094780] p-2 text-center font-bold text-white">Estado</div>
-        <div className="flex flex-1 flex-col p-4">
-          <p className="mb-3 text-center font-medium text-gray-800">Nº Periciados</p>
+      <aside className="flex min-w-0 flex-col justify-center border-t border-gray-400 bg-[#FBFBFB] p-5 md:border-l md:border-t-0 md:p-8">
+          <p className="mb-5 text-center font-medium text-gray-800">Nº Periciados</p>
           <ul className="mb-5 space-y-3">
             {FAIXAS.map((faixa) => (
               <li key={faixa.rotulo} className="flex items-center gap-2 text-sm text-gray-800">
@@ -99,10 +97,12 @@ export default function MapaVale({ municipios, dados, carregando, erro, aoAltera
             ))}
           </ul>
 
-          <div aria-live="polite" className="min-h-12 rounded border border-gray-200 p-3 text-sm text-gray-700">
+          <div aria-live="polite" className="min-h-12 p-1 text-sm text-gray-700">
             {carregando ? "Carregando perícias…" : erro ? `Erro ao carregar perícias: ${erro}` : hovered
               ? `${hovered.nome}: ${contagens.get(normalizarNome(hovered.nome)) ?? 0} perícias`
-              : selecionado || "Clique em um município para selecioná-lo."}
+              : selecionado
+                ? `${selecionado}: ${contagens.get(normalizarNome(selecionado)) ?? 0} perícias`
+                : "Clique em um município para selecioná-lo."}
           </div>
           <p className="mt-3 text-xs text-gray-500">Clique em um município para selecionar apenas um. A seleção atual fica destacada em azul.</p>
           <button
@@ -113,8 +113,7 @@ export default function MapaVale({ municipios, dados, carregando, erro, aoAltera
           >
             Desselecionar município
           </button>
-        </div>
       </aside>
-    </section>
+    </div>
   );
 }

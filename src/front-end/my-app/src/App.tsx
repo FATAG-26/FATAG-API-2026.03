@@ -86,7 +86,7 @@ function App() {
         />
         <section className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white mt-5 mb-2">
           <div className="bg-[#094780] p-2 text-center font-bold text-white">
-            Mapa do Vale do Paraíba
+            Estado
           </div>
           <MapaVale
             municipios={municipiosSelecionados}
