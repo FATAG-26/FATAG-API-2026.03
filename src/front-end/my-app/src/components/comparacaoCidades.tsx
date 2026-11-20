@@ -6,6 +6,7 @@ import { useDados } from '../hooks'
 type Props = {
     /** Filtros aplicados na tela. Município e resultado são ignorados: quem escolhe as cidades é este painel. */
     filtros: Filtros
+    aoSelecionar: (municipio: string, resultado: string) => void
 }
 
 // Categorias comparadas (mesmas chaves do gráfico de periciados em stats.tsx).
@@ -90,15 +91,15 @@ function CampoCidade({ cor, rotulo, cidade, opcoes, idLista, total, aoEscolher }
     )
 }
 
-function ComparacaoCidades({ filtros }: Props) {
+function ComparacaoCidades({ filtros, aoSelecionar }: Props) {
     const municipios = useDados((signal) => listarMunicipios(signal), 'municipios')
     const lista = municipios.dados ?? []
 
-    // Enquanto a pessoa não escolhe, usa as duas primeiras cidades da lista.
+    // A comparação começa vazia; as cidades só aparecem após uma escolha explícita.
     const [escolhaA, setEscolhaA] = useState<string | null>(null)
     const [escolhaB, setEscolhaB] = useState<string | null>(null)
-    const cidadeA = escolhaA ?? lista[0] ?? ''
-    const cidadeB = escolhaB ?? lista[1] ?? ''
+    const cidadeA = escolhaA ?? ''
+    const cidadeB = escolhaB ?? ''
 
     const base: Filtros = { ...filtros, resultado: '', municipio: '', municipios: [] }
     const chaveBase = JSON.stringify(base)
@@ -185,6 +186,17 @@ function ComparacaoCidades({ filtros }: Props) {
                             height="240px"
                             data={data}
                             options={options}
+                            chartEvents={[{
+                                eventName: 'select',
+                                callback: ({ chartWrapper }) => {
+                                    const selecao = chartWrapper.getChart().getSelection()[0]
+                                    if (!selecao || selecao.row == null) return
+                                    const categoria = CATEGORIAS[selecao.row]
+                                    if (!categoria) return
+                                    const municipio = selecao.column === 1 ? cidadeA : selecao.column === 3 ? cidadeB : ''
+                                    if (municipio) aoSelecionar(municipio, categoria.chave)
+                                },
+                            }]}
                             chartLanguage="pt-BR"
                             loader={<p className="p-6 text-center text-sm text-gray-500">Carregando gráfico…</p>}
                         />

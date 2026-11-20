@@ -42,6 +42,11 @@ function App() {
     ? entrada.municipios
     : entrada.municipio.trim() ? [entrada.municipio.trim()] : []
 
+  const abrirFiltrosDaComparacao = (municipio: string, resultado: string) => {
+    alternarMunicipio(municipio)
+    alterar('resultado', resultado)
+  }
+
   return <>
     <div className="min-h-screen bg-[#ffffff]">
       <Header
@@ -70,7 +75,7 @@ function App() {
             selecionados={municipiosSelecionados}
             aoClicar={alternarMunicipio}
           />
-          <ComparacaoCidades filtros={aplicados} />
+          <ComparacaoCidades filtros={aplicados} aoSelecionar={abrirFiltrosDaComparacao} />
         </div>
         <Comparison
           dados={compara.dados}
