@@ -5,7 +5,9 @@ import { readFileSync } from "node:fs";
 
 // DATA_FILE (usado no docker-compose) aponta para o JSON tratado gerado pelo notebook.
 // Também aceita os caminhos usados por configurações anteriores.
-export const DATA_PATH = fileURLToPath(new URL("../../data/verificacoes_bombas_tratado.json", import.meta.url));
+export const DATA_PATH = process.env.DATA_FILE
+  ? process.env.DATA_FILE
+  : fileURLToPath(new URL('../../data/verificacoes_bombas_tratado.json', import.meta.url))
 
 
 export class FiltroInvalidoError extends Error {
