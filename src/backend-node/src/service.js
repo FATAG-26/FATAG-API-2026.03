@@ -7,7 +7,7 @@ import { readFileSync } from "node:fs";
 // Também aceita os caminhos usados por configurações anteriores.
 export const DATA_PATH = process.env.DATA_FILE
   ? process.env.DATA_FILE
-  : fileURLToPath(new URL('../../data/verificacoes_bombas_tratado.json', import.meta.url))
+  : fileURLToPath(new URL('../data/verificacoes_bombas_tratado.json', import.meta.url))
 
 
 export class FiltroInvalidoError extends Error {
