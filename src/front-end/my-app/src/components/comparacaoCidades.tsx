@@ -189,6 +189,7 @@ function ComparacaoCidades({ filtros, aoSelecionar }: Props) {
                             chartEvents={[{
                                 eventName: 'select',
                                 callback: ({ chartWrapper }) => {
+                                    if (!chartWrapper) return
                                     const selecao = chartWrapper.getChart().getSelection()[0]
                                     if (!selecao || selecao.row == null) return
                                     const categoria = CATEGORIAS[selecao.row]
