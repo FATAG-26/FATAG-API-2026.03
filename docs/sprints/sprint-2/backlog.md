@@ -76,3 +76,6 @@
 | Código versionado | O código está no repositório do GitHub seguindo o padrão de commits. |
 | Validação do PO | O Product Owner validou a entrega com base nos critérios definidos. |
 | Pronto para entrega | O item está testado, validado e pode ser apresentado ao cliente. |
+
+## 📊 Burndown Chart
+[!Burndown](/docs/img/Burndown%20Chart%20Sprint2.png)
