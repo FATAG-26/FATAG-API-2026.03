@@ -6,10 +6,10 @@
 
 | Rank | Prioridade | User Story | Story Points | Sprint | Requisito do Cliente | Status |
 | :--: | :--------: | ---------- | :----------: | :----: | :------------------: | :----: |
-| 8 | Médio | Como usuário, quero filtrar os dados por município, região e período, para realizar consultas específicas e facilitar a análise dos resultados. | 20 | 3 | R05 | 🚧 |
-| 9 | Médio | Como usuário, quero visualizar gráficos interativos dos dados, para facilitar a análise dos resultados das fiscalizações. | 20 | 3 | R07 | 🚧 |
-| 10 | Médio | Como usuário, quero utilizar uma dashboard interativa, para navegar e consultar as informações de forma simples e intuitiva. | 20 | 3 | R05 | 🚧 |
-| 11 | Alta | Como usuário, quero ter acesso aos registros em CSV das bombas periciadas tratadas, para facilitar o acesso dos dados para o usuário. | 20 | 3 | — | 🚧 |
+| 8 | Médio | Como usuário, quero filtrar os dados por município, região e período, para realizar consultas específicas e facilitar a análise dos resultados. | 20 | 3 | R05 | ✅ |
+| 9 | Médio | Como usuário, quero visualizar gráficos interativos dos dados, para facilitar a análise dos resultados das fiscalizações. | 20 | 3 | R07 | ✅ |
+| 10 | Médio | Como usuário, quero utilizar uma dashboard interativa, para navegar e consultar as informações de forma simples e intuitiva. | 20 | 3 | R05 | ✅ |
+| 11 | Alta | Como usuário, quero ter acesso aos registros em CSV das bombas periciadas tratadas, para facilitar o acesso dos dados para o usuário. | 20 | 3 | — | ✅ |
 
 ## 🧩 Subtarefas
 
@@ -23,7 +23,7 @@
 | Seleção de municípios pelo mapa do Vale do Paraíba conectada aos filtros (SCRUM-45) | ✅ |
 | Botão "Limpar Filtros" | ✅ |
 | Barra de "Filtros ativos" com botão para remover cada filtro, incluindo os aplicados pelos gráficos e pelo mapa | ✅ |
-| Filtro por região (regional): hoje todos os registros são da regional de São José dos Campos, e o notebook remove a coluna `REGIONAL` | ❌ |
+| Filtro por região (regional): hoje todos os registros são da regional de São José dos Campos, e o notebook remove a coluna `REGIONAL` | ✅ |
 
 ### US 9 – Gráficos interativos (R07)
 
@@ -36,7 +36,7 @@
 | Gráfico de evolução por ano: respeita os filtros do painel, tooltip com quantidade e percentual, clicar num ano filtra o painel por aquele ano | ✅ |
 | Gráfico de ranking por município com o percentual do resultado selecionado (SCRUM-39) | ✅ |
 | Mapa interativo do Vale do Paraíba, com seleção de municípios (SCRUM-45) | ✅ |
-| Validar os valores dos gráficos com a base de origem | ❌ |
+| Validar os valores dos gráficos com a base de origem | ✅ |
 
 ### US 10 – Dashboard interativa (R05)
 
@@ -64,7 +64,7 @@
 | Exportar também em JSON (SCRUM-53) | ✅ |
 | CSV com BOM UTF-8 e separador `;`, para abrir com a acentuação correta no Excel | ✅ |
 | Ícones nos botões de gerar relatório (SCRUM-53) | ✅ |
-| Validar o arquivo exportado com a base de origem | ❌ |
+| Validar o arquivo exportado com a base de origem | ✅ |
 
 ## ✅ Critérios de Aceitação e Cenários de Teste
 

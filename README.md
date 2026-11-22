@@ -12,7 +12,7 @@
 
 > **Parceiro:** IPEM-SP · **Curso:** 3°ADS · **Período:** 2026-2
 >
-> **Status do Projeto:** Em desenvolvimento 🚧
+> **Status do Projeto:** Finalizado ✅
 
 ---
 
