@@ -81,7 +81,7 @@ Para parar os serviços, pressione `Ctrl` + `C` no terminal. Para removê-los, e
 
 ## Executar sem Docker (desenvolvimento)
 
-Também é possível rodar o projeto direto na máquina, o que é útil durante o desenvolvimento. É preciso ter o [Node.js](https://nodejs.org/) 20 ou mais recente.
+Também é possível rodar o projeto direto na máquina, o que é útil durante o desenvolvimento. É preciso ter o [Node.js](https://nodejs.org/) **20.19 ou mais recente** (ou **22.12 ou mais recente**), conforme os requisitos do Vite usado pelo front-end.
 
 Abra dois terminais na pasta `src` do projeto.
 
@@ -93,7 +93,7 @@ npm install
 npm run dev
 ```
 
-A API sobe em [http://localhost:8000](http://localhost:8000/api/health) e lê a base `src/data/verificacoes_bombas_tratado.json`.
+A API sobe em [http://localhost:8000](http://localhost:8000) e lê a base `src/backend-node/data/verificacoes_bombas_tratado.json`.
 
 **Terminal 2: front-end**
 
@@ -107,4 +107,4 @@ Abra o endereço mostrado no terminal (normalmente [http://localhost:5173](http:
 
 ## Atualizar a base de dados
 
-A aplicação usa o arquivo `src/data/verificacoes_bombas_tratado.json`, gerado pelo notebook. Para atualizar os dados, execute as células de carga e de tratamento do [notebook](../notebook/DOCUMENTACAO_testApi_py.md) e copie o JSON gerado para `src/data/`. Depois reinicie a API.
+A aplicação usa o arquivo `src/backend-node/data/verificacoes_bombas_tratado.json`, gerado pelo notebook. Para atualizar os dados, execute as células de carga e de tratamento do [notebook](../notebook/DOCUMENTACAO_testApi_py.md) e copie o JSON gerado para `src/backend-node/data/`, mantendo o nome `verificacoes_bombas_tratado.json`. Depois reinicie a API.

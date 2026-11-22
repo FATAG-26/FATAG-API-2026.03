@@ -13,7 +13,7 @@ O painel mostra os resultados das verificações feitas pelo IPEM-SP nas bombas 
 3. [Filtros](#3-filtros)
 4. [Indicadores e gráfico de rosca](#4-indicadores-e-gráfico-de-rosca)
 5. [Ranking por município](#5-ranking-por-município)
-6. [Comparação de Municício](#6-comparação-de-município)
+6. [Comparação de Municípios](#6-comparação-de-municípios)
 7. [Evolução por ano](#7-evolução-por-ano)
 8. [Mapa do Vale do Paraíba](#8-mapa-do-vale-do-paraíba)
 9. [Relatórios: PDF, CSV e JSON](#9-relatórios-pdf-csv-e-json)
@@ -35,6 +35,7 @@ O painel é uma página única. De cima para baixo:
 | **Tabela de Bombas** | Lista de todas as verificações. |
 | **Periciados, Total em Conformidade, Total de Autuações e % de Bombas** | Números gerais das fiscalizações. |
 | **Ranking por Município** | Os municípios com os maiores percentuais. |
+| **Comparação de Municípios** | Gera um gráfico de barras para comparar dois municípios. |
 | **Evolução por ano** | Como os resultados mudaram de um ano para outro. |
 | **Mapa do Vale do Paraíba** | Escolher municípios clicando no mapa. |
 
@@ -114,13 +115,14 @@ Mostra os 5 municípios com o maior **percentual** do resultado escolhido. Sem f
 - **Passe o mouse** numa barra para ver a posição e o percentual.
 - **Clique** numa barra para filtrar o painel por aquele município. Ele também fica selecionado no mapa. Clique de novo para remover.
 
-## 6. Comparação de município
+## 6. Comparação de municípios
 
-![Comparação de município](img/manual/09-comparacao.png)
+![Comparação de municípios](img/manual/09-comparacao.png)
 
-Realiza uma comparação entre dois municípios, sendo feita em forma de gráfico de barras, mostrando o numero e um percentual de **aprovados** e **reprovados** deles um do lado do outro, para ter uma melhor visualização da diferença entre eles.
+Realiza uma comparação entre dois municípios, sendo feita em forma de gráfico de barras, mostrando o numero e um percentual de **aprovados**, **reprovados** e **interditados** deles um do lado do outro, para ter uma melhor visualização da diferença entre eles.
 
-- **Passa o mouse** em uma das barras mostra o numero ou percentual de aprovados, ou reprovados.
+- **Escrever/selecionar** dois municípios nos campos de texto gera a comparação do gráfico de comparação
+- **Passa o mouse** em uma das barras mostra o numero ou percentual de aprovados, ou reprovados, ou interditados.
 - **Clique** Aplica filtro do município e do resultado selecionados.
 
 ## 7. Evolução por ano
