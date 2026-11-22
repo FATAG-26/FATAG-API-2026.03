@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[Desafio](#-desafio) • [Requisitos](docs/requisitos.md) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [DoR/DoD](#-dor--dod) • [Equipe](#-equipe) • [Como_Instalar](docs/instalação.md) • [API](docs/api.md) • [Manual_do_Usuário](docs/manual-do-usuario.md) • [Cronograma de Evolução](docs/cronograma.png) • [Pastas_do_Projeto](docs/Pastas_do_projeto.png) • [Padrão_de_Commit_do_Projeto](docs/Padrão%20de%20Commits.md)
+[Desafio](#-desafio) • [Requisitos](docs/requisitos.md) • [Backlog](docs/backlog.md) • [Sprints](#-sprints) • [DoR/DoD](#-dor--dod) • [Equipe](#-equipe) • [Como_Instalar](docs/instalação.md) • [API](docs/api.md) • [Manual_do_Usuário](docs/manual-do-usuario.md) • [Cronograma de Evolução](docs/cronograma.png) • [Pastas_do_Projeto](docs/arvore.md) • [Padrão_de_Commit_do_Projeto](docs/Padrão%20de%20Commits.md)
 
 </div>
 
@@ -52,12 +52,16 @@ Para rodar o projeto, veja o guia de [instalação](docs/instalação.md).
 - `feat/filtros`: Funções relacionadas aos filtros;
 - `feat/interatividade`: Interatividade dos gráficos e do painel;
 - `feat/relatorios`: Geração de relatórios (PDF, CSV e JSON);
+- `feat/comparacao`: Desenvolvimento do gráfico de comparação;
 
 ### Branch de Correções:
 - `fix/correcoes`: Correções e limpeza do código;
 
 ### Branch de Documentação:
-  - `document`: Atualização da documentação.
+- `document`: Atualização da documentação.
+
+### Branch de Testes:
+- `teste/deploy`: Teste na hospedagem do Render.
 
 ---
 
