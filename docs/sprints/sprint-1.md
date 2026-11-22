@@ -35,4 +35,4 @@
 
 
 ## 📊 Burndown Chart
-[!Burndown](/docs/img/Burndown%20Chart%20Sprint1.png)
+![Burndown da Sprint 1](../img/Burndown%20Chart%20Sprint1.png)

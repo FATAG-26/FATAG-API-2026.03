@@ -186,4 +186,4 @@
 | Pronto para entrega | O item está testado, validado e pode ser apresentado ao cliente. |
 
 ## 📊 Burndown Chart
-[!Burndown](/docs/img/Burndown%20Chart%20Sprint3.png)
+![Burndown da Sprint 3](../../img/Burndown%20Chart%20Sprint3.png)
