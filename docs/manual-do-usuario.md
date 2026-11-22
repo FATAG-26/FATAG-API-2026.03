@@ -113,7 +113,16 @@ Mostra os 5 municípios com o maior **percentual** do resultado escolhido. Sem f
 - **Passe o mouse** numa barra para ver a posição e o percentual.
 - **Clique** numa barra para filtrar o painel por aquele município. Ele também fica selecionado no mapa. Clique de novo para remover.
 
-## 6. Evolução por ano
+## 6. Comparação de Municício
+
+![Comparação de município](img/manual/09-comparacao.png)
+
+Realiza uma comparação entre dois municípios, sendo feita em forma de gráfico de barras, mostrando o numero e um percentual de **aprovados** e **reprovados** deles um do lado do outro, para ter uma melhor visualização da diferença entre eles.
+
+- **Passa o mouse** em uma das barras mostra o numero ou percentual de aprovados, ou reprovados.
+- **Clique** Aplica filtro do município e do resultado selecionados.
+
+## 7. Evolução por ano
 
 ![Evolução por ano](img/manual/05-evolucao.png)
 
@@ -125,16 +134,15 @@ Mostra, para cada ano, a quantidade de bombas aprovadas (verde), reprovadas (ver
 
 > ℹ️ Os dados de 2026 vão só até setembro, então o total desse ano é menor.
 
-## 7. Mapa do Vale do Paraíba
+## 8. Mapa do Vale do Paraíba
 
 ![Mapa do Vale do Paraíba](img/manual/06-mapa.png)
 
-- **Passe o mouse** sobre um município para ver o nome.
-- **Clique** num município para selecioná-lo; o painel inteiro passa a mostrar só os municípios selecionados. Clique de novo para tirar a seleção.
-- Dá para selecionar **até 5 municípios** pelo mapa, para comparar.
-- **Desselecionar todos** limpa a seleção.
+- **Passe o mouse** sobre um município para ver o nome e valor periciado.
+- **Clique** num município para selecioná-lo; o painel inteiro passa a mostrar só os municípios selecionados e valor periciado. Clique de novo para tirar a seleção.
+- **Desselecionar município** limpa a seleção.
 
-## 8. Relatórios: PDF, CSV e JSON
+## 9. Relatórios: PDF, CSV e JSON
 
 Clique em **Relatórios**, no canto superior direito, e escolha o formato:
 
@@ -154,7 +162,7 @@ Todos os relatórios respeitam os filtros aplicados. Sem filtros, trazem a base 
 
 > Exportar a base inteira (mais de 46 mil registros) pode levar alguns segundos. O botão fica desabilitado até o arquivo ficar pronto.
 
-## 9. Entendendo os resultados
+## 10. Entendendo os resultados
 
 Cada verificação recebe um dos resultados abaixo, conforme registrado pelo IPEM-SP:
 
@@ -168,7 +176,7 @@ Cada verificação recebe um dos resultados abaixo, conforme registrado pelo IPE
 
 Os percentuais de "% de Bombas" são calculados sobre **todas** as verificações, incluindo Excluído e Sem Verificação. Por isso, aprovadas + reprovadas + interditadas não somam 100%.
 
-## 10. Dúvidas frequentes
+## 11. Dúvidas frequentes
 
 **O painel mostra dados de todo o estado de São Paulo?**
 Não. Os dados disponíveis são da regional de São José dos Campos do IPEM-SP: 40 municípios do Vale do Paraíba, da Serra da Mantiqueira, do Litoral Norte (Caraguatatuba e Ubatuba) e do Alto Tietê (como Salesópolis, Biritiba-Mirim e Guararema).

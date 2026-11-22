@@ -2,7 +2,6 @@
 src
 ├── backend-node
 │   ├── data
-│   │   ├── referencia.png
 │   │   ├── verificacoes_bombas_2018.csv
 │   │   ├── verificacoes_bombas_2019-2025.csv
 │   │   └── verificacoes_bombas_tratado.json
