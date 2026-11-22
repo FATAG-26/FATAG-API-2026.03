@@ -1,9 +1,11 @@
 import type { CampoFiltroTexto, Filtros, ItemRanking } from '../api'
 import Stats from './stats'
 import Bar from './bar'
+import MapaVale from './mapaVale'
 
-type ReportProps = {
+export type ReportProps = {
   filtros: Filtros
+  mapa: { dados?: ItemRanking[]; carregando: boolean; erro?: string }
   ranking: ItemRanking[]
   alvo?: string
   rankingCarregando: boolean
@@ -15,7 +17,10 @@ const nomes: [CampoFiltroTexto, string][] = [
 ]
 const dataBR = (data: string) => data ? data.split('-').reverse().join('/') : ''
 
-function Report({ filtros, ranking, alvo, rankingCarregando, rankingErro }: ReportProps) {
+function Report({ filtros, mapa, ranking, alvo, rankingCarregando, rankingErro }: ReportProps) {
+  const municipiosSelecionados = filtros.municipios.length
+    ? filtros.municipios
+    : filtros.municipio.trim() ? [filtros.municipio.trim()] : []
   const ativos = nomes.filter(([campo]) => filtros[campo].trim()).map(([campo, rotulo]) => `${rotulo}: ${filtros[campo].trim()}`)
   if (filtros.municipios.length) ativos.unshift(`Municípios: ${filtros.municipios.join(', ')}`)
   if (filtros.dataInicio || filtros.dataFim) ativos.push(`Período: ${filtros.dataInicio ? dataBR(filtros.dataInicio) : 'início'} a ${filtros.dataFim ? dataBR(filtros.dataFim) : 'hoje'}`)
@@ -36,6 +41,16 @@ function Report({ filtros, ranking, alvo, rankingCarregando, rankingErro }: Repo
       <section className="report-section">
         <h2>Resumo dos resultados</h2>
         <Stats filtros={filtros} />
+      </section>
+
+      <section className="report-section">
+        <h2>Perícias por município</h2>
+        <MapaVale
+          municipios={municipiosSelecionados}
+          dados={mapa.dados ?? []}
+          carregando={mapa.carregando}
+          erro={mapa.erro}
+        />
       </section>
 
       <section className="report-section">

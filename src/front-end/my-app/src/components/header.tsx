@@ -4,17 +4,18 @@ import type { Filtros, ItemRanking } from '../api'
 import logo from '../assets/CDIPEM_logo.png'
 import Dropdown from './dropdown'
 import PDFCreator from './pdfCreator'
-import Report from './report'
+import Report, { type ReportProps } from './report'
 
 type HeaderProps = {
   filtros: Filtros
+  mapa: ReportProps['mapa']
   ranking: ItemRanking[]
   alvo?: string
   rankingCarregando: boolean
   rankingErro?: string
 }
 
-function Header({ filtros, ranking, alvo, rankingCarregando, rankingErro }: HeaderProps) {
+function Header({ filtros, mapa, ranking, alvo, rankingCarregando, rankingErro }: HeaderProps) {
   const pdfRef = useRef<HTMLDivElement>(null)
 
   return (
@@ -26,13 +27,14 @@ function Header({ filtros, ranking, alvo, rankingCarregando, rankingErro }: Head
       />
 
       <Dropdown
-        acao={<PDFCreator pdfRef={pdfRef} disabled={rankingCarregando} />}
+        acao={<PDFCreator pdfRef={pdfRef} disabled={rankingCarregando || mapa.carregando} />}
         filtros={filtros}
       />
 
       <div ref={pdfRef} className="pdfOnly">
         <Report
           filtros={filtros}
+          mapa={mapa}
           ranking={ranking}
           alvo={alvo}
           rankingCarregando={rankingCarregando}

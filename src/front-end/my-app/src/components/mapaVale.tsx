@@ -18,7 +18,7 @@ type MapaValeProps = {
   dados: ItemRanking[];
   carregando: boolean;
   erro?: string;
-  aoAlterar: (municipios: string[]) => void;
+  aoAlterar?: (municipios: string[]) => void;
 };
 
 const geoUrl = "/maps/Vale_Do_Paraiba.geojson";
@@ -55,7 +55,7 @@ export default function MapaVale({ municipios, dados, carregando, erro, aoAltera
   };
 
   const alternarMunicipio = (nome: string) => {
-    aoAlterar(normalizarNome(selecionado) === normalizarNome(nome) ? [] : [nome]);
+    aoAlterar?.(normalizarNome(selecionado) === normalizarNome(nome) ? [] : [nome]);
   };
 
   return (
@@ -82,13 +82,15 @@ export default function MapaVale({ municipios, dados, carregando, erro, aoAltera
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    aria-label={`${nome}: ${total} perícias. ${ativo ? "Desselecionar" : "Selecionar"} município`}
-                    aria-pressed={ativo}
-                    role="button"
-                    className="cursor-pointer transition-colors duration-150 hover:brightness-90"
-                    onMouseEnter={() => setHovered({ nome, codigo })}
-                    onMouseLeave={() => setHovered(null)}
-                    onClick={() => alternarMunicipio(nome)}
+                    aria-label={aoAlterar
+                      ? `${nome}: ${total} perícias. ${ativo ? "Desselecionar" : "Selecionar"} município`
+                      : `${nome}: ${total} perícias`}
+                    aria-pressed={aoAlterar ? ativo : undefined}
+                    role={aoAlterar ? "button" : undefined}
+                    className={aoAlterar ? "cursor-pointer transition-colors duration-150 hover:brightness-90" : undefined}
+                    onMouseEnter={aoAlterar ? () => setHovered({ nome, codigo }) : undefined}
+                    onMouseLeave={aoAlterar ? () => setHovered(null) : undefined}
+                    onClick={aoAlterar ? () => alternarMunicipio(nome) : undefined}
                     style={{
                       fill: ativo ? "#094780" : corDaFaixa(total),
                       stroke: hovered?.nome === nome ? "#14532d" : "#FBFBFB",
@@ -125,8 +127,9 @@ export default function MapaVale({ municipios, dados, carregando, erro, aoAltera
             ? `${hovered.nome}: ${contagens.get(normalizarNome(hovered.nome)) ?? 0} perícias`
             : selecionado
               ? `${selecionado}: ${contagens.get(normalizarNome(selecionado)) ?? 0} perícias`
-              : "Clique em um município para selecioná-lo."}
+              : aoAlterar ? "Clique em um município para selecioná-lo." : null}
         </div>
+        {aoAlterar && <>
         <p className="mt-3 text-xs text-gray-500">Clique em um município para selecionar apenas um. A seleção atual fica destacada em azul.</p>
         <button
           type="button"
@@ -136,6 +139,7 @@ export default function MapaVale({ municipios, dados, carregando, erro, aoAltera
         >
           Desselecionar município
         </button>
+        </>}
       </aside>
     </div>
   );

@@ -51,6 +51,7 @@ function App() {
     <div className="min-h-screen bg-[#ffffff]">
       <Header
         filtros={aplicados}
+        mapa={mapa}
         ranking={ranking.dados?.itens ?? []}
         alvo={ranking.dados?.alvo}
         rankingCarregando={ranking.carregando}
@@ -86,7 +87,7 @@ function App() {
         />
         <section className="flex min-w-0 flex-col overflow-hidden rounded border border-gray-300 bg-white mt-5 mb-2">
           <div className="bg-[#094780] p-2 text-center font-bold text-white">
-            Estado
+            Vale do Paraíba
           </div>
           <MapaVale
             municipios={municipiosSelecionados}
