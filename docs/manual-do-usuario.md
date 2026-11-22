@@ -13,11 +13,12 @@ O painel mostra os resultados das verificações feitas pelo IPEM-SP nas bombas 
 3. [Filtros](#3-filtros)
 4. [Indicadores e gráfico de rosca](#4-indicadores-e-gráfico-de-rosca)
 5. [Ranking por município](#5-ranking-por-município)
-6. [Evolução por ano](#6-evolução-por-ano)
-7. [Mapa do Vale do Paraíba](#7-mapa-do-vale-do-paraíba)
-8. [Relatórios: PDF, CSV e JSON](#8-relatórios-pdf-csv-e-json)
-9. [Entendendo os resultados](#9-entendendo-os-resultados)
-10. [Dúvidas frequentes](#10-dúvidas-frequentes)
+6. [Comparação de Municício](#6-comparação-de-município)
+7. [Evolução por ano](#7-evolução-por-ano)
+8. [Mapa do Vale do Paraíba](#8-mapa-do-vale-do-paraíba)
+9. [Relatórios: PDF, CSV e JSON](#9-relatórios-pdf-csv-e-json)
+10. [Entendendo os resultados](#10-entendendo-os-resultados)
+11. [Dúvidas frequentes](#11-dúvidas-frequentes)
 
 ---
 
@@ -113,7 +114,7 @@ Mostra os 5 municípios com o maior **percentual** do resultado escolhido. Sem f
 - **Passe o mouse** numa barra para ver a posição e o percentual.
 - **Clique** numa barra para filtrar o painel por aquele município. Ele também fica selecionado no mapa. Clique de novo para remover.
 
-## 6. Comparação de Municício
+## 6. Comparação de município
 
 ![Comparação de município](img/manual/09-comparacao.png)
 
