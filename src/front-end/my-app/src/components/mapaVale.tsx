@@ -63,7 +63,7 @@ export default function MapaVale({ municipios, dados, carregando, erro, aoAltera
       <div className="relative flex min-h-[300px] w-full min-w-0 items-center justify-center p-3 sm:p-5">
         <ComposableMap
           projection="geoMercator"
-          projectionConfig={{ center: [-45.5, -23.2], scale: 10000 }}
+          projectionConfig={{ center: [-45.2, -23.2], scale: 14000 }}
           width={640}
           height={480}
           className={`mx-auto block h-auto w-full overflow-visible transition-opacity ${carregando ? "opacity-30" : ""}`}
