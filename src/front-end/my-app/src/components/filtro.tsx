@@ -40,8 +40,8 @@ function Filtro({ entrada, alterar, limpar }: FiltroProps) {
                 onClick={() => setAberto(true)}
                 className="fixed bottom-1/2 left-0 z-[1000] rounded-r-lg bg-[#FFC61A] p-2 shadow-md"
             >
-                <span className="block">F</span><span className="block">I</span><span className="block">L</span>
-                <span className="block">T</span><span className="block">R</span><span className="block">O</span><span className="block">S</span>
+                <span className="block md:block hidden sm:none">F</span><span className="block md:block hidden sm:none">I</span><span className="block md:block hidden sm:none">L</span>
+                <span className="block md:block hidden sm:none">T</span><span className="block md:block hidden sm:none">R</span><span className="block md:block hidden sm:none">O</span><span className="block md:block hidden sm:none">S</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true" className="mx-auto size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
                 </svg>
@@ -49,7 +49,7 @@ function Filtro({ entrada, alterar, limpar }: FiltroProps) {
 
             {aberto && (
                 <div
-                    className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4"
+                    className="fixed inset-0 z-10000 grid place-items-center bg-black/50 p-4"
                     onMouseDown={(evento) => {
                         if (evento.target === evento.currentTarget) setAberto(false)
                     }}
