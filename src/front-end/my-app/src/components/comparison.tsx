@@ -27,6 +27,43 @@ function dica(item: InfoLine, rotulo: string, valor: number) {
     return `${item.ano}\n${rotulo}: ${formatar(valor)} (${formatarPct(pct)} de ${formatar(item.total)} periciadas)`
 }
 
+function ComparisonSkeleton({ atualizando = false }: { atualizando?: boolean }) {
+    return (
+        <div
+            role="status"
+            aria-live="polite"
+            aria-label={atualizando ? "Atualizando gráfico de evolução" : "Carregando gráfico de evolução"}
+            className="space-y-4 p-6"
+        >
+            <div className="relative h-[280px] pl-10 pb-8">
+                <div className="absolute inset-x-10 top-2 bottom-8 flex flex-col justify-between">
+                    {Array.from({ length: 5 }, (_, i) => (
+                        <Skeleton key={i} className="h-px w-full" />
+                    ))}
+                </div>
+                <div className="absolute inset-y-2 left-0 bottom-8 flex flex-col justify-between">
+                    {Array.from({ length: 5 }, (_, i) => (
+                        <Skeleton key={i} className="h-3 w-6" />
+                    ))}
+                </div>
+                <svg aria-hidden="true" viewBox="0 0 600 210" preserveAspectRatio="none" className="absolute inset-x-10 top-2 h-[calc(100%-3rem)] w-[calc(100%-3.5rem)]">
+                    <polyline points="0,170 90,135 180,150 270,85 360,105 450,55 600,30" fill="none" stroke="#d1d5db" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse" />
+                    <polyline points="0,190 90,175 180,145 270,160 360,120 450,135 600,100" fill="none" stroke="#d1d5db" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse" />
+                    <polyline points="0,115 90,125 180,95 270,115 360,70 450,85 600,60" fill="none" stroke="#d1d5db" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse" />
+                </svg>
+                <div className="absolute inset-x-10 bottom-0 flex justify-between">
+                    {Array.from({ length: 6 }, (_, i) => (
+                        <Skeleton key={i} className="h-3 w-8" />
+                    ))}
+                </div>
+            </div>
+            <div className="flex justify-center gap-5">
+                {SERIES.map((serie) => <Skeleton key={serie.campo} className="h-4 w-24" />)}
+            </div>
+        </div>
+    )
+}
+
 function Comparison({ dados = [], carregando = false, erro, anoAtivo = null, aoSelecionarAno }: Props) {
     const anos = dados.map((item) => item.ano)
     const titulo = anos.length ? `Evolução por ano (${anos[0]} – ${anos[anos.length - 1]})` : "Evolução por ano"
@@ -100,16 +137,12 @@ function Comparison({ dados = [], carregando = false, erro, anoAtivo = null, aoS
             {erro && <p className="px-4 pt-2 text-sm text-[#900603]">Não foi possível carregar a evolução por ano: {erro}</p>}
 
             {carregando && dados.length === 0 && !erro ? (
-                <div role="status" aria-live="polite" aria-label="Carregando gráfico de evolução" className="space-y-4 p-6">
-                    <Skeleton className="h-[280px] w-full" />
-                    <div className="flex justify-center gap-5">
-                        {SERIES.map((serie) => <Skeleton key={serie.campo} className="h-4 w-24" />)}
-                    </div>
-                </div>
+                <ComparisonSkeleton />
             ) : !erro && !carregando && dados.length === 0 ? (
                 <p className="p-6 text-center text-sm text-gray-500">Sem verificações para os filtros atuais.</p>
             ) : (
-                <div className={`transition-opacity ${carregando && dados.length ? "opacity-50" : ""}`}>
+                <div className="relative">
+                <div className={`transition-opacity ${carregando && dados.length ? "opacity-40" : ""}`}>
                     <Chart
                         chartType="LineChart"
                         width="100%"
@@ -121,6 +154,12 @@ function Comparison({ dados = [], carregando = false, erro, anoAtivo = null, aoS
                         chartLanguage="pt-BR"
                         loader={<Skeleton className="mx-4 my-6 h-[320px]" />}
                     />
+                </div>
+                {carregando && dados.length > 0 && !erro && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-white/35">
+                        <ComparisonSkeleton atualizando />
+                    </div>
+                )}
                 </div>
             )}
         </div>

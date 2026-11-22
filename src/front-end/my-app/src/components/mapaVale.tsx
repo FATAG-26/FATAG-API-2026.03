@@ -6,6 +6,7 @@ import {
 } from "react-simple-maps";
 import type { ItemRanking } from "../api";
 import { normalizarNome } from "../api";
+import Skeleton from "./skeleton";
 
 type Municipio = {
   nome: string;
@@ -21,15 +22,12 @@ type MapaValeProps = {
 };
 
 const geoUrl = "/maps/Vale_Do_Paraiba.geojson";
-const FAIXAS = [
-  { rotulo: "5.001 ou mais", cor: "#07c064", min: 5001 },
-  { rotulo: "1.001–5.000", cor: "#86efac", min: 1001 },
-  { rotulo: "201–1.000", cor: "#fde68a", min: 201 },
-  { rotulo: "0–200", cor: "#facc15", min: 0 },
-];
 
-function corDaFaixa(valor: number) {
-  return FAIXAS.find((faixa) => valor >= faixa.min)?.cor ?? FAIXAS[3].cor;
+function arredondar(n: number) {
+  if (!Number.isFinite(n) || n <= 0) return 0;
+
+  const casas = 10 ** Math.floor(Math.log10(n));
+  return Math.round(n / casas) * casas;
 }
 
 export default function MapaVale({ municipios, dados, carregando, erro, aoAlterar }: MapaValeProps) {
@@ -37,19 +35,38 @@ export default function MapaVale({ municipios, dados, carregando, erro, aoAltera
   const selecionado = municipios[0] ?? "";
   const contagens = new Map(dados.map(({ municipio, valor }) => [normalizarNome(municipio), valor]));
 
+  const maiorValor = Math.max(...contagens.values());
+
+  const valoresEncontrados = contagens.size
+  const valor1 = valoresEncontrados ? arredondar(maiorValor/3):5001
+  const valor2 = valoresEncontrados ? arredondar(valor1/2):1001
+  const valor3 = valoresEncontrados ? arredondar(valor2/2):201
+  const valor4 = valoresEncontrados ? arredondar(valor3/2):0
+
+  const FAIXAS = [
+    { rotulo: `${valor1} ou mais`, cor: "#07c064", min: valor1 },
+    { rotulo: `${valor3+1} - ${valor2}`, cor: "#86efac", min: valor2 },
+    { rotulo: `${valor4+1} - ${valor3}`, cor: "#fde68a", min: valor3 },
+    { rotulo: `0 -${valor4}`, cor: "#facc15", min: valor4 },
+  ];
+
+  const corDaFaixa = (valor: number) => {
+    return FAIXAS.find((faixa) => valor >= faixa.min)?.cor ?? FAIXAS[3].cor;
+  };
+
   const alternarMunicipio = (nome: string) => {
     aoAlterar(normalizarNome(selecionado) === normalizarNome(nome) ? [] : [nome]);
   };
 
   return (
     <div className="grid w-full grid-cols-1 items-stretch md:grid-cols-2">
-      <div className="flex min-h-[300px] w-full min-w-0 items-center justify-center p-3 sm:p-5">
+      <div className="relative flex min-h-[300px] w-full min-w-0 items-center justify-center p-3 sm:p-5">
         <ComposableMap
           projection="geoMercator"
-          projectionConfig={{ center: [-45.5, -22.8], scale: 10000 }}
+          projectionConfig={{ center: [-45.5, -23.2], scale: 10000 }}
           width={640}
           height={480}
-          className="mx-auto block h-auto w-full overflow-visible"
+          className={`mx-auto block h-auto w-full overflow-visible transition-opacity ${carregando ? "opacity-30" : ""}`}
         >
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
@@ -84,35 +101,41 @@ export default function MapaVale({ municipios, dados, carregando, erro, aoAltera
             }
           </Geographies>
         </ComposableMap>
+        {carregando && !erro && (
+          <div role="status" aria-live="polite" aria-label="Carregando dados do mapa" className="absolute inset-0 flex items-center justify-center bg-white/30">
+            <Skeleton className="h-[65%] w-[65%] rounded-[38%_62%_55%_45%/48%_38%_62%_52%]" />
+            <span className="sr-only">Carregando dados do mapa…</span>
+          </div>
+        )}
       </div>
 
       <aside className="flex min-w-0 flex-col justify-center border-t border-gray-400 bg-[#FBFBFB] p-5 md:border-l md:border-t-0 md:p-8">
-          <p className="mb-5 text-center font-medium text-gray-800">Nº Periciados</p>
-          <ul className="mb-5 space-y-3">
-            {FAIXAS.map((faixa) => (
-              <li key={faixa.rotulo} className="flex items-center gap-2 text-sm text-gray-800">
-                <span aria-hidden="true" className="h-4 w-4 rounded-full border border-gray-600" style={{ backgroundColor: faixa.cor }} />
-                {faixa.rotulo}
-              </li>
-            ))}
-          </ul>
+        <p className="mb-5 text-center font-medium text-gray-800">Nº Periciados</p>
+        <ul className="mb-5 space-y-3">
+          {FAIXAS.map((faixa) => (
+            <li key={faixa.rotulo} className="flex items-center gap-2 text-sm text-gray-800">
+              <span aria-hidden="true" className="h-4 w-4 rounded-full border border-gray-600" style={{ backgroundColor: faixa.cor }} />
+              {faixa.rotulo}
+            </li>
+          ))}
+        </ul>
 
-          <div aria-live="polite" className="min-h-12 p-1 text-sm text-gray-700">
-            {carregando ? "Carregando perícias…" : erro ? `Erro ao carregar perícias: ${erro}` : hovered
-              ? `${hovered.nome}: ${contagens.get(normalizarNome(hovered.nome)) ?? 0} perícias`
-              : selecionado
-                ? `${selecionado}: ${contagens.get(normalizarNome(selecionado)) ?? 0} perícias`
-                : "Clique em um município para selecioná-lo."}
-          </div>
-          <p className="mt-3 text-xs text-gray-500">Clique em um município para selecionar apenas um. A seleção atual fica destacada em azul.</p>
-          <button
-            type="button"
-            onClick={() => aoAlterar([])}
-            disabled={!selecionado}
-            className="mt-4 w-full rounded border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            Desselecionar município
-          </button>
+        <div aria-live="polite" className="min-h-12 p-1 text-sm text-gray-700">
+          {carregando ? "Carregando perícias…" : erro ? `Erro ao carregar perícias: ${erro}` : hovered
+            ? `${hovered.nome}: ${contagens.get(normalizarNome(hovered.nome)) ?? 0} perícias`
+            : selecionado
+              ? `${selecionado}: ${contagens.get(normalizarNome(selecionado)) ?? 0} perícias`
+              : "Clique em um município para selecioná-lo."}
+        </div>
+        <p className="mt-3 text-xs text-gray-500">Clique em um município para selecionar apenas um. A seleção atual fica destacada em azul.</p>
+        <button
+          type="button"
+          onClick={() => aoAlterar([])}
+          disabled={!selecionado}
+          className="mt-4 w-full rounded border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Desselecionar município
+        </button>
       </aside>
     </div>
   );
