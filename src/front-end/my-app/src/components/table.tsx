@@ -70,7 +70,7 @@ function Table({ filtros }: TableProps) {
     return (
         <div className="grid-cols-4">
             <h2 className="mx-auto max-w-full px-3 text-center !text-[#1E1E1E] text-xl leading-tight sm:text-2xl">
-                Tabela de Bombas no Vale do Paraíba
+                Tabela de Bombas de Combustível no Vale do Paraíba
             </h2>
 
             <div className="w-full min-w-0 overflow-hidden rounded-xl border border-gray-300">

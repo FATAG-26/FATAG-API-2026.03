@@ -107,4 +107,4 @@ Abra o endereço mostrado no terminal (normalmente [http://localhost:5173](http:
 
 ## Atualizar a base de dados
 
-A aplicação usa o arquivo `src/backend-node/data/verificacoes_bombas_tratado.json`, gerado pelo notebook. Para atualizar os dados, execute as células de carga e de tratamento do [notebook](../notebook/DOCUMENTACAO_testApi_py.md) e copie o JSON gerado para `src/backend-node/data/`, mantendo o nome `verificacoes_bombas_tratado.json`. Depois reinicie a API.
+A aplicação usa o arquivo `src/backend-node/data/verificacoes_bombas_tratado.json`, gerado pelo notebook. Para atualizar os dados, execute as células de preparação e seleção de arquivos do [notebook](../notebook/DOCUMENTACAO_NotebookFinalizado.md) e copie o JSON gerado para `src/backend-node/data/`, mantendo o nome `verificacoes_bombas_tratado.json`. Depois reinicie a API.

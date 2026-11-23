@@ -32,7 +32,7 @@ O projeto é dividido em três partes:
 
 | Parte | Pasta | O que faz |
 | :---- | :---- | :-------- |
-| 📓 **Notebook** (Python + Pandas) | [`notebook/`](notebook/testApi_py.ipynb) | Lê os CSVs do IPEM-SP (2018 a 2026), trata e padroniza os dados e exporta a base tratada em JSON. Também tem as análises que deram origem às funções da API. [Documentação](notebook/DOCUMENTACAO_testApi_py.md) · [Google Colab](https://colab.research.google.com/drive/1hZg6B7dlyYgenRo9yUHyZRV7iHlA0LvL?usp=sharing) |
+| 📓 **Notebook** (Python + Pandas) | [`notebook/`](notebook/NotebookFinalizado.ipynb) | Permite tratar arquivos CSV e combinar JSONs tratados para atualizar a base usada pelo sistema. [Documentação](notebook/DOCUMENTACAO_NotebookFinalizado.md) · [Google Colab](https://colab.research.google.com/drive/1XDrINK_X-kdUoEwwv3X3O7vPZZvsoCiQ?usp=sharing) |
 | 🔌 **API** (Node.js + Express) | [`src/backend-node/`](src/backend-node) | Carrega a base tratada (`src/data/verificacoes_bombas_tratado.json`) e oferece as rotas de consulta, filtros, resumo, ranking e evolução por ano. [Documentação da API](docs/api.md) |
 | 🖥️ **Dashboard** (React + TypeScript) | [`src/front-end/my-app/`](src/front-end/my-app) | Painel web com tabela, cards de KPI, gráficos interativos, ranking, mapa do Vale do Paraíba, filtros e relatórios em PDF, CSV e JSON. |
 

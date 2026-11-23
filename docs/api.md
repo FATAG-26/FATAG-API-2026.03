@@ -1,6 +1,6 @@
 # 🔌 Documentação da API
 
-API REST em **Node.js + Express** (`src/backend-node`), que serve os dados tratados das verificações de bombas de combustível para o front-end. Ela lê a base `src/data/verificacoes_bombas_tratado.json` (gerada pelo [notebook](../notebook/DOCUMENTACAO_testApi_py.md)) uma única vez, ao iniciar, e responde tudo em memória.
+API REST em **Node.js + Express** (`src/backend-node`), que serve os dados tratados das verificações de bombas de combustível para o front-end. Ela lê a base `src/data/verificacoes_bombas_tratado.json` (gerada pelo [notebook](../notebook/DOCUMENTACAO_NotebookFinalizado.md)) uma única vez, ao iniciar, e responde tudo em memória.
 
 - **URL base:** `http://localhost:8000/api`
 - **Formato:** JSON (UTF-8)
